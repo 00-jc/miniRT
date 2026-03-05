@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 02:16:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:00:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx.h"
 # include "alloc.h"
+# include "types.h"
 # include "sphere.h"
 # include "cylinder.h"
 # include "plane.h"

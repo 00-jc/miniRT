@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/05 02:21:30 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/05 13:47:20 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,16 @@ WARNS			:=	-Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 					-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith \
 					-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 MARCH			:=	-march=native
-CFLAGS_BASE		:=	-flto -O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
+CFLAGS_BASE		:=	-flto -O2 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
 					-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
-					-fno-common -fstack-clash-protection
+					-fno-common -fstack-clash-protection -g3
+CFLAGS_DEBUG	:=	-flto -O0 -pipe -ffunction-sections -fdata-sections -finline-functions \
+					-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
+					-fno-common -fstack-clash-protection -g3
 SANITIZE		:= 	-fsanitize=address,alignment,undefined -fsanitize-recover=null
 CFLAGS			:=	$(MARCH) $(CFLAGS_BASE) $(WARNS)
-SRCS			:=	src/main.c
+SRCS			:=	src/main.c\
+					src/parser/parser.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 all: $(NAME)
@@ -46,14 +50,17 @@ mlx:
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
 
 $(NAME): $(OBJS) libft mlx
 	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
 
+sanitize: $(OBJS) libft mlx
+	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o miniRTSan $(SANITIZE)
 
 debug: $(OBJS) libft mlx
-	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o miniRT-dbg $(SANITIZE)
+	@$(MAKE) re -C $(LIBFT_FOLDER) CFLAGS="$(MARCH) $(CFLAGS_DEBUG) $(WARNS_CLANG)"
+	@$(CC) $(CFLAGS_DEBUG) $(OBJS) $(LDFLAGS) -o miniRTdbg
 
 clean:
 	@$(MAKE) clean -C $(LIBFT_FOLDER)
