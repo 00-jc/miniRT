@@ -1,0 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/05 02:23:18 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "miniRT.h"
+#include "io.h"
+#include "rt_parser/parser.h"
+
+/*	MINIRT WORKFLOW CHART:
+	- init arena and state
+	- start threadpool and lock it
+	- parse the .rt file, allocate the SoA in the state
+	- hook to mlx
+	- on loop():
+		- rewind the arena to the last frame scope
+		- build bvhs {
+			- 1 bvh per element type (test 8 rays x element w/simd
+			  + packet tracing)
+			- each thread tests 2-4 short trees
+			- to reuse:
+				- scene_is_dirty variable
+		}
+		- signals threads to start
+		- threads build a frame
+		- on input (mlx hook):
+			- set threads to stop()
+			- goto loop()
+ */
+
+__attribute__((__always_inline__))
+static inline t_RTstate	rt_init_state(void)
+{
+	t_arena		arena;
+	t_RTstate	state;
+	void		*mlx;
+
+	state = (t_RTstate){0};
+	arena = ft_new_arena_alloc();
+	if (!arena.current)
+		return (state);
+	state = (t_RTstate){.ctx.rt_arena = arena};
+	mlx = mlx_init();
+	if (!mlx)
+		return (ft_destroy_arena(&arena), state);
+	state = (t_RTstate){.ctx.rt_arena = arena, .ctx.rt_mlx = mlx};
+	return (state);
+}
+
+__attribute__((__nonnull__(1), __always_inline__))
+static inline void	rt_free_state(t_RTstate *state)
+{
+	ft_destroy_arena(&state->ctx.rt_arena);
+	free(state->ctx.rt_mlx);
+}
+
+int	main(int argc, char **argv)
+{
+	t_RTstate	state;
+
+	if (argc != 2)
+		return (ft_fprintf(STDERR_FILENO, "ERROR\n%s <file>.rt\n",
+				argv[0]), EXIT_FAILURE);
+	state = rt_init_state();
+	if (!state.ctx.rt_arena.current)
+		return (ft_fprintf(STDERR_FILENO, "ERROR\narena init\n"), EXIT_FAILURE);
+	//TODO: rt_parse_file_into_state(&state, argv[1]);
+	rt_free_state(&state);
+	return (EXIT_SUCCESS);
+}
