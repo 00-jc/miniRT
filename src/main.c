@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 12:09:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 22:39:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static inline t_RTstate	rt_init_state(void)
 	arena = ft_new_arena_alloc();
 	if (!arena.current)
 		return (state);
-	state = (t_RTstate){.ctx.rt_arena = arena};
 	mlx = mlx_init();
 	if (!mlx)
 		return (ft_destroy_arena(&arena), state);
