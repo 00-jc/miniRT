@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 13:44:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/05 22:45:13 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/parser.h"
 #include "io.h"
 
-__attribute__((__nonnull__(1)))
+__attribute__((__nonnull__(1), __always_inline__, hot))
 static inline t_token	rt_get_next_label(t_tokenizer *tokenizer)
 {
 	ft_skip_whitespace(tokenizer);
