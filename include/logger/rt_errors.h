@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 15:45:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/06 17:23:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:40:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 void	rt_error(const char *s, ...)\
 			__attribute__((__nonnull__(1)));
 
-#define OOR "ERROR\nOUT-OF-RANGE value 0x%lX for values [0x%lX -> 0x%lX]\n"
-#define NMC "ERROR\nParser cannot match sequence of: '%s'\n"
-#define EXP "ERROR\nExpected 0x%x got: 0x%x\n"
+# define OOR "ERROR\nOUT-OF-RANGE value 0x%lX for values [0x%lX -> 0x%lX]\n"
+# define NMC "ERROR\nParser cannot match sequence of: '%s'\n"
+# define EXP "ERROR\nExpected 0x%x got: 0x%x\n"
 
 #endif

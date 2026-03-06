@@ -6,10 +6,10 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 03:06:44 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 17:58:10 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
+#
 NAME			:=	miniRT
 CC				:=	clang
 OBJDIR			:=	build
@@ -39,8 +39,14 @@ CFLAGS			:=	$(MARCH) $(CFLAGS_BASE) $(WARNS)
 SRCS			:=	src/main.c\
 					src/parser/parser.c\
 					src/parser/parse_color.c\
-					src/parser/parse_coords.c
+					src/parser/parse_coords.c\
+					src/logger/errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
+COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
+TEST_SRCS 		:=	tests/parse_coord_test.c \
+					tests/parse_color_test.c
+TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
+TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
 
 all: $(NAME)
 
@@ -73,7 +79,19 @@ fclean: clean
 	@$(MAKE) fclean -C $(LIBFT_FOLDER)
 	@rm -f $(NAME)
 
+$(OBJDIR)/tests/%.o: tests/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
+
+$(OBJDIR)/tests/%: $(OBJDIR)/tests/%.o $(COMMON_OBJS) libft mlx
+	@$(CC) $(CFLAGS) $< $(COMMON_OBJS) $(LDFLAGS) -o $@
+
+test: $(TEST_BINS)
+	@for bin in $(TEST_BINS); do \
+		./$$bin; \
+	done
+
 re: fclean all
 
-.PHONY: all clean fclean re libft mlx
+.PHONY: all clean fclean re libft mlx test
 MAKEFLAGS += --no-print-directory
