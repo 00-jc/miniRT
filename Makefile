@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/05 19:27:44 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 03:06:44 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ CFLAGS_DEBUG	:=	-flto -O0 -pipe -ffunction-sections -fdata-sections -finline-fun
 SANITIZE		:= 	-fsanitize=address,alignment,undefined -fsanitize-recover=null
 CFLAGS			:=	$(MARCH) $(CFLAGS_BASE) $(WARNS)
 SRCS			:=	src/main.c\
-					src/parser/parser.c
+					src/parser/parser.c\
+					src/parser/parse_color.c\
+					src/parser/parse_coords.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 all: $(NAME)
