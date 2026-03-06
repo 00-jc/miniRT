@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 18:16:47 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 18:24:21 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -86,6 +86,7 @@ static_analysis:
 		-fanalyzer $(filter %.c,$(SRCS)) $(INCLUDES) -c && rm *.o
 	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
 		-fanalyzer $(filter %.c,$(SRCS)) $(INCLUDES) -c && rm *.o
+	@norminette src/ include/ tests/ $(LIFT_FOLDER)
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFT_FOLDER)
