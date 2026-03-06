@@ -1,49 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.h                                         :+:      :+:    :+:   */
+/*   light.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 18:29:34 by jaicastr          #+#    #+#             */
+/*   Created: 2026/03/04 18:28:25 by jaicastr          #+#    #+#             */
 /*   Updated: 2026/03/04 21:35:20 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CYLINDER_H
-# define CYLINDER_H
+#ifndef RT_LIGHT_H
+# define RT_LIGHT_H
 
-# include "primitives.h"
+# include "rt_primitives.h"
 
-typedef struct s_RTCylinder
+typedef struct s_RTLight
 {
 	t_3dcoords	coords;
-	t_3dcoords	axis;
-	t_2packd	wh;
+	double		brightness;
 	t_u32a		color;
-}	t_RTCylinder;
+}	t_RTLight;
+
+typedef struct s_RTAmbientLight
+{
+	double		brightness;
+	t_u32a		color;
+}	t_RTAmbientLight;
 
 # ifdef __clang__
 
-typedef struct s_RTCylinderBuffer
+typedef struct s_RTLightBuffer
 {
 	size_t												size;
 	t_3dcoords __attribute__	((counted_by(size)))	*coords;
-	t_3dcoords __attribute__	((counted_by(size)))	*axis;
-	t_2packd __attribute__	((counted_by(size)))		*wh;
+	double __attribute__	((counted_by(size)))		*brightness;
 	t_u32a __attribute__	((counted_by(size)))		*color;
-}	t_RTCylinderBuffer;
+}	t_RTLightBuffer;
+
+typedef struct s_RTAmbientLightBuffer
+{
+	size_t												size;
+	double __attribute__	((counted_by(size)))		*brightness;
+	t_u32a __attribute__	((counted_by(size)))		*color;
+}	t_RTAmbientLightBuffer;
 
 # else
 
-typedef struct s_RTCylinderBuffer
+typedef struct s_RTLightBuffer
 {
 	size_t		size;
 	t_3dcoords	*coords;
-	t_3dcoords	*axis;
-	t_2packd	*wh;
+	double		*brightness;
 	t_u32a		*color;
-}	t_RTCylinderBuffer;
+}	t_RTLightBuffer;
+
+typedef struct s_RTAmbientLightBuffer
+{
+	size_t		size;
+	double		*brightness;
+	t_u32a		*color;
+}	t_RTAmbientLightBuffer;
 
 # endif
 

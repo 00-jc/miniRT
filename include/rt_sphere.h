@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef RT_SPHERE_H
+# define RT_SPHERE_H
 
-# include "primitives.h"
+# include "rt_primitives.h"
 
 typedef struct s_RTSphere
 {

@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef RT_MINIRT_H
+# define RT_MINIRT_H
 
 # include "mlx.h"
 # include "alloc.h"
 # include "types.h"
-# include "sphere.h"
-# include "cylinder.h"
-# include "plane.h"
-# include "light.h"
-# include "camera.h"
+# include "rt_sphere.h"
+# include "rt_cylinder.h"
+# include "rt_plane.h"
+# include "rt_light.h"
+# include "rt_camera.h"
 # include <pthread.h>
 
 /* @ compile-time this should be passed

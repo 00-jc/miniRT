@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "rt_miniRT.h"
 #include "io.h"
-#include "rt_parser/parser.h"
+#include "rt_parser/rt_parser.h"
 
 /*	MINIRT WORKFLOW CHART:
 	- init arena and state

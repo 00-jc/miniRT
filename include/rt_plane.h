@@ -1,66 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.h                                            :+:      :+:    :+:   */
+/*   plane.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 18:28:25 by jaicastr          #+#    #+#             */
+/*   Created: 2026/03/04 18:29:08 by jaicastr          #+#    #+#             */
 /*   Updated: 2026/03/04 21:35:20 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHT_H
-# define LIGHT_H
+#ifndef RT_PLANE_H
+# define RT_PLANE_H
 
-# include "primitives.h"
+# include "rt_primitives.h"
 
-typedef struct s_RTLight
+typedef struct s_RTPlane
 {
 	t_3dcoords	coords;
-	double		brightness;
+	t_3dcoords	axis;
 	t_u32a		color;
-}	t_RTLight;
-
-typedef struct s_RTAmbientLight
-{
-	double		brightness;
-	t_u32a		color;
-}	t_RTAmbientLight;
+}	t_RTPlane;
 
 # ifdef __clang__
 
-typedef struct s_RTLightBuffer
+typedef struct s_RTPlaneBuffer
 {
 	size_t												size;
 	t_3dcoords __attribute__	((counted_by(size)))	*coords;
-	double __attribute__	((counted_by(size)))		*brightness;
+	t_3dcoords __attribute__	((counted_by(size)))	*axis;
 	t_u32a __attribute__	((counted_by(size)))		*color;
-}	t_RTLightBuffer;
-
-typedef struct s_RTAmbientLightBuffer
-{
-	size_t												size;
-	double __attribute__	((counted_by(size)))		*brightness;
-	t_u32a __attribute__	((counted_by(size)))		*color;
-}	t_RTAmbientLightBuffer;
+}	t_RTPlaneBuffer;
 
 # else
 
-typedef struct s_RTLightBuffer
+typedef struct s_RTPlaneBuffer
 {
 	size_t		size;
 	t_3dcoords	*coords;
-	double		*brightness;
+	t_3dcoords	*axis;
 	t_u32a		*color;
-}	t_RTLightBuffer;
-
-typedef struct s_RTAmbientLightBuffer
-{
-	size_t		size;
-	double		*brightness;
-	t_u32a		*color;
-}	t_RTAmbientLightBuffer;
+}	t_RTPlaneBuffer;
 
 # endif
 

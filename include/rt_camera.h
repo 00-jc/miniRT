@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
+#ifndef RT_CAMERA_H
+# define RT_CAMERA_H
 
-# include "primitives.h"
+# include "rt_primitives.h"
 
 typedef struct s_RTCamera
 {

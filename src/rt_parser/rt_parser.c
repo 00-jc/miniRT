@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_parser/parser.h"
+#include "rt_parser/rt_parser.h"
 #include "io.h"
 
 __attribute__((__nonnull__(1), __always_inline__, hot))

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   primitives.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 15:47:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/06 16:00:20 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/03/04 18:51:09 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/04 21:34:57 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "logger/rt_errors.h"
-#include "io.h"
+#ifndef RT_PRIMITIVES_H
+# define RT_PRIMITIVES_H
 
-__attribute__((__nonnull__(1)))
-void	rt_error(const char *s, ...)
-{
-	va_list	args;
+# include "math.h"
 
-	va_start(args, s);
-	ft_vfprintf(STDERR_FILENO, s, args);
-	va_end(args);
-}
+/* 
+ * Holds 4 doubles packed and aligned to 64.
+ * we add one more field so it can fit in a whole avx* register.
+ */
+
+typedef t_4packd	t_3dcoords;
+
+#endif

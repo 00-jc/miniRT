@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef RT_PARSER_H
+# define RT_PARSER_H
 
-# include "miniRT.h"
+# include "rt_miniRT.h"
 # include "tokenizer.h"
 
 typedef enum e_taggedresult

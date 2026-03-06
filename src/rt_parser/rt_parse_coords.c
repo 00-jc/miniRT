@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_parser/parser.h"
-#include "logger/rt_errors.h"
+#include "rt_parser/rt_parser.h"
+#include "rt_logger/rt_errors.h"
 #include "conv.h"
 
 __attribute__((__nonnull__(1)))

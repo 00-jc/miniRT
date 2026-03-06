@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 17:58:10 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/06 18:16:47 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -14,6 +14,8 @@ NAME			:=	miniRT
 CC				:=	clang
 OBJDIR			:=	build
 LIBFT_FOLDER	:=	libft
+SCANNER			:=	scan-build
+CC_GCC			:=	gcc
 MLX_FOLDER		:=	minilibx-linux
 INCLUDES		:=	-Iinclude -I$(LIBFT_FOLDER)/include -I$(MLX_FOLDER)
 LIBPATHS		:=  -L$(LIBFT_FOLDER) -L$(MLX_FOLDER)
@@ -37,14 +39,14 @@ CFLAGS_DEBUG	:=	-flto -O0 -pipe -ffunction-sections -fdata-sections -finline-fun
 SANITIZE		:= 	-fsanitize=address,alignment,undefined -fsanitize-recover=null
 CFLAGS			:=	$(MARCH) $(CFLAGS_BASE) $(WARNS)
 SRCS			:=	src/main.c\
-					src/parser/parser.c\
-					src/parser/parse_color.c\
-					src/parser/parse_coords.c\
-					src/logger/errors.c
+					src/rt_parser/rt_parser.c\
+					src/rt_parser/rt_parse_color.c\
+					src/rt_parser/rt_parse_coords.c\
+					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
-TEST_SRCS 		:=	tests/parse_coord_test.c \
-					tests/parse_color_test.c
+TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
+					tests/rt_parse_color_test.c
 TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
 
@@ -75,9 +77,19 @@ clean:
 	@$(MAKE) clean -C $(MLX_FOLDER)
 	@rm -rf $(OBJDIR)
 
+static_analysis:
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_CLANG) $(MARCH) \
+		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) $(INCLUDES)
+	@$(SCANNER) $(CC) $(WARNS_CLANG) $(CFLAGS_BASE_CLANG)\
+		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS)) $(INCLUDES)
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_GCC) $(MARCH)\
+		-fanalyzer $(filter %.c,$(SRCS)) $(INCLUDES) -c && rm *.o
+	@$(CC_GCC) $(WARNS_GCC) $(CFLAGS_BASE_GCC)\
+		-fanalyzer $(filter %.c,$(SRCS)) $(INCLUDES) -c && rm *.o
+
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFT_FOLDER)
-	@rm -f $(NAME)
+	@rm -f $(NAME)*
 
 $(OBJDIR)/tests/%.o: tests/%.c
 	@mkdir -p $(dir $@)
@@ -91,7 +103,10 @@ test: $(TEST_BINS)
 		./$$bin; \
 	done
 
+analyze: test static_analysis
+	$(MAKE) analyze -C $(LIBFT_FOLDER)
+
 re: fclean all
 
-.PHONY: all clean fclean re libft mlx test
+.PHONY: all clean fclean re libft mlx test static_analysis analyze
 MAKEFLAGS += --no-print-directory
