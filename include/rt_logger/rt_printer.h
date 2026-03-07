@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 20:56:10 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 21:14:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:23:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "io.h"
 # include "rt_miniRT.h"
+# include "vec.h"
 
 void	rt_print_cylinder(t_RTCylinder *cylinder)\
 			__attribute__((__nonnull__(1)));
@@ -33,5 +34,8 @@ void	rt_print_ambient(t_RTAmbientLight *light)\
 
 void	rt_print_camera(t_RTCamera *cam)\
 			__attribute__((__nonnull__(1)));
+
+void	rt_print_aos(t_vec aos[4], t_RTScene *scene)\
+			__attribute__((__nonnull__(1, 2)));
 
 #endif

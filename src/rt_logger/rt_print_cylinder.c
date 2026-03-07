@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 19:44:11 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 21:00:42 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:25:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ inline void	rt_print_cylinder(t_RTCylinder *cylinder)
 		cylinder->coords, cylinder->coords);
 	ft_printf("\taxis: %f, %f, %f\n", cylinder->axis,
 		cylinder->axis, cylinder->axis);
-	ft_printf("\twidth/height: %f, %f", cylinder->wh.x, cylinder->wh.y);
-	ft_printf("\tcolor: %x", cylinder->color);
+	ft_printf("\twidth/height: %f, %f\n", cylinder->wh.x, cylinder->wh.y);
+	ft_printf("\tcolor: %x\n", cylinder->color);
 }

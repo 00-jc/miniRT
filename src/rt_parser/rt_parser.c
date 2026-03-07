@@ -6,12 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 20:17:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:29:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
+#include "rt_logger/rt_printer.h"
 #include "io.h"
 
 __attribute__((__returns_nonnull__, __always_inline__, const))
@@ -77,6 +78,8 @@ static inline t_taggedresult	ft_parse_scene(t_RTScene *scene,
 		if (rt_handle_label(scene, aos, &tokenizer, token) == KO)
 			return (KO);
 	}
+	if (!scene->rt_camera.is_init || !scene->rt_ambient.is_init)
+		return (rt_error(NDEF), KO);
 	return (OK);
 }
 
@@ -93,6 +96,8 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene, char *fname)
 	if (rt_init_aos(aos) == KO)
 		return (KO);
 	res = ft_parse_scene(scene, aos, file);
+	if (res != KO)
+		rt_print_aos(aos, scene);
 	ft_close_file(&file);
 	rt_free_aos(aos);
 	return (res);
