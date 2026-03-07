@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 03:46:38 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/07 03:54:38 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "rt_logger/rt_errors.h"
 #include <stdio.h>
 
-__attribute__((__nonnull__(1)))
+__attribute__((__nonnull__(1, 2)))
 t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)
 {
 	t_coord_result	coords;
@@ -33,7 +33,7 @@ t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)
 	if (fov.res == KO)
 		return (KO);
 	if (fov.u > 180)
-		return (KO);
+		return (rt_error(OOR, fov.u, 0ULL, 180ULL), KO);
 	*cam = (t_RTCamera){.coords = coords.coord, .axis = vector.coord,
 		.fov = fov.u};
 	return (OK);
