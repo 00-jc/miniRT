@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 03:58:02 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/07 03:59:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)
 	t_unsigned_res	fov;
 
 	if (init)
-		return (KO);
+		return (rt_error(REDEF, "'Camera'"), KO);
 	coords = rt_parse_coords(t);
 	if (coords.res == KO)
 		return (KO);
 	vector = rt_parse_coords(t);
-	if (coords.res == KO)
+	if (vector.res == KO)
 		return (KO);
 	fov = rt_parse_usigned(t);
 	if (fov.res == KO)

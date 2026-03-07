@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/07 03:10:20 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 03:56:01 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -44,6 +44,7 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_coords.c\
 					src/rt_parser/rt_parse_sphere.c\
 					src/rt_parser/rt_parse_plane.c\
+					src/rt_parser/rt_parse_camera.c\
 					src/rt_parser/rt_parse_cylinder.c\
 					src/rt_parser/rt_parse_light.c\
 					src/rt_logger/rt_errors.c
@@ -54,6 +55,7 @@ TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
 					tests/rt_parse_sphere.c \
 					tests/rt_parse_light.c \
 					tests/rt_parse_cylinder.c \
+					tests/rt_parse_camera.c \
 					tests/rt_parse_plane.c
 TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
