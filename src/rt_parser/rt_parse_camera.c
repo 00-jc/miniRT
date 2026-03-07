@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_parse_camera.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
+/*   Updated: 2026/03/07 03:46:38 by asoria           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt_parser/rt_parser.h"
+#include "rt_logger/rt_errors.h"
+#include <stdio.h>
+
+__attribute__((__nonnull__(1)))
+t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)
+{
+	t_coord_result	coords;
+	t_coord_result	vector;
+	t_unsigned_res	fov;
+
+	if (init)
+		return (KO);
+	coords = rt_parse_coords(t);
+	if (coords.res == KO)
+		return (KO);
+	vector = rt_parse_coords(t);
+	if (coords.res == KO)
+		return (KO);
+	fov = rt_parse_usigned(t);
+	if (fov.res == KO)
+		return (KO);
+	if (fov.u > 180)
+		return (KO);
+	*cam = (t_RTCamera){.coords = coords.coord, .axis = vector.coord,
+		.fov = fov.u};
+	return (OK);
+}
