@@ -6,13 +6,12 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 03:54:38 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/07 03:58:02 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
-#include <stdio.h>
 
 __attribute__((__nonnull__(1, 2)))
 t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)
