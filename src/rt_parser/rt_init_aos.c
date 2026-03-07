@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 17:24:20 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 17:24:30 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 20:15:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,13 @@ inline t_taggedresult	rt_init_aos(t_vec aos[4])
 		return (ft_vec_free(aos), ft_vec_free(&aos[1]),
 			ft_vec_free(&aos[2]), KO);
 	return (OK);
+}
+
+__attribute__((__always_inline__))
+inline void	rt_free_aos(t_vec aos[4])
+{
+	ft_vec_free(aos);
+	ft_vec_free(aos + 1);
+	ft_vec_free(aos + 2);
+	ft_vec_free(aos + 3);
 }

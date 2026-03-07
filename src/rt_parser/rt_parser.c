@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 19:02:04 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 20:17:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene, char *fname)
 		return (KO);
 	res = ft_parse_scene(scene, aos, file);
 	ft_close_file(&file);
+	rt_free_aos(aos);
 	return (res);
 }
