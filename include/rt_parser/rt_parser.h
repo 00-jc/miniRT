@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 03:56:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:33:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,9 @@ t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)\
 
 t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)\
 					__attribute__((__nonnull__(1, 2)));
+
+t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *cam,
+					t_u8 init)\
+					__attribute__((__nonnull__(1, 2)));
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 15:45:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:14:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:34:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	rt_error(const char *s, ...)\
 			__attribute__((__nonnull__(1)));
 
 # define OOR "Error\nOUT-OF-RANGE value 0x%lX for values [0x%lX -> 0x%lX]\n"
+# define OORD "Error\nOUT-OF-RANGE value %f for values [%f -> %f]\n"
 # define NMC "Error\nParser cannot match sequence of: '%s'\n"
 # define EXP "Error\nExpected 0x%x got: 0x%x\n"
 # define NDIAM "Error\nNegative diameter is not physically possible for a \

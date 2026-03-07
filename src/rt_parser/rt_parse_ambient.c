@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 04:30:06 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/07 04:36:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *ambient,
 	d = rt_parse_double(t);
 	if (d.res == KO)
 		return (KO);
-	if ((d.d - 1.0) > 0 || d.d < 0)
+	if (((d.d - 1.0) > 0.0) | (d.d < 0.0))
 		return (rt_error(OORD, d.d, 0.0, 1.0), KO);
 	color = rt_parse_color(t);
 	if (color.res == KO)
