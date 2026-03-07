@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:01:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:30:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,27 @@ void	test_camera_parse_happy(void)
 	t_RTCamera	cam;
 
 	ft_printf(MSG_HDR);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_HAPPY,
 			sizeof(CM_HAPPY) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == OK,
+		rt_parse_camera(&t, &cam) == OK,
 		(char *)MSG_HAPPY);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_FOV_ZERO,
 			sizeof(CM_FOV_ZERO) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == OK,
+		rt_parse_camera(&t, &cam) == OK,
 		(char *)MSG_FZERO);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_FOV_180,
 			sizeof(CM_FOV_180) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == OK,
+		rt_parse_camera(&t, &cam) == OK,
 		(char *)MSG_F180);
+	cam = (t_RTCamera){.is_init = 1};
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 1) == KO,
-		(char *)MSG_DUP);
+		rt_parse_camera(&t, &cam) == KO, (char *)MSG_DUP);
 }
 
 void	test_camera_parse_errors(void)
@@ -69,26 +72,28 @@ void	test_camera_parse_errors(void)
 	t_tokenizer	t;
 	t_RTCamera	cam;
 
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_BAD_COORDS,
 			sizeof(CM_BAD_COORDS) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == KO,
+		rt_parse_camera(&t, &cam) == KO,
 		(char *)MSG_COORDS);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_BAD_VEC,
 			sizeof(CM_BAD_VEC) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == KO,
+		rt_parse_camera(&t, &cam) == KO,
 		(char *)MSG_VEC);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_FOV_OVER,
 			sizeof(CM_FOV_OVER) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == KO,
-		(char *)MSG_FOVER);
+		rt_parse_camera(&t, &cam) == KO, (char *)MSG_FOVER);
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_MISS_FOV,
 			sizeof(CM_MISS_FOV) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == KO,
-		(char *)MSG_MISS);
+		rt_parse_camera(&t, &cam) == KO, (char *)MSG_MISS);
 }
 
 void	test_camera_parse_value(void)
@@ -96,10 +101,11 @@ void	test_camera_parse_value(void)
 	t_tokenizer	t;
 	t_RTCamera	cam;
 
+	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_VAL,
 			sizeof(CM_VAL) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam, 0) == OK,
+		rt_parse_camera(&t, &cam) == OK,
 		(char *)MSG_VAL);
 	ft_pin_invariant_msg(cam.coords.x == 10.0
 		&& cam.coords.y == 20.0

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_color_test.c                                 :+:      :+:    :+:   */
+/*   rt_parse_color_test.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 17:28:27 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/06 18:00:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:28:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #define COL_FLOAT              "255.0,128,0"
 #define COL_VAL_MIXED          "10,20,30"
 
-#define MSG_HEADER      "=== TEST PARSING COLORS (6 errors expected)\n"
+#define MSG_HEADER      "=== TEST PARSING COLORS (7 errors expected)\n"
 #define MSG_HAPPY       "Failed happypath for colors\n"
 #define MSG_HAPPY_ZERO  "Failed happypath for colors (all zeros)\n"
 #define MSG_HAPPY_MAX   "Failed happypath for colors (all max)\n"

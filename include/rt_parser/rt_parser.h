@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:33:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:29:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,29 @@
 # include "tokenizer.h"
 # include "vec.h"
 
-# define V4_CMP_OK 0xFFFFFFFFFFFFFFFFULL
+# define RT_AMBIENT			0x0041ULL
+# define RT_CAMERA			0x0043ULL
+# define RT_LIGHT			0x004CULL
+# define RT_SPHERE			0x7073ULL
+# define RT_PLANE			0x6C70ULL
+# define RT_CYLINDER		0x7963ULL
+# define RT_PERFECT_HASH	21ULL
+# define RT_AMBIENT_IDX		2
+# define RT_CAMERA_IDX		4
+# define RT_LIGHT_IDX		13
+# define RT_SPHERE_IDX		17
+# define RT_PLANE_IDX		19
+# define RT_CYLINDER_IDX	16
+# define V4_CMP_OK			0xFFFFFFFFFFFFFFFFULL
 
 typedef enum e_taggedresult
 {
 	KO = 0,
 	OK = 1
 }	t_taggedresult;
+
+typedef t_taggedresult	(*t_nonuniq_parser)(t_tokenizer *t, t_vec *)\
+							__attribute__((__nonnull__(1, 2)));
 
 typedef struct s_color_result
 {
@@ -76,11 +92,12 @@ t_taggedresult	rt_parse_light(t_tokenizer *t, t_vec *light_vec)\
 t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam, t_u8 init)\
+t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *cam,
-					t_u8 init)\
+t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *cam)\
 					__attribute__((__nonnull__(1, 2)));
+
+t_taggedresult	rt_init_aos(t_vec aos[4]);
 
 #endif
