@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   rt_miniRT.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/05 12:00:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 16:55:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_RTScene
 	t_RTPlaneBuffer			rt_plane_buffer;
 	t_RTSphereBuffer		rt_sphere_buffer;
 	t_RTLightBuffer			rt_light_buffer;
-	t_RTAmbientLightBuffer	rt_ambient_buffer;
+	t_RTAmbientLight		rt_ambient;
 	t_RTCamera				rt_camera;
 } __attribute__((aligned(64)))	t_RTScene;
 
