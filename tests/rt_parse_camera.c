@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 18:24:45 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:30:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,12 @@ void	test_camera_parse_errors(void)
 	t = ft_tokenizer_over((char *)CM_FOV_OVER,
 			sizeof(CM_FOV_OVER) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam) == KO,
-		(char *)MSG_FOVER);
+		rt_parse_camera(&t, &cam) == KO, (char *)MSG_FOVER);
 	cam = (t_RTCamera){0};
 	t = ft_tokenizer_over((char *)CM_MISS_FOV,
 			sizeof(CM_MISS_FOV) - 1);
 	ft_pin_invariant_msg(
-		rt_parse_camera(&t, &cam) == KO,
-		(char *)MSG_MISS);
+		rt_parse_camera(&t, &cam) == KO, (char *)MSG_MISS);
 }
 
 void	test_camera_parse_value(void)
