@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/06 18:24:21 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 01:44:38 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -42,10 +42,12 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parser.c\
 					src/rt_parser/rt_parse_color.c\
 					src/rt_parser/rt_parse_coords.c\
+					src/rt_parser/rt_parse_sphere.c\
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
 TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
+					tests/rt_parse_sphere.c \
 					tests/rt_parse_color_test.c
 TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
@@ -97,11 +99,11 @@ $(OBJDIR)/tests/%.o: tests/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
 
 $(OBJDIR)/tests/%: $(OBJDIR)/tests/%.o $(COMMON_OBJS) libft mlx
-	@$(CC) $(CFLAGS) $< $(COMMON_OBJS) $(LDFLAGS) -o $@
+	@$(CC) $(CFLAGS) $< $(COMMON_OBJS) $(LDFLAGS) $(SANITIZE) -o $@
 
 test: $(TEST_BINS)
 	@for bin in $(TEST_BINS); do \
-		./$$bin; \
+		./$$bin || exit 1; \
 	done
 
 analyze: test static_analysis
