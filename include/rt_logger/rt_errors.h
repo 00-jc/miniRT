@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 15:45:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:34:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 05:12:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	rt_error(const char *s, ...)\
 sphere\n"
 # define NNORM "Error\nAxis should be normalized\n"
 # define NBRI "Error\nBrightess should be normalized\n"
-# define REDEF "Error\n%s should be redefined\n"
+# define REDEF "Error\n%s should not be redefined\n"
 
 #endif
