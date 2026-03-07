@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:33:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:22:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,19 @@ void	test_ambient_parse_happy(void)
 	t_RTAmbientLight	ambient;
 
 	ft_printf(MSG_HEADER);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_HAPPY, sizeof(AM_HAPPY) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == OK,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == OK,
 		(char *)MSG_HAPPY);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_BRIGHT_ZERO,
 			sizeof(AM_BRIGHT_ZERO) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == OK,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == OK,
 		(char *)MSG_HAPPY_ZERO);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_BRIGHT_ONE,
 			sizeof(AM_BRIGHT_ONE) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == OK,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == OK,
 		(char *)MSG_HAPPY_ONE);
 }
 
@@ -67,18 +70,22 @@ void	test_ambient_parse_error_fmt(void)
 
 	t = ft_tokenizer_over((char *)AM_BAD_BRIGHT,
 			sizeof(AM_BAD_BRIGHT) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == KO,
+	ambient = (t_RTAmbientLight){0};
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_BAD_BRIGHT);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_BAD_COLOR,
 			sizeof(AM_BAD_COLOR) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == KO,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_BAD_COLOR);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_MISSING_COLOR,
 			sizeof(AM_MISSING_COLOR) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == KO,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_MISS_COLOR);
+	ambient = (t_RTAmbientLight){.is_init = 1};
 	t = ft_tokenizer_over((char *)AM_HAPPY, sizeof(AM_HAPPY) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 1) == KO,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_REDEF);
 }
 
@@ -87,13 +94,15 @@ void	test_ambient_parse_error_range(void)
 	t_tokenizer			t;
 	t_RTAmbientLight	ambient;
 
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_BRIGHT_OVER,
 			sizeof(AM_BRIGHT_OVER) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == KO,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_BRIGHT_OVER);
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_BRIGHT_NEG,
 			sizeof(AM_BRIGHT_NEG) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == KO,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == KO,
 		(char *)MSG_BRIGHT_NEG);
 }
 
@@ -102,8 +111,9 @@ void	test_ambient_parse_value(void)
 	t_tokenizer			t;
 	t_RTAmbientLight	ambient;
 
+	ambient = (t_RTAmbientLight){0};
 	t = ft_tokenizer_over((char *)AM_VAL, sizeof(AM_VAL) - 1);
-	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient, 0) == OK,
+	ft_pin_invariant_msg(rt_parse_ambient(&t, &ambient) == OK,
 		(char *)MSG_HAPPY_VAL);
 	ft_pin_invariant_msg(ambient.brightness == 0.5
 		&& (ambient.color & 0xFF0000) == 0x0A0000

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 17:55:24 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:17:35 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 __attribute__((__returns_nonnull__, __always_inline__, const))
 static inline t_nonuniq_parser	rt_get_nonuniq_label(size_t idx)
 {
-	static t_nonuniq_parser fns[] = {
+	static t_nonuniq_parser	fns[] = {
 	[RT_SPHERE_IDX] = rt_parse_sphere,
 	[RT_CYLINDER_IDX] = rt_parse_cylinder,
 	[RT_LIGHT_IDX] = rt_parse_light,
@@ -25,6 +25,15 @@ static inline t_nonuniq_parser	rt_get_nonuniq_label(size_t idx)
 	};
 
 	return (fns[idx]);
+}
+
+__attribute__((__nonnull__(1, 2), __always_inline__))
+static inline t_taggedresult	rt_handle_uniq(t_RTScene *scene,
+	t_tokenizer *t, t_u16a label)
+{
+	if (label == RT_CAMERA)
+		return (rt_parse_camera(t, &scene->rt_camera));
+	return (rt_parse_camera(t, &scene->rt_camera));
 }
 
 __attribute__((__nonnull__(1, 2, 3), __always_inline__))
@@ -37,11 +46,11 @@ static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
 	if (token.len == 1)
 		label = ft_to_be16(*token.mem | 0x0000);
 	else if (token.len == 2)
-		label = ft_to_be16(*(const t_u16 *restrict const)token.mem);
+		label = ft_to_be16(*(const t_u16 * restrict const)token.mem);
 	else
 		return (rt_error(UNREC), KO);
 	if (label == RT_CAMERA | label == RT_AMBIENT)
-		return (/* other fn, get state through scene ptr */);
+		return (rt_handle_uniq(scene, t, label));
 	if (label != RT_LIGHT & label != RT_SPHERE & label != RT_CYLINDER
 		& label != RT_PLANE)
 		return (rt_error(UNREC), KO);
