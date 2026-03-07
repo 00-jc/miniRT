@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/07 01:44:38 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 03:10:20 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -43,12 +43,18 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_color.c\
 					src/rt_parser/rt_parse_coords.c\
 					src/rt_parser/rt_parse_sphere.c\
+					src/rt_parser/rt_parse_plane.c\
+					src/rt_parser/rt_parse_cylinder.c\
+					src/rt_parser/rt_parse_light.c\
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
 TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
+					tests/rt_parse_color_test.c \
 					tests/rt_parse_sphere.c \
-					tests/rt_parse_color_test.c
+					tests/rt_parse_light.c \
+					tests/rt_parse_cylinder.c \
+					tests/rt_parse_plane.c
 TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
 
@@ -107,7 +113,7 @@ test: $(TEST_BINS)
 	done
 
 analyze: test static_analysis
-	$(MAKE) analyze -C $(LIBFT_FOLDER)
+	@$(MAKE) analyze -C $(LIBFT_FOLDER)
 
 re: fclean all
 
