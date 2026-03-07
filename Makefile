@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/07 19:00:05 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 21:06:15 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -49,6 +49,11 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_light.c\
 					src/rt_parser/rt_parse_ambient.c\
 					src/rt_parser/rt_init_aos.c\
+					src/rt_logger/rt_print_plane.c \
+					src/rt_logger/rt_print_cylinder.c \
+					src/rt_logger/rt_print_camera.c \
+					src/rt_logger/rt_print_sphere.c \
+					src/rt_logger/rt_print_light.c \
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
