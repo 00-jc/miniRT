@@ -1,18 +1,12 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define RT_AMBIENT  0x41
-#define RT_CAMERA   0x43
-#define RT_LIGHT    0x4C
-#define RT_SPHERE   0x7073
-#define RT_PLANE    0x6C70
-#define RT_CYLINDER 0x7963
-# define RT_AMBIENT_IDX		2
-# define RT_CAMERA_IDX		4
-# define RT_LIGHT_IDX		13
-# define RT_SPHERE_IDX		17
-# define RT_PLANE_IDX		19
-# define RT_CYLINDER_IDX	16
+# define RT_AMBIENT			0x4100ULL
+# define RT_CAMERA			0x4300ULL
+# define RT_LIGHT			0x4C00ULL
+# define RT_SPHERE			0x7370ULL
+# define RT_PLANE			0x706CULL
+# define RT_CYLINDER		0x6379ULL
 
 int main(void)
 {

@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/07 04:33:57 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 19:00:05 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -33,7 +33,7 @@ MARCH			:=	-march=native
 CFLAGS_BASE		:=	-O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
 					-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
 					-fno-common -fstack-clash-protection -g3
-CFLAGS_DEBUG	:=	-flto -O0 -pipe -ffunction-sections -fdata-sections -finline-functions \
+CFLAGS_DEBUG	:=	-O0 -pipe -ffunction-sections -fdata-sections -finline-functions \
 					-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
 					-fno-common -fstack-clash-protection -g3
 SANITIZE		:= 	-fsanitize=address,alignment,undefined -fsanitize-recover=null
@@ -48,6 +48,7 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_cylinder.c\
 					src/rt_parser/rt_parse_light.c\
 					src/rt_parser/rt_parse_ambient.c\
+					src/rt_parser/rt_init_aos.c\
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
@@ -80,7 +81,8 @@ $(NAME): $(OBJS) libft mlx
 sanitize: $(OBJS) libft mlx
 	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o miniRTSan $(SANITIZE)
 
-debug: $(OBJS) libft mlx
+debug: libft mlx
+	@$(MAKE) $(OBJS) CFLAGS="$(MARCH) $(CFLAGS_DEBUG) $(WARNS)"
 	@$(MAKE) re -C $(LIBFT_FOLDER) CFLAGS="$(MARCH) $(CFLAGS_DEBUG) $(WARNS_CLANG)"
 	@$(CC) $(CFLAGS_DEBUG) $(OBJS) $(LDFLAGS) -o miniRTdbg
 
