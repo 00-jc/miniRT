@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_plane.c                                   :+:      :+:    :+:   */
+/*   rt_parse_cylinder.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/07 01:11:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 03:02:05 by jaicastr         ###   ########.fr       */
+/*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
+/*   Updated: 2026/03/07 03:19:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,48 @@ static inline t_u32a	rt__ensure_normalized(t_3dcoords axis)
 		&& vec4.i[2] == V4_CMP_OK);
 }
 
-__attribute__((__nonnull__(1, 2)))
-t_taggedresult	rt_parse_plane(t_tokenizer *t, t_vec *plane_vec)
+static inline t_RTCylinder	rt__cy(t_3dcoords coords, t_3dcoords axis,
+	t_2packd wh, t_u32a color)
 {
-	t_coord_result	coords;
-	t_coord_result	axis;
-	t_color_result	color;
-	t_RTPlane		plane;
+	return ((t_RTCylinder){
+		.coords = coords,
+		.axis = axis,
+		.wh = wh,
+		.color = color,
+	});
+}
 
-	coords = rt_parse_coords(t);
-	if (coords.res == KO)
+/*
+ *	There was no way to fit this in 25 lines without the
+ *	1-char names, sorry.
+ */
+
+__attribute__((__nonnull__(1, 2)))
+t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)
+{
+	t_coord_result	co;
+	t_coord_result	a;
+	t_double_res	wh[2];
+	t_color_result	c;
+	t_RTCylinder	cy;
+
+	co = rt_parse_coords(t);
+	if (co.res == KO)
 		return (KO);
-	axis = rt_parse_coords(t);
-	if (axis.res == KO)
+	a = rt_parse_coords(t);
+	if (a.res == KO)
 		return (KO);
-	if (!rt__ensure_normalized(axis.coord))
+	if (!rt__ensure_normalized(a.coord))
 		return (rt_error(NNORM), KO);
-	color = rt_parse_color(t);
-	if (color.res == KO)
+	wh[0] = rt_parse_double(t);
+	if (wh[0].res == KO)
 		return (KO);
-	plane = (t_RTPlane){.color = color.color, .axis = axis.coord,
-		.coords = coords.coord};
-	return (ft_vec_push_back(plane_vec, (void *){&plane}, sizeof(plane)));
+	wh[1] = rt_parse_double(t);
+	if (wh[1].res == KO)
+		return (KO);
+	c = rt_parse_color(t);
+	if (c.res == KO)
+		return (KO);
+	cy = rt__cy(co.coord, a.coord, (t_2packd){wh[0].d, wh[1].d}, c.color);
+	return (ft_vec_push_back(cy_vec, (void *){&cy}, sizeof(cy)));
 }

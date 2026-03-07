@@ -6,13 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 02:53:51 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:58:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
-#include "rt_light.h"
 
 __attribute__((__nonnull__(1, 2)))
 t_taggedresult	rt_parse_light(t_tokenizer *t, t_vec *light_vec)
