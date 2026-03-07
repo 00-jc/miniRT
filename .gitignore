@@ -4,3 +4,4 @@ test.rt
 build
 *.o
 miniRT*
+compile_commands.json
