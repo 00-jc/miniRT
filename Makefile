@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/07 02:48:16 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/07 02:49:18 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -51,6 +51,7 @@ COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
 TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
 					tests/rt_parse_color_test.c \
 					tests/rt_parse_sphere.c \
+					tests/rt_parse_light.c \
 					tests/rt_parse_plane.c
 TEST_OBJS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS		:=	$(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
