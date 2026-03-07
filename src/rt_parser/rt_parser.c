@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 18:17:35 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/07 19:02:04 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static inline t_taggedresult	rt_handle_uniq(t_RTScene *scene,
 {
 	if (label == RT_CAMERA)
 		return (rt_parse_camera(t, &scene->rt_camera));
-	return (rt_parse_camera(t, &scene->rt_camera));
+	return (rt_parse_ambient(t, &scene->rt_ambient));
 }
 
 __attribute__((__nonnull__(1, 2, 3), __always_inline__))
@@ -74,8 +74,6 @@ static inline t_taggedresult	ft_parse_scene(t_RTScene *scene,
 	{
 		ft_skip_whitespace(&tokenizer);
 		token = ft_eat_until(&tokenizer, set_blank);
-		if (!token.len)
-			break ;
 		if (rt_handle_label(scene, aos, &tokenizer, token) == KO)
 			return (KO);
 	}
