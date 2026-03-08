@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 20:15:37 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/08 01:14:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define RT_SPHERE_IDX		20
 # define RT_PLANE_IDX		7
 # define RT_CYLINDER_IDX	4
+# define RT_AOS_SPHERE		0
+# define RT_AOS_LIGHT		1
+# define RT_AOS_PLANE		2
+# define RT_AOS_CYLINDER	3
 # define V4_CMP_OK			0xFFFFFFFFFFFFFFFFULL
 
 typedef enum e_taggedresult

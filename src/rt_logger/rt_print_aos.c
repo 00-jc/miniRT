@@ -6,11 +6,16 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 20:19:28 by asoria            #+#    #+#             */
+<<<<<<< HEAD:src/rt_logger/rt_print_aos.c
 /*   Updated: 2026/03/07 22:26:07 by asoria           ###   ########.fr       */
+=======
+/*   Updated: 2026/03/08 01:17:45 by jaicastr         ###   ########.fr       */
+>>>>>>> 7a23090 (added: defined to index the AoS):src/rt_logger/rt_print_vec.c
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_logger/rt_printer.h"
+#include "rt_parser/rt_parser.h"
 #include "vec.h"
 
 __attribute__((__always_inline__))
@@ -92,10 +97,10 @@ inline void	rt_print_aos_cylinder(t_vec vec)
 __attribute__((__always_inline__, __nonnull__(1, 2)))
 inline void	rt_print_aos(t_vec vec[4], t_RTScene *scene)
 {
-	rt_print_aos_sphere(vec[0]);
-	rt_print_aos_light(vec[1]);
-	rt_print_aos_plane(vec[2]);
-	rt_print_aos_cylinder(vec[3]);
+	rt_print_aos_sphere(vec[RT_AOS_SPHERE]);
+	rt_print_aos_light(vec[RT_AOS_LIGHT]);
+	rt_print_aos_plane(vec[RT_AOS_PLANE]);
+	rt_print_aos_cylinder(vec[RT_AOS_CYLINDER]);
 	rt_print_ambient(&scene->rt_ambient);
 	rt_print_camera(&scene->rt_camera);
 }

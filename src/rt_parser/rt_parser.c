@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 21:29:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/08 01:16:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
 	if (label != RT_LIGHT & label != RT_SPHERE & label != RT_CYLINDER
 		& label != RT_PLANE)
 		return (rt_error(UNREC), KO);
-	vecidx = ((label == RT_SPHERE) * 0) | ((label == RT_LIGHT) * 1)
-		| ((label == RT_PLANE) * 2) | ((label == RT_CYLINDER) * 3);
+	vecidx = ((label == RT_SPHERE) * RT_AOS_SPHERE)
+		| ((label == RT_LIGHT) * RT_AOS_LIGHT)
+		| ((label == RT_PLANE) * RT_AOS_PLANE)
+		| ((label == RT_CYLINDER) * RT_AOS_CYLINDER);
 	label = label % RT_PERFECT_HASH;
 	if (rt_get_nonuniq_label(label)(t, aos + vecidx) == KO)
 		return (KO);
