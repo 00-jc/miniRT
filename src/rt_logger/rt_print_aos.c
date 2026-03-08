@@ -6,11 +6,8 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 20:19:28 by asoria            #+#    #+#             */
-<<<<<<< HEAD:src/rt_logger/rt_print_aos.c
 /*   Updated: 2026/03/07 22:26:07 by asoria           ###   ########.fr       */
-=======
 /*   Updated: 2026/03/08 01:17:45 by jaicastr         ###   ########.fr       */
->>>>>>> 7a23090 (added: defined to index the AoS):src/rt_logger/rt_print_vec.c
 /*                                                                            */
 /* ************************************************************************** */
 
