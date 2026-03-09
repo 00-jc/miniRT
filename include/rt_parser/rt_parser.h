@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/08 01:14:14 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/09 03:40:06 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "rt_miniRT.h"
 # include "tokenizer.h"
 # include "vec.h"
+# include "alloc.h"
 
 # define RT_AMBIENT			0x4100ULL
 # define RT_CAMERA			0x4300ULL
@@ -69,8 +70,8 @@ typedef struct s_unsigned_res
 	size_t			u;
 }	t_unsigned_res;
 
-t_u32a			rt_parse_file_into_state(t_RTScene *state, char *fname)\
-					__attribute__((__nonnull__(1, 2)));
+t_u32a			rt_parse_file_into_state(t_RTScene *state, char *fname, t_arena *arena)\
+					__attribute__((__nonnull__(1, 2, 3)));
 
 t_color_result	rt_parse_color(t_tokenizer *tokenizer)\
 					__attribute__((__nonnull__(1)));
@@ -105,5 +106,24 @@ t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *cam)\
 t_taggedresult	rt_init_aos(t_vec aos[4]);
 
 void			rt_free_aos(t_vec aos[4]);
+
+t_taggedresult	rt_aos_to_soa(t_vec aos[4], t_RTScene *scene, t_arena *arena)\
+					__attribute__((__always_inline__));
+
+t_taggedresult	rt_aos_to_soa_cylinder(t_RTCylinderBuffer *buf,
+		t_vec *aos, t_arena *arena)\
+					__attribute__((__always_inline__));
+
+t_taggedresult	rt_aos_to_soa_sphere(t_RTSphereBuffer *buf,
+		t_vec *aos, t_arena *arena)\
+					__attribute__((__always_inline__));
+
+t_taggedresult	rt_aos_to_soa_plane(t_RTPlaneBuffer *buf,
+		t_vec *aos, t_arena *arena)\
+					__attribute__((__always_inline__));
+
+t_taggedresult	rt_aos_to_soa_light(t_RTLightBuffer *buf,
+		t_vec *aos, t_arena *arena)\
+					__attribute__((__always_inline__));
 
 #endif

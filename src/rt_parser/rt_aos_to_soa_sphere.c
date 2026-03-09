@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_aos_to_soa_sphere.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
+/*   Updated: 2026/03/09 03:41:38 by asoria           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt_parser/rt_parser.h"
+
+__attribute__((__always_inline__))
+inline t_taggedresult	rt_alloc_soa_sphere(t_RTSphereBuffer *buf,
+		size_t n, t_arena *arena)
+{
+	buf->size = n;
+	buf->coords = ft_arena_alloc(arena, n * sizeof(t_3dcoords), 32);
+	buf->diameter = ft_arena_alloc(arena, n * sizeof(double), 8);
+	buf->color = ft_arena_alloc(arena, n * sizeof(t_u32a), 4);
+	if (!buf->coords || !buf->diameter || !buf->color)
+		return (KO);
+	return (OK);
+}
+
+__attribute__((__always_inline__))
+inline void	rt_populate_soa_sphere(t_RTSphereBuffer *buf,
+		t_vec *aos)
+{
+	size_t		i;
+	t_RTSphere	*s;
+
+	i = 0;
+	while (i < buf->size)
+	{
+		s = (t_RTSphere *)ft_vec_get(aos, i, sizeof(t_RTSphere));
+		buf->coords[i] = s->coords;
+		buf->diameter[i] = s->diameter;
+		buf->color[i] = s->color;
+		i++;
+	}
+}
+
+__attribute__((__always_inline__))
+inline t_taggedresult	rt_aos_to_soa_sphere(t_RTSphereBuffer *buf,
+		t_vec *aos, t_arena *arena)
+{
+	size_t	n;
+
+	n = ft_vec_len(aos, sizeof(t_RTSphere));
+	if (rt_alloc_soa_sphere(buf, n, arena) == KO)
+		return (KO);
+	rt_populate_soa_sphere(buf, aos);
+	return (OK);
+}

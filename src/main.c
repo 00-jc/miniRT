@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 04:14:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/09 01:48:38 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	state = rt_init_state();
 	if (!state.ctx.rt_arena.current)
 		return (ft_fprintf(STDERR_FILENO, "Error\narena init\n"), EXIT_FAILURE);
-	rt_parse_file_into_state(&state.scene, argv[1]);
+	rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena);
 	rt_free_state(&state);
 	return (EXIT_SUCCESS);
 }
