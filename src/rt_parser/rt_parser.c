@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/09 16:16:45 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:34:56 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
 	rt_print_aos(aos, scene);
 	ft_close_file(&file);
 	if (rt_aos_to_soa(aos, scene, arena) == KO)
-		return (rt_free_aos(aos), KO);
+		return (rt_error(SOA), rt_free_aos(aos), KO);
 	rt_free_aos(aos);
 	return (OK);
 }
