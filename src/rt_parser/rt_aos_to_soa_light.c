@@ -6,13 +6,13 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/09 03:58:45 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/09 16:19:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 3)))
 inline t_taggedresult	rt_alloc_soa_light(t_RTLightBuffer *buf,
 		size_t n, t_arena *arena)
 {
@@ -25,7 +25,7 @@ inline t_taggedresult	rt_alloc_soa_light(t_RTLightBuffer *buf,
 	return (OK);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 2)))
 inline void	rt_populate_soa_light(t_RTLightBuffer *buf,
 		t_vec *aos)
 {
@@ -43,7 +43,7 @@ inline void	rt_populate_soa_light(t_RTLightBuffer *buf,
 	}
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
 inline t_taggedresult	rt_aos_to_soa_light(t_RTLightBuffer *buf,
 		t_vec *aos, t_arena *arena)
 {

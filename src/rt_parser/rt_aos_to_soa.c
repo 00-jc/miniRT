@@ -6,13 +6,13 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 01:35:34 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/09 03:35:03 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/09 16:18:01 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
 inline t_taggedresult	rt_aos_to_soa(t_vec aos[4],
 		t_RTScene *scene, t_arena *arena)
 {

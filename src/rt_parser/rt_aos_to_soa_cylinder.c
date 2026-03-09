@@ -6,13 +6,13 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/09 03:37:16 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/09 16:18:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 3)))
 inline t_taggedresult	rt_alloc_soa_cylinder(t_RTCylinderBuffer *buf,
 		size_t n, t_arena *arena)
 {
@@ -26,7 +26,7 @@ inline t_taggedresult	rt_alloc_soa_cylinder(t_RTCylinderBuffer *buf,
 	return (OK);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 2)))
 inline void	rt_populate_soa_cylinder(t_RTCylinderBuffer *buf,
 		t_vec *aos)
 {
@@ -45,7 +45,7 @@ inline void	rt_populate_soa_cylinder(t_RTCylinderBuffer *buf,
 	}
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
 inline t_taggedresult	rt_aos_to_soa_cylinder(
 		t_RTCylinderBuffer *buf, t_vec *aos, t_arena *arena)
 {
