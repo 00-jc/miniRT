@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/09 03:35:21 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/09 16:16:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
 		char *fname, t_arena *arena)
 {
 	t_file	file;
-	t_u32a	res;
 	t_vec	aos[4];
 
 	file = ft_read_file(fname);
@@ -98,11 +97,12 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
 		return (KO);
 	if (rt_init_aos(aos) == KO)
 		return (KO);
-	res = ft_parse_scene(scene, aos, file);
-	if (res != KO)
-		rt_print_aos(aos, scene);
+	if (ft_parse_scene(scene, aos, file) == KO)
+		return (KO);
+	rt_print_aos(aos, scene);
 	ft_close_file(&file);
-	rt_aos_to_soa(aos, scene, arena);
+	if (rt_aos_to_soa(aos, scene, arena) == KO)
+		return (rt_free_aos(aos), KO);
 	rt_free_aos(aos);
-	return (res);
+	return (OK);
 }
