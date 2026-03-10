@@ -6,13 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/09 16:34:56 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 01:34:53 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
-#include "rt_logger/rt_printer.h"
 #include "io.h"
 
 __attribute__((__returns_nonnull__, __always_inline__, const))
@@ -99,7 +98,8 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
 		return (KO);
 	if (ft_parse_scene(scene, aos, file) == KO)
 		return (KO);
-	rt_print_aos(aos, scene);
+	//rt_print_aos(aos, scene);
+	rt_print_soa(scene);
 	ft_close_file(&file);
 	if (rt_aos_to_soa(aos, scene, arena) == KO)
 		return (rt_error(SOA), rt_free_aos(aos), KO);
