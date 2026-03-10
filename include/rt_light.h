@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:28:25 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 16:54:52 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:51:44 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_LIGHT_H
 # define RT_LIGHT_H
 
-# include "rt_primitives.h"
+# include "math.h"
 
 typedef struct s_RTLight
 {
