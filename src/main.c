@@ -6,13 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/09 16:27:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:16:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
-#include "io.h"
 #include "rt_parser/rt_parser.h"
+#include "rt_logger/rt_errors.h"
 
 /*	MINIRT WORKFLOW CHART:
 	- init arena and state
@@ -65,11 +65,10 @@ int	main(int argc, char **argv)
 	t_RTstate	state;
 
 	if (argc != 2)
-		return (ft_fprintf(STDERR_FILENO, "Error\n%s <file>.rt\n",
-				argv[0]), EXIT_FAILURE);
+		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
 	if (!state.ctx.rt_arena.current)
-		return (ft_fprintf(STDERR_FILENO, "Error\narena init\n"), EXIT_FAILURE);
+		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
 	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena))
 		return (rt_free_state(&state), EXIT_FAILURE);
 	rt_free_state(&state);
