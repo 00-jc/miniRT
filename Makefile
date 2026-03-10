@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/09 04:00:05 by asoria           ###   ########.fr        #
+#    Updated: 2026/03/10 01:37:07 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -60,6 +60,7 @@ SRCS			:=	src/main.c\
 					src/rt_logger/rt_print_sphere.c \
 					src/rt_logger/rt_print_light.c \
 					src/rt_logger/rt_print_aos.c \
+					src/rt_logger/rt_print_soa.c \
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
