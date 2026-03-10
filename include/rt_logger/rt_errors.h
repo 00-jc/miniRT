@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 15:45:52 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 15:15:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:26:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	rt_error(const char *s, ...)\
 # define UNREC	"Error\nUnrecognised label\n"
 # define SOA	"Error\nCannot migrate from AoS -> Soa\n"
 # define USAGE	"Error\n%s <file>.rt <width> <height>\n"
+# define DISPL	"Error\nInvalid display parameters\n"
 
 # define NDIAM	"Error\nNegative diameter is not physically possible for a \
 sphere\n"

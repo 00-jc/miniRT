@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.h                                            :+:      :+:    :+:   */
+/*   rt_plane.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:29:08 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/04 21:35:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:51:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_PLANE_H
 # define RT_PLANE_H
 
-# include "rt_primitives.h"
+# include "math.h"
 
 typedef struct s_RTPlane
 {
