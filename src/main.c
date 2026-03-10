@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 15:16:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:32:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ int	main(int argc, char **argv)
 {
 	t_RTstate	state;
 
-	if (argc != 2)
+	if (argc != 4)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
 	if (!state.ctx.rt_arena.current)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
-	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena))
+	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena)
+		|| !rt_parse_display_size(&state.ctx, argv[2], argv[3]))
 		return (rt_free_state(&state), EXIT_FAILURE);
 	rt_free_state(&state);
 	return (EXIT_SUCCESS);
