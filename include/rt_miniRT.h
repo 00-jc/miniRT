@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:32:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 00:40:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_RTContext
 	t_arena				rt_arena;
 	void				*rt_mlx;
 	t_u32a				scene_is_dirty;
+	t_u32a				scene_redraw;
 	char				**rt_argv;
 	int					rt_argc;
 	t_arena_checkpoint	rewind_render;

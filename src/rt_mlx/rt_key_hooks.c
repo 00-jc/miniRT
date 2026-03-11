@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 21:01:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 00:40:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline t_u8	rt_key_to_bit(int key)
 __attribute__((__nonnull__(2)))
 int	rt_key_press(int key, t_RTstate *restrict const state)
 {
-	state->ctx.scene_is_dirty = 1;
+	state->ctx.scene_redraw = 1;
 	if (key == XK_Escape)
 		(rt_free_state(state), exit(EXIT_SUCCESS));
 	state->keys |= rt_key_to_bit(key);
