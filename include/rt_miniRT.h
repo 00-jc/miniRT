@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:17:43 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 00:36:33 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_MINIRT_H
 # define RT_MINIRT_H
 
-# include "mlx.h"
+# include "rt_render/rt_render.h"
 # include "alloc.h"
 # include "types.h"
 # include "rt_sphere.h"
@@ -31,10 +31,10 @@
 #  define RT_NTHREADS 16
 # endif
 
-# define KEY_W (1 << 0)
-# define KEY_A (1 << 1)
-# define KEY_S (1 << 2)
-# define KEY_D (1 << 3)
+# define KEY_W 1
+# define KEY_A 2
+# define KEY_S 4
+# define KEY_D 8
 
 /* we should be mindful of _what_ do we pass around to
  * the functions too, if we're not careful with all this
@@ -76,14 +76,16 @@ typedef struct s_RTThreadPool
 /* cold (should be accesed once per frame on flush) */
 typedef struct s_RTContext
 {
-	size_t		display_width;
-	size_t		display_height;
-	void		*rt_mlx_win;
-	t_u32a		*frame_buffer;
-	t_arena		rt_arena;
-	void		*rt_mlx;
-	t_u8		mouse_warp;
-	t_u32a		scene_is_dirty;
+	size_t				display_width;
+	size_t				display_height;
+	size_t				buffersize;
+	void				*rt_mlx_win;
+	t_RTImg				*rt_img;
+	t_arena				rt_arena;
+	void				*rt_mlx;
+	t_u8				mouse_warp;
+	t_u32a				scene_is_dirty;
+	t_arena_checkpoint	rewind_render;
 }	t_RTContext;
 
 /* cold, only lives in main */
@@ -95,7 +97,22 @@ typedef struct s_RTstate
 	t_u8					keys;
 }	t_RTstate;
 
-void	rt_free_state(t_RTstate *state)\
-			__attribute__((__nonnull__(1)));
+typedef enum e_taggedresult
+{
+	KO = 0,
+	OK = 1
+}	t_taggedresult;
+
+void			rt_free_state(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
+
+t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)\
+					__attribute__((__nonnull__(1)));
+
+void			rt_putimg(t_RTContext *ctx)\
+					__attribute__((__nonnull__(1)));
+
+int				rt_render_hotloop(t_RTstate *state)\
+					__attribute__((__nonnull__(1), hot));
 
 #endif

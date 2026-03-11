@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:27:46 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 00:36:55 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 	mlx_hook(state->ctx.rt_mlx_win, 3, 1L << 1, rt_key_release, state);
 	mlx_hook(state->ctx.rt_mlx_win, 6, 1L << 6, rt_handle_mouse_move, state);
 	mlx_loop_hook(state->ctx.rt_mlx, rt_key_hook, state);
+	mlx_loop_hook(state->ctx.rt_mlx, rt_render_hotloop, state);
 	return (OK);
 }
 
@@ -73,14 +74,15 @@ static inline t_RTstate	rt_init_state(void)
 __attribute__((__nonnull__(1), __always_inline__))
 inline void	rt_free_state(t_RTstate *state)
 {
-	mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
+	if (state->ctx.rt_mlx_win)
+		mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
 	ft_destroy_arena(&state->ctx.rt_arena);
 	free(state->ctx.rt_mlx);
 }
 
 int	main(int argc, char **argv)
 {
-	t_RTstate	state;
+	static t_RTstate	state = {0};
 
 	if (argc < 2)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
@@ -89,7 +91,7 @@ int	main(int argc, char **argv)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
 	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena)
 		|| !rt_parse_display_size(argc, &state.ctx, argv[2], argv[3])
-		|| !rt_mlx_setup(&state))
+		|| !rt_mlx_setup(&state) || !rt_alloc_imagebuffer(&state.ctx))
 		return (rt_free_state(&state), EXIT_FAILURE);
 	mlx_loop(state.ctx.rt_mlx);
 }
