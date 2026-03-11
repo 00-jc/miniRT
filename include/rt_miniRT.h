@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:43:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:43:29 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_RTContext
 {
 	size_t				display_width;
 	size_t				display_height;
+	size_t				buffersize;
 	void				*rt_mlx_win;
 	t_RTImg				*rt_img;
 	t_arena				rt_arena;
@@ -109,5 +110,8 @@ t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)\
 
 void			rt_putimg(t_RTContext *ctx)\
 					__attribute__((__nonnull__(1)));
+
+int				rt_render_hotloop(t_RTstate *state)\
+					__attribute__((__nonnull__(1), hot));
 
 #endif

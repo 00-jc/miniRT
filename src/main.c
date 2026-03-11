@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 20:50:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:34:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 	mlx_hook(state->ctx.rt_mlx_win, 2, 1, rt_key_press, state);
 	mlx_hook(state->ctx.rt_mlx_win, 3, 2, rt_key_release, state);
 	mlx_loop_hook(state->ctx.rt_mlx, rt_key_hook, state);
+	mlx_loop_hook(state->ctx.rt_mlx, rt_render_hotloop, state);
 	return (OK);
 }
 
@@ -91,6 +92,5 @@ int	main(int argc, char **argv)
 		|| !rt_parse_display_size(argc, &state.ctx, argv[2], argv[3])
 		|| !rt_mlx_setup(&state) || !rt_alloc_imagebuffer(&state.ctx))
 		return (rt_free_state(&state), EXIT_FAILURE);
-	rt_putimg(&state.ctx);
 	mlx_loop(state.ctx.rt_mlx);
 }

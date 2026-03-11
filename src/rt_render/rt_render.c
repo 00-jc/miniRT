@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 21:10:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:44:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ __attribute__((__nonnull__(1), __always_inline__))
 inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 {
 	t_xvar	*xvar;
-	size_t	size;
 	t_RTImg	*img;
 
 	xvar = ctx->rt_mlx;
-	size = (ctx->display_height * (ctx->display_width + 32)) << 2;
+	ctx->buffersize = (ctx->display_height * (ctx->display_width + 32)) << 2;
 	ctx->rewind_render = ft_arena_checkpoint(&ctx->rt_arena);
-	img = ft_arena_alloc(&ctx->rt_arena, size + sizeof(t_RTImg), 16);
+	img = ft_arena_alloc(&ctx->rt_arena, ctx->buffersize + sizeof(t_RTImg), 16);
 	if (!img)
 		return (ft_arena_rewind(&ctx->rt_arena, ctx->rewind_render), KO);
 	*img = (t_RTImg){.width = (int)ctx->display_width,
@@ -32,7 +31,7 @@ inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 			xvar->root, ctx->display_width,
 			ctx->display_height, xvar->depth)
 	};
-	ft_memset(img->data, 0x00, size);
+	ft_memset(img->data, 0x00, ctx->buffersize);
 	img->image = XCreateImage(xvar->display, xvar->visual, xvar->depth, ZPixmap,
 			0, (void *)img->data, ctx->display_width, ctx->display_height,
 			32, 0);

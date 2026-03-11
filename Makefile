@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/11 17:38:45 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/11 22:32:48 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -57,6 +57,7 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_display_size.c\
 					src/rt_mlx/rt_key_hooks.c\
 					src/rt_render/rt_render.c\
+					src/rt_render/rt_render_hotloop.c\
 					src/rt_logger/rt_print_plane.c \
 					src/rt_logger/rt_print_cylinder.c \
 					src/rt_logger/rt_print_camera.c \
@@ -66,7 +67,7 @@ SRCS			:=	src/main.c\
 					src/rt_logger/rt_print_soa.c \
 					src/rt_logger/rt_errors.c
 OBJS			:=	$(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
-COMMON_OBJS		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
+COMMON_OBJe		:=	$(filter-out $(OBJDIR)/main.o,$(OBJS))
 TEST_SRCS 		:=	tests/rt_parse_coord_test.c \
 					tests/rt_parse_color_test.c \
 					tests/rt_parse_sphere.c \
