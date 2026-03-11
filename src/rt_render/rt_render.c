@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:37:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 21:10:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 			xvar->root, ctx->display_width,
 			ctx->display_height, xvar->depth)
 	};
-	ft_memset(img->data, 0xFF, size);
+	ft_memset(img->data, 0x00, size);
 	img->image = XCreateImage(xvar->display, xvar->visual, xvar->depth, ZPixmap,
 			0, (void *)img->data, ctx->display_width, ctx->display_height,
 			32, 0);

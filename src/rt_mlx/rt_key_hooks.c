@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:05:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 21:01:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static inline t_u8	rt_key_to_bit(int key)
 	[XK_d] = KEY_D,
 	};
 
+	if (key < 0 | (size_t)key >= sizeof(bits) / sizeof(*bits))
+		return (0);
 	return (bits[key]);
 }
 
@@ -33,8 +35,7 @@ int	rt_key_press(int key, t_RTstate *restrict const state)
 	state->ctx.scene_is_dirty = 1;
 	if (key == XK_Escape)
 		(rt_free_state(state), exit(EXIT_SUCCESS));
-	else if (key == XK_w | key == XK_a | key == XK_s | key == XK_d)
-		state->keys |= rt_key_to_bit(key);
+	state->keys |= rt_key_to_bit(key);
 	return (0);
 }
 
