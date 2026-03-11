@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 13:15:07 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/11 18:17:43 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_RTContext
 	t_u32a		*frame_buffer;
 	t_arena		rt_arena;
 	void		*rt_mlx;
+	t_u8		mouse_warp;
 	t_u32a		scene_is_dirty;
 }	t_RTContext;
 

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:03:24 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/11 18:33:38 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,13 @@ inline void	rt_free_state(t_RTstate *state)
 	free(state->ctx.rt_mlx);
 }
 
+#include <stdio.h>
+
 int	main(int argc, char **argv)
 {
 	t_RTstate	state;
 
+	printf("state size: %zu\n", sizeof(t_RTstate));
 	if (argc < 2)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
