@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 02:05:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:41:28 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
 #include "rt_mlx/rt_mlx.h"
+#include "rt_logger/rt_printer.h"
 
 /*	MINIRT WORKFLOW CHART:
 	- init arena and state
@@ -44,7 +45,9 @@ static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 			(char *)"miniRT");
 	if (!state->ctx.rt_mlx_win)
 		return (rt_error("Error\nmlx window\n"), KO);
-	mlx_key_hook(state->ctx.rt_mlx_win, rt_key_hook, state);
+	mlx_hook(state->ctx.rt_mlx_win, 2, 1, rt_key_press, state);
+	mlx_hook(state->ctx.rt_mlx_win, 3, 2, rt_key_release, state);
+	mlx_loop_hook(state->ctx.rt_mlx, rt_key_hook, state);
 	return (OK);
 }
 

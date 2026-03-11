@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 02:02:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 13:15:07 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # ifndef RT_NTHREADS
 #  define RT_NTHREADS 16
 # endif
+
+# define KEY_W (1 << 0)
+# define KEY_A (1 << 1)
+# define KEY_S (1 << 2)
+# define KEY_D (1 << 3)
 
 /* we should be mindful of _what_ do we pass around to
  * the functions too, if we're not careful with all this
@@ -86,6 +91,7 @@ typedef struct s_RTstate
 	t_RTScene				scene;
 	t_RTContext				ctx;
 	t_RTThreadPool			thread_pool;
+	t_u8					keys;
 }	t_RTstate;
 
 void	rt_free_state(t_RTstate *state)\
