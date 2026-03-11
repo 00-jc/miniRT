@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:27:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 00:37:17 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ void			rt_print_soa(t_RTScene *scene)\
 					__attribute__((__nonnull__(1)));
 
 t_taggedresult	rt_parse_display_size(int argc, t_RTContext *context,\
-					const char *width, const char *height)\
-					__attribute__((__nonnull__(2, 3, 4)));
+					const char **argv)\
+					__attribute__((__nonnull__(2, 3)));
 #endif

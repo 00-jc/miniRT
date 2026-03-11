@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 22:34:12 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 00:38:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
  */
 
 __attribute__((__always_inline__, __nonnull__(1)))
-static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
+inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 {
 	state->ctx.rt_mlx_win = mlx_new_window(state->ctx.rt_mlx,
 			(int)state->ctx.display_width, (int)state->ctx.display_height,
@@ -79,6 +79,17 @@ inline void	rt_free_state(t_RTstate *state)
 	free(state->ctx.rt_mlx);
 }
 
+__attribute__((__nonnull__(1), __always_inline__))
+inline t_taggedresult	rt_load_state(t_RTstate *state)
+{
+	if (!rt_parse_file_into_state(&state->scene, state->ctx.rt_argv[1],
+			&state->ctx.rt_arena) || !rt_parse_display_size(state->ctx.rt_argc,
+			&state->ctx, (const char **)state->ctx.rt_argv)
+		|| !rt_mlx_setup(state) || !rt_alloc_imagebuffer(&state->ctx))
+		return (rt_free_state(state), KO);
+	return (OK);
+}
+
 int	main(int argc, char **argv)
 {
 	static t_RTstate	state = {0};
@@ -86,11 +97,11 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
+	state.ctx.rt_argv = argv;
+	state.ctx.rt_argc = argc;
 	if (!state.ctx.rt_arena.current)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
-	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena)
-		|| !rt_parse_display_size(argc, &state.ctx, argv[2], argv[3])
-		|| !rt_mlx_setup(&state) || !rt_alloc_imagebuffer(&state.ctx))
-		return (rt_free_state(&state), EXIT_FAILURE);
+	if (rt_load_state(&state) == KO)
+		return (EXIT_FAILURE);
 	mlx_loop(state.ctx.rt_mlx);
 }
