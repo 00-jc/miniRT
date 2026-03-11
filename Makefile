@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/10 15:33:42 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/11 01:39:43 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -86,18 +86,18 @@ mlx:
 
 $(OBJDIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
 
 $(NAME): $(OBJS) libft mlx
-	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
 
 sanitize: $(OBJS) libft mlx
-	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o miniRTSan $(SANITIZE)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o miniRTSan $(SANITIZE)
 
 debug: libft mlx
 	@$(MAKE) $(OBJS) CFLAGS="$(MARCH) $(CFLAGS_DEBUG) $(WARNS)"
 	@$(MAKE) re -C $(LIBFT_FOLDER) CFLAGS="$(MARCH) $(CFLAGS_DEBUG) $(WARNS_CLANG)"
-	@$(CC) $(CFLAGS_DEBUG) $(OBJS) $(LDFLAGS) -o miniRTdbg
+	$(CC) $(CFLAGS_DEBUG) $(OBJS) $(LDFLAGS) -o miniRTdbg
 
 clean:
 	@$(MAKE) clean -C $(LIBFT_FOLDER)
@@ -121,10 +121,10 @@ fclean: clean
 
 $(OBJDIR)/tests/%.o: tests/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g3 -c $< -o $@
 
 $(OBJDIR)/tests/%: $(OBJDIR)/tests/%.o $(COMMON_OBJS) libft mlx
-	@$(CC) $(CFLAGS) $< $(COMMON_OBJS) $(LDFLAGS) $(SANITIZE) -o $@
+	$(CC) $(CFLAGS) $< $(COMMON_OBJS) $(LDFLAGS) $(SANITIZE) -o $@
 
 test: $(TEST_BINS)
 	@for bin in $(TEST_BINS); do \
