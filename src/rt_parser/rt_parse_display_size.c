@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:24:18 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 01:53:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 02:11:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ inline t_taggedresult	rt_parse_display_size(int argc, t_RTContext *context,
 	context->display_width = ft_atoul_bounded((char *)token.mem, token.len);
 	if (t.cc != t.max)
 		return (rt_error(DISPL), KO);
-	t = ft_tokenizer_over((void *)height, ft_strlen(width));
+	t = ft_tokenizer_over((void *)height, ft_strlen(height));
 	token = ft_eat_while(&t, set_digit);
 	if (!token.len)
 		return (rt_error(DISPL), KO);
