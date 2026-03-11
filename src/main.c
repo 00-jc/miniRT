@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 02:03:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 02:05:44 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,4 @@ int	main(int argc, char **argv)
 		|| !rt_mlx_setup(&state))
 		return (rt_free_state(&state), EXIT_FAILURE);
 	mlx_loop(state.ctx.rt_mlx);
-	rt_free_state(&state);
-	return (EXIT_SUCCESS);
 }

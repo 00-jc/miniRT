@@ -6,12 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 23:43:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 02:05:31 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define XK_LATIN1
-#define XK_ENG
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
 
