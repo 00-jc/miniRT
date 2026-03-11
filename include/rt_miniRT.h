@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 02:01:37 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/11 02:02:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_RTContext
 {
 	size_t		display_width;
 	size_t		display_height;
+	void		*rt_mlx_win;
 	t_u32a		*frame_buffer;
 	t_arena		rt_arena;
 	void		*rt_mlx;
@@ -86,5 +87,8 @@ typedef struct s_RTstate
 	t_RTContext				ctx;
 	t_RTThreadPool			thread_pool;
 }	t_RTstate;
+
+void	rt_free_state(t_RTstate *state)\
+			__attribute__((__nonnull__(1)));
 
 #endif

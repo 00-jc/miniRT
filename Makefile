@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/11 01:39:43 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/11 02:01:27 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -55,6 +55,7 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_aos_to_soa_light.c\
 					src/rt_parser/rt_aos_to_soa_sphere.c\
 					src/rt_parser/rt_parse_display_size.c\
+					src/rt_mlx/rt_key_hooks.c\
 					src/rt_logger/rt_print_plane.c \
 					src/rt_logger/rt_print_cylinder.c \
 					src/rt_logger/rt_print_camera.c \

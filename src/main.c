@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 15:32:34 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 02:03:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
+#include "rt_mlx/rt_mlx.h"
 
 /*	MINIRT WORKFLOW CHART:
 	- init arena and state
@@ -35,6 +36,18 @@
 			- goto loop()
  */
 
+__attribute__((__always_inline__, __nonnull__(1)))
+static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
+{
+	state->ctx.rt_mlx_win = mlx_new_window(state->ctx.rt_mlx,
+			(int)state->ctx.display_width, (int)state->ctx.display_height,
+			(char *)"miniRT");
+	if (!state->ctx.rt_mlx_win)
+		return (rt_error("Error\nmlx window\n"), KO);
+	mlx_key_hook(state->ctx.rt_mlx_win, rt_key_hook, state);
+	return (OK);
+}
+
 __attribute__((__always_inline__))
 static inline t_RTstate	rt_init_state(void)
 {
@@ -54,8 +67,9 @@ static inline t_RTstate	rt_init_state(void)
 }
 
 __attribute__((__nonnull__(1), __always_inline__))
-static inline void	rt_free_state(t_RTstate *state)
+inline void	rt_free_state(t_RTstate *state)
 {
+	mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
 	ft_destroy_arena(&state->ctx.rt_arena);
 	free(state->ctx.rt_mlx);
 }
@@ -64,14 +78,16 @@ int	main(int argc, char **argv)
 {
 	t_RTstate	state;
 
-	if (argc != 4)
+	if (argc < 2)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
 	if (!state.ctx.rt_arena.current)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
 	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena)
-		|| !rt_parse_display_size(&state.ctx, argv[2], argv[3]))
+		|| !rt_parse_display_size(argc, &state.ctx, argv[2], argv[3])
+		|| !rt_mlx_setup(&state))
 		return (rt_free_state(&state), EXIT_FAILURE);
+	mlx_loop(state.ctx.rt_mlx);
 	rt_free_state(&state);
 	return (EXIT_SUCCESS);
 }
