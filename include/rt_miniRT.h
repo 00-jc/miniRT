@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:35:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:43:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 #  define RT_NTHREADS 16
 # endif
 
-# define KEY_W (1 << 0)
-# define KEY_A (1 << 1)
-# define KEY_S (1 << 2)
-# define KEY_D (1 << 3)
+# define KEY_W 1
+# define KEY_A 2
+# define KEY_S 4
+# define KEY_D 8
 
 /* we should be mindful of _what_ do we pass around to
  * the functions too, if we're not careful with all this
