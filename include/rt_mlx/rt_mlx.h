@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:02:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:02:15 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 00:08:10 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RT_MLX_H
 
 # define RT_MOVEMENT 0.01
-# define MOUSE_SENSITIVITY 1
+# define MOUSE_SENSITIVITY 0.05
 # include "rt_miniRT.h"
 # include <X11/keysymdef.h>
 
