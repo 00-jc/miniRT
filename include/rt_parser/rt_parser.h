@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 01:49:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:27:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@
 # define RT_AOS_PLANE		2
 # define RT_AOS_CYLINDER	3
 # define V4_CMP_OK			0xFFFFFFFFFFFFFFFFULL
-
-typedef enum e_taggedresult
-{
-	KO = 0,
-	OK = 1
-}	t_taggedresult;
 
 typedef t_taggedresult	(*t_nonuniq_parser)(t_tokenizer *t, t_vec *)\
 							__attribute__((__nonnull__(1, 2)));

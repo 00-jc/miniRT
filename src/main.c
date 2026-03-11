@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 17:20:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:36:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	main(int argc, char **argv)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
 	if (!rt_parse_file_into_state(&state.scene, argv[1], &state.ctx.rt_arena)
 		|| !rt_parse_display_size(argc, &state.ctx, argv[2], argv[3])
-		|| !rt_mlx_setup(&state))
+		|| !rt_mlx_setup(&state) || !rt_alloc_imagebuffer(&state.ctx))
 		return (rt_free_state(&state), EXIT_FAILURE);
+	rt_putimg(&state.ctx);
 	mlx_loop(state.ctx.rt_mlx);
 }
