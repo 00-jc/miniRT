@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 17:12:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:27:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	rt_key_press(int key, t_RTstate *restrict const state)
 {
 	if (key == XK_Escape)
 		(rt_free_state(state), exit(EXIT_SUCCESS));
-	state->keys |= rt_key_to_bit(key);
+	else if (key == XK_w | key == XK_a | key == XK_s | key == XK_d)
+		state->keys |= rt_key_to_bit(key);
 	return (0);
 }
 
@@ -48,15 +49,15 @@ int	rt_key_hook(t_RTstate *restrict const state)
 {
 	if (state->keys & KEY_W)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
-				(t_3dcoords){0.0, 0.0, 1.0, 0.0});
+				(t_3dcoords){0.0, 0.0, RT_MOVEMENT, 0.0});
 	else if (state->keys & KEY_A)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
-				(t_3dcoords){-1.0, 0.0, 0.0, 0.0});
+				(t_3dcoords){-RT_MOVEMENT, 0.0, 0.0, 0.0});
 	else if (state->keys & KEY_S)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
-				(t_3dcoords){0.0, 0.0, -1.0, 0.0});
+				(t_3dcoords){0.0, 0.0, -RT_MOVEMENT, 0.0});
 	else if (state->keys & KEY_D)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
-				(t_3dcoords){1.0, 0.0, 0.0, 0.0});
+				(t_3dcoords){RT_MOVEMENT, 0.0, 0.0, 0.0});
 	return (0);
 }
