@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 17:27:12 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:37:25 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define XK_LATIN1
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
+#include "rt_logger/rt_printer.h"
 
 __attribute__((const, __always_inline__))
 static inline t_u8	rt_key_to_bit(int key)
