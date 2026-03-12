@@ -6,12 +6,11 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 00:27:05 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 03:23:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
-#include "rt_logger/rt_printer.h"
 
 __attribute__((__always_inline__, __nonnull__(1)))
 inline void	rt_handle_axis_limits(t_RTstate *state)
@@ -44,13 +43,9 @@ int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 	dy = y - center_y;
 	state->scene.rt_camera.axis.x += dx * MOUSE_SENSITIVITY * 0.0055555555555;
 	state->scene.rt_camera.axis.y += dy * MOUSE_SENSITIVITY * 0.0055555555555;
-	state->ctx.scene_is_dirty = 1;
 	rt_handle_axis_limits(state);
 	mlx_mouse_move(state->ctx.rt_mlx, state->ctx.rt_mlx_win, center_x,
 		center_y);
 	state->ctx.mouse_warp = 1;
-	ft_printf("%f %f\n",
-		state->scene.rt_camera.axis.x,
-		state->scene.rt_camera.axis.y);
 	return (0);
 }

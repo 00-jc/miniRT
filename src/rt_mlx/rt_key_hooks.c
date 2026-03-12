@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 03:03:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 03:21:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 #include "rt_mlx/rt_mlx.h"
 
 __attribute__((__nonnull__(1)))
-static inline void	rt_reload(t_RTstate *state)
+inline t_taggedresult	rt_reload(t_RTstate *state)
 {
-	state->ctx.reload = 1;
+	if (!state->ctx.reload)
+		return (OK);
 	state->ctx.rt_arena.current->used = 0;
 	state->scene = (t_RTScene){0};
-	state->ctx.rewind_render = (t_arena_checkpoint){0};
-	mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
-	state->ctx.rt_mlx_win = NULL;
 	if (rt_load_state(state) == KO)
-		(exit(EXIT_FAILURE));
+		return (KO);
 	state->ctx.reload = 0;
+	return (OK);
 }
 
 __attribute__((pure, __always_inline__))
@@ -50,7 +49,7 @@ int	rt_key_press(int key, t_RTstate *restrict const state)
 	if (key == XK_Escape)
 		(rt_free_state(state), exit(EXIT_SUCCESS));
 	if (key == XK_r)
-		rt_reload(state);
+		state->ctx.reload = 1;
 	state->keys |= rt_key_to_bit(key);
 	return (0);
 }

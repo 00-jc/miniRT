@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:02:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:08:10 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 03:13:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@
 # include "rt_miniRT.h"
 # include <X11/keysymdef.h>
 
-int	rt_key_hook(t_RTstate *state)\
-	__attribute__((__nonnull__(1)));
+int				rt_key_hook(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
 
-int	rt_key_press(int key, t_RTstate *restrict const state)\
-	__attribute__((__nonnull__(2)));
+int				rt_key_press(int key, t_RTstate *restrict const state)\
+					__attribute__((__nonnull__(2)));
 
-int	rt_key_release(int key, t_RTstate *restrict const state)\
-	__attribute__((__nonnull__(2)));
+int				rt_key_release(int key, t_RTstate *restrict const state)\
+					__attribute__((__nonnull__(2)));
 
-int	rt_handle_mouse_move(int x, int y, t_RTstate *state)\
-	__attribute__((__nonnull__(3)));
+int				rt_handle_mouse_move(int x, int y, t_RTstate *state)\
+					__attribute__((__nonnull__(3)));
+
+t_taggedresult	rt_reload(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
 
 #endif
