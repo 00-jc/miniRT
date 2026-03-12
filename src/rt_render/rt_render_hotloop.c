@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 03:22:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 03:46:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	rt_render_hotloop(t_RTstate *state)
 		(rt_free_state(state), exit(EXIT_FAILURE));
 	if (state->ctx.scene_redraw)
 	{
+		ft_arena_rewind(&state->ctx.rt_arena, state->ctx.rewind_render);
 		rt_putimg(&state->ctx);
 	}
-	return (0);
+	return ((int)(state->ctx.scene_redraw = 0));
 }
