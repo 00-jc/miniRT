@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 02:29:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 03:03:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void	rt_destroy_old_img(t_RTstate *state)
 }
 
 __attribute__((__nonnull__(1), hot))
-int		rt_render_hotloop(t_RTstate *state)
+int	rt_render_hotloop(t_RTstate *state)
 {
 	if (state->ctx.scene_is_dirty)
 	{
@@ -39,8 +39,7 @@ int		rt_render_hotloop(t_RTstate *state)
 	}
 	if (state->ctx.scene_redraw)
 	{
-
+		rt_putimg(&state->ctx);
 	}
-	rt_putimg(&state->ctx);
 	return ((int)(state->ctx.scene_is_dirty = 0));
 }

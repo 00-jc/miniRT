@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 02:40:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 03:03:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
 #include "rt_mlx/rt_mlx.h"
-#include "rt_logger/rt_printer.h"
 
 __attribute__((__always_inline__, __nonnull__(1)))
 inline t_taggedresult	rt_mlx_setup(t_RTstate *state)

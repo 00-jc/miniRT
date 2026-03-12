@@ -6,16 +6,16 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 02:42:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 03:03:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define XK_LATIN1
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
-#include "rt_logger/rt_printer.h"
 
-static inline void rt_reload(t_RTstate *state)
+__attribute__((__nonnull__(1)))
+static inline void	rt_reload(t_RTstate *state)
 {
 	state->ctx.reload = 1;
 	state->ctx.rt_arena.current->used = 0;
