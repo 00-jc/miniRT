@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 02:27:41 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 02:42:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 static inline void rt_reload(t_RTstate *state)
 {
+	state->ctx.reload = 1;
 	state->ctx.rt_arena.current->used = 0;
 	state->scene = (t_RTScene){0};
 	state->ctx.rewind_render = (t_arena_checkpoint){0};
@@ -24,6 +25,7 @@ static inline void rt_reload(t_RTstate *state)
 	state->ctx.rt_mlx_win = NULL;
 	if (rt_load_state(state) == KO)
 		(exit(EXIT_FAILURE));
+	state->ctx.reload = 0;
 }
 
 __attribute__((pure, __always_inline__))
