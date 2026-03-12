@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/12 03:32:37 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/12 22:55:37 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -59,6 +59,11 @@ SRCS			:=	src/main.c\
 					src/rt_mlx/rt_mouse_hooks.c\
 					src/rt_render/rt_render.c\
 					src/rt_render/rt_render_hotloop.c\
+					src/rt_render/rt_camera_ray.c \
+					src/rt_render/rt_render_cylinder.c \
+					src/rt_render/rt_render_sphere.c \
+					src/rt_render/rt_render_frame.c \
+					src/rt_render/rt_render_plane.c \
 					src/rt_logger/rt_print_plane.c \
 					src/rt_logger/rt_print_cylinder.c \
 					src/rt_logger/rt_print_camera.c \

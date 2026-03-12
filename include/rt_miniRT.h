@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 03:17:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 23:41:34 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_MINIRT_H
 # define RT_MINIRT_H
 
-# include "rt_render/rt_render.h"
+# include "rt_render/rt_render_types.h"
 # include "alloc.h"
 # include "types.h"
 # include "rt_sphere.h"
@@ -120,5 +120,11 @@ int				rt_render_hotloop(t_RTstate *state)\
 
 t_taggedresult	rt_load_state(t_RTstate *state)\
 					__attribute__((__nonnull__(1)));
+
+/* 
+ * only way i know how to solve the fucking circular deps for now,
+ * yes, i know its wrong, and yes, i kknow norm doesnt like it.
+ * */
+# include "rt_render/rt_render.h"
 
 #endif

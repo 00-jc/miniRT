@@ -6,11 +6,11 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:44:16 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:53:21 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_render/rt_render.h"
+#include "rt_miniRT.h"
 #include "rt_parser/rt_parser.h"
 
 __attribute__((__nonnull__(1), __always_inline__))

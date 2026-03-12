@@ -6,11 +6,10 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 18:27:01 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 22:53:35 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_render/rt_render.h"
 #include "rt_mlx/rt_mlx.h"
 #include "rt_miniRT.h"
 
