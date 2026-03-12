@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 12:54:30 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:55:12 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static inline t_u8	rt_key_to_bit(int key)
 	return (bits[key]);
 }
 
-#include "io.h"
 __attribute__((__nonnull__(2), hot))
 int	rt_key_press(int key, t_RTstate *restrict const state)
 {
