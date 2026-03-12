@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 03:23:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:45:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 	mlx_mouse_move(state->ctx.rt_mlx, state->ctx.rt_mlx_win, center_x,
 		center_y);
 	state->ctx.mouse_warp = 1;
+	state->ctx.scene_redraw = 1;
 	return (0);
 }

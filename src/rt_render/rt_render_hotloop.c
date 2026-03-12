@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:28:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:48:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_render/rt_render.h"
 #include "rt_miniRT.h"
 
-__attribute__((__nonnull__(1)))
+__attribute__((__nonnull__(1), __always_inline__, hot))
 static inline t_taggedresult	rt_reload(t_RTstate *state)
 {
 	if (!state->ctx.reload)
@@ -29,9 +29,10 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 		|| !rt_alloc_imagebuffer(&state->ctx))
 		return (KO);
 	state->ctx.reload = 0;
-	state->ctx.scene_redraw = 1;
 	return (OK);
 }
+
+// TODO: RENDER BETWEEN REWIND AND PUTIMG.
 
 __attribute__((__nonnull__(1), hot))
 int	rt_render_hotloop(t_RTstate *state)

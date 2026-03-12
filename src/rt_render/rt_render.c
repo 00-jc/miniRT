@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 03:46:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:44:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 	img->size_line = img->image->bytes_per_line;
 	img->bpp = img->image->bits_per_pixel;
 	ctx->rewind_render = ft_arena_checkpoint(&ctx->rt_arena);
+	ctx->scene_redraw = 1;
 	return ((void)(ctx->rt_img = img), OK);
 }
 
