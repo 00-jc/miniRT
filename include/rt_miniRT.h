@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:40:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 01:14:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,8 @@ void			rt_putimg(t_RTContext *ctx)\
 
 int				rt_render_hotloop(t_RTstate *state)\
 					__attribute__((__nonnull__(1), hot));
+
+t_taggedresult	rt_load_state(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
 
 #endif

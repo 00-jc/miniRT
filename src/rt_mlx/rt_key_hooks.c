@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:40:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 01:49:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,23 @@
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
 
-__attribute__((const, __always_inline__))
+static inline void rt_reload(t_RTstate *state)
+{
+    state->ctx.rt_img->image->data = NULL;
+    XDestroyImage(state->ctx.rt_img->image);
+    XFreePixmap(((t_xvar *)state->ctx.rt_mlx)->display,
+        state->ctx.rt_img->pix);
+	state->ctx.rt_img = NULL;
+	state->ctx.rt_arena.current->used = 0;
+	state->scene = (t_RTScene){0};
+	state->ctx.rewind_render = (t_arena_checkpoint){0};
+	mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
+	state->ctx.rt_mlx_win = NULL;
+	if (rt_load_state(state) == KO)
+		(exit(EXIT_FAILURE));
+}
+
+__attribute__((pure, __always_inline__))
 static inline t_u8	rt_key_to_bit(int key)
 {
 	static const t_u8	bits[] = {
@@ -35,6 +51,8 @@ int	rt_key_press(int key, t_RTstate *restrict const state)
 	state->ctx.scene_redraw = 1;
 	if (key == XK_Escape)
 		(rt_free_state(state), exit(EXIT_SUCCESS));
+	if (key == XK_r)
+		rt_reload(state);
 	state->keys |= rt_key_to_bit(key);
 	return (0);
 }
