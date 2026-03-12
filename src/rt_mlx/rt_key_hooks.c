@@ -6,33 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 03:47:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:26:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define XK_LATIN1
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
-
-__attribute__((__nonnull__(1)))
-inline t_taggedresult	rt_reload(t_RTstate *state)
-{
-	if (!state->ctx.reload)
-		return (OK);
-	state->ctx.rt_arena.current->used = 0;
-	state->scene = (t_RTScene){0};
-	state->ctx.rt_img->image->data = NULL;
-	XDestroyImage(state->ctx.rt_img->image);
-	XFreePixmap(((t_xvar *)state->ctx.rt_mlx)->display,
-		state->ctx.rt_img->pix);
-	state->ctx.rt_img = NULL;
-	if (rt_load_state(state) == KO
-		|| !rt_alloc_imagebuffer(&state->ctx))
-		return (KO);
-	state->ctx.reload = 0;
-	state->ctx.scene_redraw = 1;
-	return (OK);
-}
 
 __attribute__((pure, __always_inline__))
 static inline t_u8	rt_key_to_bit(int key)
