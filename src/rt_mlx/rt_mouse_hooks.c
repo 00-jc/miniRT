@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 11:52:26 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:53:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 	dx = x - center_x;
 	dy = y - center_y;
 	state->scene.rt_camera.axis.x += dx * MOUSE_SENSITIVITY * 0.0055555555555;
-	state->scene.rt_camera.axis.y += dy * MOUSE_SENSITIVITY * 0.0055555555555;
+	state->scene.rt_camera.axis.y -= dy * MOUSE_SENSITIVITY * 0.0055555555555;
 	rt_handle_axis_limits(state);
 	mlx_mouse_move(state->ctx.rt_mlx, state->ctx.rt_mlx_win, center_x,
 		center_y);

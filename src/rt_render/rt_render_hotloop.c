@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:48:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:21:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_render/rt_render.h"
+#include "rt_mlx/rt_mlx.h"
 #include "rt_miniRT.h"
 
 __attribute__((__nonnull__(1), __always_inline__, hot))
@@ -37,6 +38,7 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 __attribute__((__nonnull__(1), hot))
 int	rt_render_hotloop(t_RTstate *state)
 {
+	rt_key_hook(state);
 	if (rt_reload(state) == KO)
 		(rt_free_state(state), exit(EXIT_FAILURE));
 	if (state->ctx.scene_redraw)

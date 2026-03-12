@@ -6,13 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:54:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 12:54:30 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define XK_LATIN1
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
+#include "private/ft_p_math.h"
 
 __attribute__((pure, __always_inline__, hot))
 static inline t_u8	rt_key_to_bit(int key)
@@ -29,7 +30,8 @@ static inline t_u8	rt_key_to_bit(int key)
 	return (bits[key]);
 }
 
-__attribute__((__nonnull__(2)))
+#include "io.h"
+__attribute__((__nonnull__(2), hot))
 int	rt_key_press(int key, t_RTstate *restrict const state)
 {
 	state->ctx.scene_redraw = 1;
@@ -48,6 +50,31 @@ int	rt_key_release(int key, t_RTstate *restrict const state)
 	return (0);
 }
 
+__attribute__((__nonnull__(1), hot, __always_inline__))
+inline int	rt_key_hook(t_RTstate *restrict const state)
+{
+	t_v4da				final;
+	t_v4da				fw;
+	t_v4da				right;
+	t_3dcoords			tmp;
+
+	tmp = ft_3dunit(state->scene.rt_camera.axis);
+	fw = *(const t_v4da *)&tmp * RT_MOVEMENT;
+	tmp = ft_3dunit(ft_3dcross(state->scene.rt_camera.axis,
+			(t_3dcoords){0, 1, 0, 0}));
+	right = *(const t_v4da *) & tmp * RT_MOVEMENT;
+	final = (*(const t_v4da * restrict
+				const) & state->scene.rt_camera.coords)
+		+ (((state->keys & KEY_W) != 0) * fw)
+		+ (((state->keys & KEY_A) != 0) * -right)
+		+ (((state->keys & KEY_S) != 0) * -fw)
+		+ (((state->keys & KEY_D) != 0) * right);
+	state->scene.rt_camera.coords = *(const t_3dcoords * restrict
+			const) & final;
+	return (0);
+}
+
+/*
 __attribute__((__nonnull__(1), hot))
 int	rt_key_hook(t_RTstate *restrict const state)
 {
@@ -65,3 +92,4 @@ int	rt_key_hook(t_RTstate *restrict const state)
 				(t_3dcoords){RT_MOVEMENT, 0.0, 0.0, 0.0});
 	return (0);
 }
+*/
