@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:36:33 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/12 02:13:03 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct s_RTContext
 	void				*rt_mlx;
 	t_u8				mouse_warp;
 	t_u32a				scene_is_dirty;
+	t_u32a				scene_redraw;
+	char				**rt_argv;
+	int					rt_argc;
 	t_arena_checkpoint	rewind_render;
 }	t_RTContext;
 
@@ -114,5 +117,8 @@ void			rt_putimg(t_RTContext *ctx)\
 
 int				rt_render_hotloop(t_RTstate *state)\
 					__attribute__((__nonnull__(1), hot));
+
+t_taggedresult	rt_load_state(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
 
 #endif
