@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 12:53:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 13:09:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ inline void	rt_handle_axis_limits(t_RTstate *state)
 	state->scene.rt_camera.axis.x += ((state->scene.rt_camera.axis.x > 1.0)
 			* -2.0) + ((state->scene.rt_camera.axis.x < -1.0) * 2.0);
 	state->scene.rt_camera.axis.y = (state->scene.rt_camera.axis.y > 1.0) * 1.0
-		+ (state->scene.rt_camera.axis.y < -1.0) * -1.0
-		+ (state->scene.rt_camera.axis.y >= -1.0
+		+ (state->scene.rt_camera.axis.y < -0.9999999) * -0.999999
+		+ (state->scene.rt_camera.axis.y >= -0.9999999
 			&& state->scene.rt_camera.axis.y <= 1.0)
 		* state->scene.rt_camera.axis.y;
 }

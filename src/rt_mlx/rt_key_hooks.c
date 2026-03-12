@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 12:55:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 13:07:28 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ inline int	rt_key_hook(t_RTstate *restrict const state)
 	t_v4da				right;
 	t_3dcoords			tmp;
 
-	tmp = ft_3dunit(state->scene.rt_camera.axis);
+	tmp = state->scene.rt_camera.axis;
+	tmp = (t_3dcoords){tmp.x, 0, tmp.z, 0};
+	tmp = ft_3dunit(tmp);
 	fw = *(const t_v4da *)&tmp * RT_MOVEMENT;
 	tmp = ft_3dunit(ft_3dcross(state->scene.rt_camera.axis,
 				(t_3dcoords){0, 1, 0, 0}));
