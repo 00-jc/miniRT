@@ -6,13 +6,13 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 11:45:07 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:52:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
 
-__attribute__((__always_inline__, __nonnull__(1)))
+__attribute__((__always_inline__, __nonnull__(1), hot))
 inline void	rt_handle_axis_limits(t_RTstate *state)
 {
 	state->scene.rt_camera.axis.x += ((state->scene.rt_camera.axis.x > 1.0)
@@ -24,8 +24,8 @@ inline void	rt_handle_axis_limits(t_RTstate *state)
 		* state->scene.rt_camera.axis.y;
 }
 
-__attribute__((__always_inline__, __nonnull__(3)))
-int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
+__attribute__((__always_inline__, __nonnull__(3), hot))
+inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 {
 	int	center_x;
 	int	center_y;

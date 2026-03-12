@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:26:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:54:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define XK_MISCELLANY
 #include "rt_mlx/rt_mlx.h"
 
-__attribute__((pure, __always_inline__))
+__attribute__((pure, __always_inline__, hot))
 static inline t_u8	rt_key_to_bit(int key)
 {
 	static const t_u8	bits[] = {
@@ -41,26 +41,26 @@ int	rt_key_press(int key, t_RTstate *restrict const state)
 	return (0);
 }
 
-__attribute__((__nonnull__(2)))
+__attribute__((__nonnull__(2), hot))
 int	rt_key_release(int key, t_RTstate *restrict const state)
 {
 	state->keys &= ~rt_key_to_bit(key);
 	return (0);
 }
 
-__attribute__((__nonnull__(1)))
+__attribute__((__nonnull__(1), hot))
 int	rt_key_hook(t_RTstate *restrict const state)
 {
 	if (state->keys & KEY_W)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
 				(t_3dcoords){0.0, 0.0, RT_MOVEMENT, 0.0});
-	else if (state->keys & KEY_A)
+	if (state->keys & KEY_A)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
 				(t_3dcoords){-RT_MOVEMENT, 0.0, 0.0, 0.0});
-	else if (state->keys & KEY_S)
+	if (state->keys & KEY_S)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
 				(t_3dcoords){0.0, 0.0, -RT_MOVEMENT, 0.0});
-	else if (state->keys & KEY_D)
+	if (state->keys & KEY_D)
 		state->scene.rt_camera.coords = ft_3dadd(state->scene.rt_camera.coords,
 				(t_3dcoords){RT_MOVEMENT, 0.0, 0.0, 0.0});
 	return (0);
