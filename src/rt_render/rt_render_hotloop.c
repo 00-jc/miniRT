@@ -6,16 +6,15 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 11:26:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/12 11:28:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hint.h"
+#include "rt_render/rt_render.h"
 #include "rt_miniRT.h"
-#include "rt_mlx/rt_mlx.h"
 
 __attribute__((__nonnull__(1)))
-inline t_taggedresult	rt_reload(t_RTstate *state)
+static inline t_taggedresult	rt_reload(t_RTstate *state)
 {
 	if (!state->ctx.reload)
 		return (OK);
