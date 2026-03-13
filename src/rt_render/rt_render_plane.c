@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 23:28:35 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 02:56:35 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ inline double	rt_intersect_plane(t_RTRay ray, size_t i,
 	t = ft_3ddot(oc, buf->axis[i]) / denom;
 	if (t < 0)
 		return (-1.0);
+	if (t > 1e4)
+		return (-1.0);
 	return (t);
 }
 
@@ -53,7 +55,7 @@ inline void	rt_cast_planes(t_RTRay ray, t_RTScene *scene,
 			hit->color = scene->rt_plane_buffer.color[i];
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-			hit->normal = scene->rt_plane_buffer.axis[i];
+			hit->normal = scene->rt_plane_buffer.axis[1];
 		}
 		i++;
 	}
