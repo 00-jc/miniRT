@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 15:47:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:19:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 	double	closest;
 
 	ray = rt_camera_ray(x, y, scene, vp);
-	closest = 1e4;
+	closest = (t_dp){.i = 0x7FF0000000000000}.f;
 	hit.t = -1;
 	rt_cast_spheres(ray, scene, &hit, &closest);
 	rt_cast_planes(ray, scene, &hit, &closest);
