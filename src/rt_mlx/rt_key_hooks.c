@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 13:07:28 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 02:47:22 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	rt_key_release(int key, t_RTstate *restrict const state)
 	state->keys &= ~rt_key_to_bit(key);
 	return (0);
 }
-
+/*
 __attribute__((__nonnull__(1), hot, __always_inline__))
 inline int	rt_key_hook(t_RTstate *restrict const state)
 {
@@ -74,8 +74,8 @@ inline int	rt_key_hook(t_RTstate *restrict const state)
 			const) & final;
 	return (0);
 }
+*/
 
-/*
 __attribute__((__nonnull__(1), hot))
 int	rt_key_hook(t_RTstate *restrict const state)
 {
@@ -93,4 +93,3 @@ int	rt_key_hook(t_RTstate *restrict const state)
 				(t_3dcoords){RT_MOVEMENT, 0.0, 0.0, 0.0});
 	return (0);
 }
-*/

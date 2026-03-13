@@ -6,25 +6,28 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 23:33:43 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 03:18:10 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
+
+extern double	tan(double x);
 
 /*
  * no shading yet, it can be injected by replacing hit.color by
  * rt_shading() in the future :)
 */
-__attribute__((__always_inline__, __nonnull__(3, 4), hot))
-static inline t_u32a	rt_cast_ray(size_t x, size_t y,
-		t_RTContext *ctx, t_RTScene *scene)
+__attribute__((__always_inline__, __nonnull__(3), hot))
+static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
+		t_RTViewport vp)
 {
 	t_RTRay	ray;
 	t_RTHit	hit;
 	double	closest;
 
-	ray = rt_camera_ray(x, y, ctx, scene);
+	ray = rt_camera_ray(x, y, scene, vp);
 	closest = 1e9;
 	hit.t = -1;
 	rt_cast_spheres(ray, scene, &hit, &closest);
@@ -40,7 +43,12 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 {
 	size_t	x;
 	size_t	y;
+	t_RTViewport	vp;
 
+	vp.scale = tan((double)scene->rt_camera.fov * 0.5 * RT_PI / 180.0);
+	vp.aspect = (double)ctx->display_width / (double)ctx->display_height;
+	vp.width = ctx->display_width;
+	vp.height = ctx->display_height;
 	y = 0;
 	while (y < ctx->display_height)
 	{
@@ -48,7 +56,7 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 		while (x < ctx->display_width)
 		{
 			ctx->rt_img->data[y * ctx->display_width + x]
-				= rt_cast_ray(x, y, ctx, scene);
+				= rt_cast_ray(x, y, scene, vp);
 			x++;
 		}
 		y++;
