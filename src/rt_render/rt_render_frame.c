@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 16:19:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:25:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 	{
 		*px++ = rt_cast_ray(x++, y, scene, &ctx->vp);
 		y = (((x == ctx->display_width) * (y + 1))
-			| ((x != ctx->display_width) * y));
+				| ((x != ctx->display_width) * y));
 		x = (((size_t)(x == ctx->display_width) * 0)
-			| ((x != ctx->display_width) * x));
+				| ((x != ctx->display_width) * x));
 	}
 }

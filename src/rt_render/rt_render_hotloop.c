@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:11:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:24:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static inline void	rt_init_vp(t_RTstate *state)
 		init = 1;
 	}
 }
-#include "io.h"
+
 __attribute__((__nonnull__(1), __always_inline__, hot))
 static inline t_taggedresult	rt_reload(t_RTstate *state)
 {
