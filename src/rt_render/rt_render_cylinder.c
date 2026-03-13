@@ -6,11 +6,12 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/12 23:31:01 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 17:22:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
 
 __attribute__((__always_inline__, pure))
 inline t_3dcoords	rt_cylinder_abc(t_RTRay ray, size_t i,

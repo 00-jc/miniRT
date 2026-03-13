@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 03:55:08 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 17:21:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
 
 /*
 ** ray-plane intersection:
@@ -55,7 +56,7 @@ inline void	rt_cast_planes(t_RTRay ray, t_RTScene *scene,
 			hit->color = scene->rt_plane_buffer.color[i];
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-			hit->normal = scene->rt_plane_buffer.axis[1];
+			hit->normal = scene->rt_plane_buffer.axis[i];
 		}
 		i++;
 	}

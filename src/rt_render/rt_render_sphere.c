@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 03:48:11 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 17:21:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
 
 __attribute__((__always_inline__))
 inline double	rt_intersect_sphere(t_RTRay ray, size_t i,
