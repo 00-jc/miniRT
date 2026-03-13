@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 17:21:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:32:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ inline double	rt_intersect_sphere(t_RTRay ray, size_t i,
 	disc = b * b - 4.0 * c;
 	if (disc < 0)
 		return (-1.0);
-	disc = disc * ft_drsqrt(disc);
-	if ((-b - disc) * 0.5 > 0)
-		return ((-b - disc) * 0.5);
-	return ((-b + disc) * 0.5);
+	disc *= ft_drsqrt(disc);
+	return ((((-b - disc) * 0.5 > 0) * ((-b - disc) * 0.5))
+		+ ((-b - disc) * 0.5 <= 0) * ((-b + disc) * 0.5));
 }
 
 __attribute__((__always_inline__))
