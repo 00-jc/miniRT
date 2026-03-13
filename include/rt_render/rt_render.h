@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 03:36:49 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 03:41:13 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_RTViewport
 {
 	double		scale;
 	double		aspect;
+	double		inv_width;
+	double		inv_height;
 	size_t		width;
 	size_t		height;
 	t_3dcoords	right;
