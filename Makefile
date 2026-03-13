@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/12 22:55:37 by asoria           ###   ########.fr        #
+#    Updated: 2026/03/13 16:02:20 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -30,7 +30,7 @@ WARNS			:=	-Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedan
 					-Wwrite-strings -Wold-style-definition -Wuninitialized -Wloop-analysis -Wpointer-arith \
 					-Wcomma -Wover-aligned -Wmissing-prototypes -Wunused -Wtautological-compare -Wunreachable-code -Wvla
 MARCH			:=	-march=native
-CFLAGS_BASE		:=	-O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
+CFLAGS_BASE		:=	-flto -O3 -pipe -ffunction-sections -fdata-sections -fvectorize -finline-functions \
 					-fvisibility=hidden -fstack-protector-strong -fcf-protection=full -ftrivial-auto-var-init=zero \
 					-fno-common -fstack-clash-protection -g3
 CFLAGS_DEBUG	:=	-O0 -pipe -ffunction-sections -fdata-sections -finline-functions \
