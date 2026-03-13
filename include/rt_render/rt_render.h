@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 03:41:13 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 15:19:17 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,14 @@
 # include <sys/ipc.h>
 # include <X11/XKBlib.h>
 
-typedef struct s_RTViewport
-{
-	double		scale;
-	double		aspect;
-	double		inv_width;
-	double		inv_height;
-	size_t		width;
-	size_t		height;
-	t_3dcoords	right;
-	t_3dcoords	up;
-	t_3dcoords	forward;
-}	t_RTViewport;
-
 /* frame pipeline */
 
-void		rt_render_frame(t_RTContext *ctx, t_RTScene *scene) \
-__attribute__((__nonnull__(1, 2), __hot__));
+void		rt_render_frame(t_RTContext *ctx, t_RTScene *scene)\
+				__attribute__((__nonnull__(1, 2), __hot__));
 
-t_RTRay		rt_camera_ray(size_t x, size_t y, t_RTScene *scene,
-				t_RTViewport vp) \
-__attribute__((__nonnull__(3), hot));
+t_RTRay		rt_camera_ray(size_t x, size_t y, t_RTScene *scene,\
+				t_RTViewport *vp) \
+				__attribute__((__nonnull__(3, 4), hot));
 
 /* per-geometry cast functions */
 

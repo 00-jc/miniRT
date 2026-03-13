@@ -6,12 +6,35 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 22:53:35 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 15:53:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
 #include "rt_miniRT.h"
+#include "math.h"
+
+extern double	tan(double x);
+
+__attribute__((__nonnull__(1), __always_inline__, hot))
+static inline void	rt_init_vp(t_RTstate *state)
+{
+	static t_u8		init = 0;
+
+	if (!init || state->ctx.reload)
+	{
+		state->ctx.vp.scale = tan((double)state->scene.rt_camera.fov
+				* (0.0027777777 * RT_PI));
+		state->ctx.vp.aspect = (double)state->ctx.display_width
+			/ (double)state->ctx.display_height;
+		state->ctx.vp.width = state->ctx.display_width;
+		state->ctx.vp.height = state->ctx.display_height;
+		state->ctx.vp.inv_width = 1 / (double)state->ctx.display_width;
+		state->ctx.vp.inv_height = 1 / (double)state->ctx.display_height;
+		state->ctx.reload = 0;
+		init = 1;
+	}
+}
 
 __attribute__((__nonnull__(1), __always_inline__, hot))
 static inline t_taggedresult	rt_reload(t_RTstate *state)
@@ -28,13 +51,13 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 	if (rt_load_state(state) == KO
 		|| !rt_alloc_imagebuffer(&state->ctx))
 		return (KO);
-	state->ctx.reload = 0;
 	return (OK);
 }
 
 __attribute__((__nonnull__(1), hot))
 int	rt_render_hotloop(t_RTstate *state)
 {
+	rt_init_vp(state);
 	rt_key_hook(state);
 	if (rt_reload(state) == KO)
 		(rt_free_state(state), exit(EXIT_FAILURE));

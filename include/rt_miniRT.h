@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 23:41:34 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 15:34:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_RTContext
 	size_t				display_width;
 	size_t				display_height;
 	size_t				buffersize;
+	size_t				pix_num;
 	void				*rt_mlx_win;
 	t_RTImg				*rt_img;
 	t_arena				rt_arena;
@@ -89,6 +90,7 @@ typedef struct s_RTContext
 	char				**rt_argv;
 	int					rt_argc;
 	t_arena_checkpoint	rewind_render;
+	t_RTViewport		vp;
 }	t_RTContext;
 
 /* cold, only lives in main */

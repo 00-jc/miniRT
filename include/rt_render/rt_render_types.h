@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 22:52:06 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 15:19:15 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,18 @@ typedef struct s_RTHit
 	double		t;
 	t_u32a		color;
 }	t_RTHit;
+
+typedef struct s_RTViewport
+{
+	double		scale;
+	double		aspect;
+	double		inv_width;
+	double		inv_height;
+	size_t		width;
+	size_t		height;
+	t_3dcoords	right;
+	t_3dcoords	up;
+	t_3dcoords	forward;
+}	t_RTViewport;
 
 #endif
