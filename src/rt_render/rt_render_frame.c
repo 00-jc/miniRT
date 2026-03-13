@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 03:18:10 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 03:35:04 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 __attribute__((__nonnull__(1, 2), __hot__))
 void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 {
-	size_t	x;
-	size_t	y;
+	size_t			x;
+	size_t			y;
 	t_RTViewport	vp;
 
 	vp.scale = tan((double)scene->rt_camera.fov * 0.5 * RT_PI / 180.0);
 	vp.aspect = (double)ctx->display_width / (double)ctx->display_height;
 	vp.width = ctx->display_width;
 	vp.height = ctx->display_height;
+	vp.right = ft_3dunit(ft_3dcross(scene->rt_camera.axis,
+				(t_3dcoords){0, 1, 0, 0}));
+	vp.up = ft_3dunit(ft_3dcross(vp.right, scene->rt_camera.axis));
+	vp.forward = scene->rt_camera.axis;
 	y = 0;
 	while (y < ctx->display_height)
 	{
