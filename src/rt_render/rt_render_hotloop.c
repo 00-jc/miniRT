@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:48:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:58:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "rt_render/rt_render.h"
 #include "rt_miniRT.h"
 #include "math.h"
+#include <sys/time.h>
 
 extern double	tan(double x);
 
@@ -70,3 +71,28 @@ int	rt_render_hotloop(t_RTstate *state)
 	}
 	return ((int)(state->ctx.scene_redraw = 0));
 }
+
+
+/*
+__attribute__((__nonnull__(1), __always_inline__, hot))
+inline void	rt_printfps(t_RTstate *state)
+{
+	struct timeval	start;
+	struct timeval	end;
+    long			seconds;
+    long			useconds;
+    double			mtime;
+
+	gettimeofday(&start, null);
+	ft_arena_rewind(&state->ctx.rt_arena, state->ctx.rewind_render);
+	rt_render_frame(&state->ctx, &state->scene);
+	rt_putimg(&state->ctx);
+	gettimeofday(&end, null);
+	seconds  = end.tv_sec  - start.tv_sec;
+	useconds = end.tv_usec - start.tv_usec;
+	mtime = ((double)seconds * 1000.0)
+		+ ((double)useconds * 0.001);
+	if (mtime > 0)
+		ft_printf("fps: %f | frame time: %fms\r", 1000.0 / mtime, mtime);
+}
+*/
