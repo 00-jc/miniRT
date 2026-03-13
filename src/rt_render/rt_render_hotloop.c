@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:24:52 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:48:03 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
+#include "rt_render/rt_render.h"
 #include "rt_miniRT.h"
 #include "math.h"
 

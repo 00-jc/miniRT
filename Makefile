@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/13 16:02:20 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/13 16:53:19 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -57,6 +57,7 @@ SRCS			:=	src/main.c\
 					src/rt_parser/rt_parse_display_size.c\
 					src/rt_mlx/rt_key_hooks.c\
 					src/rt_mlx/rt_mouse_hooks.c\
+					src/rt_mlx/rt_killprocess.c\
 					src/rt_render/rt_render.c\
 					src/rt_render/rt_render_hotloop.c\
 					src/rt_render/rt_camera_ray.c \

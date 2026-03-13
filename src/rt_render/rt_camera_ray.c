@@ -6,11 +6,12 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:07:47 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 15:13:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:48:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
 
 /*
 * builds a normalised ray direction given pre-computed viewport offsets nx/ny

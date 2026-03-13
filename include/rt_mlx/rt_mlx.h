@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:02:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 04:13:30 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/13 16:46:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ int				rt_key_release(int key, t_RTstate *restrict const state)\
 int				rt_handle_mouse_move(int x, int y, t_RTstate *state)\
 					__attribute__((__nonnull__(3)));
 
+int				rt_killprocess(t_RTstate *state)\
+					__attribute__((noreturn, cold, __nonnull__(1)));
 #endif
