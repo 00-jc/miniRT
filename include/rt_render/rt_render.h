@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 15:19:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:25:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		rt_render_frame(t_RTContext *ctx, t_RTScene *scene)\
 				__attribute__((__nonnull__(1, 2), __hot__));
 
 t_RTRay		rt_camera_ray(size_t x, size_t y, t_RTScene *scene,\
-				t_RTViewport *vp) \
+				t_RTViewport *vp)\
 				__attribute__((__nonnull__(3, 4), hot));
 
 /* per-geometry cast functions */

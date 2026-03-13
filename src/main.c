@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:44:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:24:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 			(char *)"miniRT");
 	if (!state->ctx.rt_mlx_win)
 		return (rt_error("Error\nmlx window\n"), KO);
-	mlx_hook(state->ctx.rt_mlx_win, KeyPress, KeyPressMask, rt_key_press, state);
-	mlx_hook(state->ctx.rt_mlx_win, KeyRelease, KeyReleaseMask, rt_key_release, state);
-	mlx_hook(state->ctx.rt_mlx_win, DestroyNotify, NoEventMask, rt_killprocess, state);
-	mlx_hook(state->ctx.rt_mlx_win, MotionNotify, PointerMotionMask, rt_handle_mouse_move,
-		state);
+	mlx_hook(state->ctx.rt_mlx_win, KeyPress,
+		KeyPressMask, rt_key_press, state);
+	mlx_hook(state->ctx.rt_mlx_win, KeyRelease,
+		KeyReleaseMask, rt_key_release, state);
+	mlx_hook(state->ctx.rt_mlx_win, DestroyNotify,
+		NoEventMask, rt_killprocess, state);
+	mlx_hook(state->ctx.rt_mlx_win, MotionNotify,
+		PointerMotionMask, rt_handle_mouse_move, state);
 	mlx_loop_hook(state->ctx.rt_mlx, rt_render_hotloop, state);
 	return (OK);
 }
