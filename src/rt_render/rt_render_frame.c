@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 16:25:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:49:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 	size_t		y;
 
 	ctx->vp.right = ft_3dunit(ft_3dcross(scene->rt_camera.axis,
-				(t_3dcoords){0, 1, 0, 0}));
+		(t_3dcoords){0, 1, 0, 0}));
 	ctx->vp.up = ft_3dunit(ft_3dcross(ctx->vp.right, scene->rt_camera.axis));
 	ctx->vp.forward = scene->rt_camera.axis;
 	px = ctx->rt_img->data;

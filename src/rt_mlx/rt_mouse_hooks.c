@@ -6,31 +6,36 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/13 02:48:35 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/14 01:46:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
+#include "rt_render/rt_render.h"
 
 __attribute__((__always_inline__, __nonnull__(1), hot))
 inline void	rt_handle_axis_limits(t_RTstate *state)
 {
-	state->scene.rt_camera.axis.x += ((state->scene.rt_camera.axis.x > 1.0)
-			* -2.0) + ((state->scene.rt_camera.axis.x < -1.0) * 2.0);
-	state->scene.rt_camera.axis.y = (state->scene.rt_camera.axis.y > 1.0) * 1.0
-		+ (state->scene.rt_camera.axis.y < -0.9999999) * -0.999999
-		+ (state->scene.rt_camera.axis.y >= -0.9999999
-			&& state->scene.rt_camera.axis.y <= 1.0)
-		* state->scene.rt_camera.axis.y;
+	t_RTCamera	*cam;
+
+	cam = &state->scene.rt_camera;
+	cam->yaw += (cam->yaw > RT_PI) * (-2.0 * RT_PI)
+		+ (cam->yaw < -RT_PI) * (2.0 * RT_PI);
+	cam->pitch = (cam->pitch > 1.5707) * 1.5707
+		+ (cam->pitch < -1.5707) * -1.5707
+		+ (cam->pitch >= -1.5707 && cam->pitch <= 1.5707) * cam->pitch;
+	cam->axis.x = cos(cam->pitch) * sin(cam->yaw);
+	cam->axis.y = sin(cam->pitch);
+	cam->axis.z = cos(cam->pitch) * cos(cam->yaw);
 }
 
 __attribute__((__always_inline__, __nonnull__(3), hot))
 inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 {
-	int	center_x;
-	int	center_y;
-	int	dx;
-	int	dy;
+	double	center_x;
+	double	center_y;
+	double	dx;
+	double	dy;
 
 	if (state->ctx.mouse_warp)
 	{
@@ -41,11 +46,11 @@ inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 	center_y = state->ctx.display_height * 0.5;
 	dx = x - center_x;
 	dy = y - center_y;
-	state->scene.rt_camera.axis.z += dx * MOUSE_SENSITIVITY;
-	state->scene.rt_camera.axis.y -= dy * MOUSE_SENSITIVITY;
+	state->scene.rt_camera.yaw -= dx * MOUSE_SENSITIVITY;
+	state->scene.rt_camera.pitch -= dy * MOUSE_SENSITIVITY;
 	rt_handle_axis_limits(state);
-	mlx_mouse_move(state->ctx.rt_mlx, state->ctx.rt_mlx_win, center_x,
-		center_y);
+	mlx_mouse_move(state->ctx.rt_mlx, state->ctx.rt_mlx_win, (int)center_x,
+		(int)center_y);
 	state->ctx.mouse_warp = 1;
 	state->ctx.scene_redraw = 1;
 	return (0);

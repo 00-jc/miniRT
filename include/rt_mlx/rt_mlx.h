@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:02:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:46:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:35:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define RT_MLX_H
 
 # define RT_MOVEMENT 0.001
-# define MOUSE_SENSITIVITY 0.00003
+# define MOUSE_SENSITIVITY 2e-5
 # include "rt_miniRT.h"
 # include <X11/keysymdef.h>
+
+extern double	sin(double a);
+extern double	cos(double a);
 
 int				rt_key_hook(t_RTstate *state)\
 					__attribute__((__nonnull__(1)));
