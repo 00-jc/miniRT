@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 02:33:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 19:33:16 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static inline void	rt_inner(t_RTContext *ctx, t_RTScene *scene,
 	x = *xy[0];
 	y = *xy[1];
 	*px = rt_cast_ray(x++, y, scene, &ctx->vp);
-    *xy[1] = (((x == ctx->display_width) * (y + 1))
-            | ((x != ctx->display_width) * y));
-    *xy[0] = (((size_t)(x == ctx->display_width) * 0)
-            | ((x != ctx->display_width) * x));
+	*xy[1] = (((x == ctx->display_width) * (y + 1))
+			| ((x != ctx->display_width) * y));
+	*xy[0] = (((size_t)(x == ctx->display_width) * 0)
+			| ((x != ctx->display_width) * x));
 }
 
 __attribute__((__nonnull__(1, 2, 3, 4), __hot__, __always_inline__))
