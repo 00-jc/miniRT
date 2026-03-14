@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 01:46:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:52:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ inline void	rt_handle_axis_limits(t_RTstate *state)
 	cam->pitch = (cam->pitch > 1.5707) * 1.5707
 		+ (cam->pitch < -1.5707) * -1.5707
 		+ (cam->pitch >= -1.5707 && cam->pitch <= 1.5707) * cam->pitch;
-	cam->axis.x = cos(cam->pitch) * sin(cam->yaw);
-	cam->axis.y = sin(cam->pitch);
-	cam->axis.z = cos(cam->pitch) * cos(cam->yaw);
+	cam->axis.x = __builtin_cos(cam->pitch) * __builtin_sin(cam->yaw);
+	cam->axis.y = __builtin_sin(cam->pitch);
+	cam->axis.z = __builtin_cos(cam->pitch) * __builtin_cos(cam->yaw);
 }
 
 __attribute__((__always_inline__, __nonnull__(3), hot))
