@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/14 02:07:27 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/14 20:29:36 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -19,7 +19,7 @@ CC_GCC			:=	gcc
 MLX_FOLDER		:=	minilibx-linux
 INCLUDES		:=	-Iinclude -I$(LIBFT_FOLDER)/include -I$(MLX_FOLDER)
 LIBPATHS		:=  -L$(LIBFT_FOLDER) -L$(MLX_FOLDER)
-LDFLAGS			:=	-Wl,--gc-sections -Wl,-O3 -Wl,-z,now $(LIBPATHS) -lft -lmlx -lXext -lX11 -lm
+LDFLAGS			:=	-fuse-ld=lld -Wl,--gc-sections -Wl,-O3 -Wl,-z,now $(LIBPATHS) -lft -lmlx -lXext -lX11 -lm
 WARNS			:=	-Wall -Wextra -Werror -Wshadow -Wattributes -fstrict-aliasing -Wpedantic -std=c99 \
 					-Waddress -Wambiguous-ellipsis -Wambiguous-macro -Wassume -Wpessimizing-move \
 					-Wgnu-union-cast -Wlanguage-extension-token -Wgnu-statement-expression-from-macro-expansion \
