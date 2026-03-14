@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:08:09 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 19:40:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 20:33:37 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ inline t_3dcoordsx8	rt_coordbroadcast(t_3dcoords c)
 }
 
 __attribute__((__always_inline__, __nonnull__(1), pure, hot))
-inline t_RTPacket	rt_render_packet(t_RTScene *scene, t_RTContext *ctx,
+inline t_RTPacket	rt_packet_ray(t_RTScene *scene, t_RTContext *ctx,
 	size_t x, size_t y)
 {
 	t_RTPacket		packet;
