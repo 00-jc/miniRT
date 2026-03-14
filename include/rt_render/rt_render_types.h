@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 15:19:15 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:59:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <X11/Xutil.h>
 # include <sys/shm.h>
 # include <X11/extensions/XShm.h>
+
+# define RT_PACKETSIZE 8
 
 typedef struct s_RTImg
 {
@@ -50,6 +52,17 @@ typedef struct s_RTHit
 	double		t;
 	t_u32a		color;
 }	t_RTHit;
+
+typedef struct s_RTPacket
+{
+	t_3dcoordsx8	origin;
+	t_3dcoordsx8	dir;
+	t_3dcoordsx8	hit_points;
+	t_3dcoordsx8	hit_normal;
+	t_8packd		hit_t;
+	t_u32a			hit_color[RT_PACKETSIZE];
+	t_u8			hit_regs;
+}	t_RTPacket;
 
 typedef struct s_RTViewport
 {
