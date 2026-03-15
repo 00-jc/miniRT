@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 02:05:45 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:07:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static inline t_RTstate	rt_init_state(void)
 	mlx = mlx_init();
 	if (!mlx)
 		return (ft_destroy_arena(&arena), state);
-	state = (t_RTstate){.ctx.rt_arena = arena, .ctx.rt_mlx = mlx};
+	state = (t_RTstate){.ctx.rt_arena = arena, .ctx.rt_mlx = mlx,
+		.ctx.rewind_render = ft_arena_checkpoint(&arena)};
 	return (state);
 }
 
