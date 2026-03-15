@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 16:10:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:38:50 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	rt_key_release(int key, t_RTstate *restrict const state)
 	return (0);
 }
 
-__attribute__((__nonnull__(1), hot, __always_inline__))
-inline int	rt_key_hook(t_RTstate *restrict const state)
+__attribute__((__nonnull__(1), hot))
+int	rt_key_hook(t_RTstate *restrict const state)
 {
 	t_v4da				final;
 	t_v4da				fw;
