@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 13:57:51 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:52:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -16,7 +16,7 @@ __attribute__((__always_inline__, __nonnull__(3, 4), hot))
 static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 		t_RTViewport *vp)
 {
-	static const t_3dcoords	m1 = (t_3dcoords){-1.0, -1.0, -1.0, 0.0};
+	const t_3dcoords		m1 = (t_3dcoords){-1.0, -1.0, -1.0, 0.0};
 	t_RTRay					ray;
 	t_RTHit					hit;
 	double					closest;
@@ -91,7 +91,7 @@ static inline void	rt_inner8(t_RTContext *ctx, t_RTScene *scene,
 __attribute__((__nonnull__(1, 2), __hot__))
 void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 {
-	static const t_3dcoords	yax = (t_3dcoords){0, 1, 0, 0};
+	const t_3dcoords		yax = (t_3dcoords){0, 1, 0, 0};
 	t_u32a					*px;
 	t_u32a					*end[2];
 	size_t					x;

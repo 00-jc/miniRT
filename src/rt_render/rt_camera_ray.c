@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:07:47 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 18:42:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:47:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 * scale and aspect come precomputed via t_RTViewport
 */
 
-__attribute__((__nonnull__(3, 4), hot))
+__attribute__((pure, __nonnull__(3, 4), hot))
 t_RTRay	rt_camera_ray(size_t x, size_t y, t_RTScene *scene, t_RTViewport *vp)
 {
 	t_3dcoords	dir;

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 20:56:10 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 01:42:12 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/15 18:52:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,5 @@ void	rt_print_camera(t_RTCamera *cam)\
 
 void	rt_print_aos(t_vec aos[4], t_RTScene *scene)\
 			__attribute__((__nonnull__(1, 2)));
-
-void	rt_print_soa(t_RTScene *scene)\
-			__attribute__((__nonnull__(1)));
 
 #endif

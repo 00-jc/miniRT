@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/15 18:31:44 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/15 18:52:45 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,6 +151,7 @@ ifeq ($(findstring clang,$(CC_ID)),clang)
   WARNS    := $(WARNS_CLANG)
   LDLTO    := -fuse-ld=lld
 else
+  CC	   := gcc
   WARNS    := $(WARNS_GCC)
   LDLTO    :=
 endif

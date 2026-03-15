@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 13:54:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:47:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,58 @@
 # include "types.h"
 # include "math.h"
 # include "mlx.h"
-# include "mlx_int.h"
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
 # include <sys/shm.h>
 # include <X11/extensions/XShm.h>
-
+# define MLX_TYPE_XIMAGE 1
+# define MLX_MAX_EVENT LASTEvent
 # define RT_PACKETSIZE 8
 
 typedef __attribute__((vector_size(32), aligned(1), __may_alias__)) t_u32a\
 																	t_colorlane;
+
+typedef struct	s_event_list
+{
+	int		mask;
+	int		(*hook)();
+	void	*param;
+}				t_event_list;
+
+typedef struct	s_win_list
+{
+	Window				window;
+	GC					gc;
+	struct s_win_list	*next;
+	int					(*mouse_hook)();
+	int					(*key_hook)();
+	int					(*expose_hook)();
+	void				*mouse_param;
+	void				*key_param;
+	void				*expose_param;
+	t_event_list		hooks[MLX_MAX_EVENT];
+}				t_win_list;
+
+typedef struct	s_xvar
+{
+	Display		*display;
+	Window		root;
+	int			screen;
+	int			depth;
+	Visual		*visual;
+	Colormap	cmap;
+	int			private_cmap;
+	t_win_list	*win_list;
+	int			(*loop_hook)();
+	void		*loop_param;
+	int			use_xshm;
+	int			pshm_format;
+	int			do_flush;
+	int			decrgb[6];
+	Atom		wm_delete_window;
+	Atom		wm_protocols;
+	int 		end_loop;
+}				t_xvar;
 
 typedef struct s_RTImg
 {

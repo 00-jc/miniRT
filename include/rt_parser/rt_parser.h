@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 00:37:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:46:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_unsigned_res
 	size_t			u;
 }	t_unsigned_res;
 
-t_u32a			rt_parse_file_into_state(t_RTScene *state, char *fname,\
+t_taggedresult	rt_parse_file_into_state(t_RTScene *state, char *fname,\
 					t_arena *arena)\
 					__attribute__((__nonnull__(1, 2, 3)));
 

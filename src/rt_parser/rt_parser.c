@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/12 01:36:01 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:45:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
 		label = ft_to_be16(*(const t_u16 * restrict const)token.mem);
 	else
 		return (rt_error(UNREC), KO);
-	if (label == RT_CAMERA | label == RT_AMBIENT)
+	if ((label == RT_CAMERA) | (label == RT_AMBIENT))
 		return (rt_handle_uniq(scene, t, label));
-	if (label != RT_LIGHT & label != RT_SPHERE & label != RT_CYLINDER
-		& label != RT_PLANE)
+	if ((label != RT_LIGHT) & (label != RT_SPHERE) & (label != RT_CYLINDER)
+		& (label != RT_PLANE))
 		return (rt_error(UNREC), KO);
 	vecidx = ((label == RT_SPHERE) * RT_AOS_SPHERE)
 		| ((label == RT_LIGHT) * RT_AOS_LIGHT)
