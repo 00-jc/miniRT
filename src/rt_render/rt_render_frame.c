@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 06:01:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 13:57:51 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -49,18 +49,43 @@ static inline void	rt_inner(t_RTContext *ctx, t_RTScene *scene,
 	*xy[0] = ~mask & x;
 }
 
+__attribute__((__nonnull__(1), __always_inline__))
+static inline void	rt__px(size_t *xy[2], size_t dw)
+{
+	size_t	mask;
+	size_t	x;
+	size_t	y;
+
+	x = *xy[0];
+	y = *xy[1];
+	mask = -(++x == dw);
+	*xy[1] = (mask & (y + 1)) | (~mask & y);
+	*xy[0] = ~mask & x;
+}
+
 __attribute__((__nonnull__(1, 2, 3, 4), __hot__, __always_inline__))
 static inline void	rt_inner8(t_RTContext *ctx, t_RTScene *scene,
 	size_t *xy[2], t_u32a *px)
 {
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
-	rt_inner(ctx, scene, xy, px++);
+	t_colorlane		lane;
+
+	lane[0] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[1] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[2] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[3] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[4] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[5] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[6] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	lane[7] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	rt__px(xy, ctx->display_width);
+	*(t_colorlane * restrict const)px = lane;
 }
 
 __attribute__((__nonnull__(1, 2), __hot__))

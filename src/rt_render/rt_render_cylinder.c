@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 07:11:39 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:01:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ inline double	rt_intersect_cylinder(t_RTRay ray, size_t i,
 	if (t > 0)
 		return (t);
 	return (rt_check_cap_t(ray, i, buf,
-				(-abc.y + disc) * prelude));
+			(-abc.y + disc) * prelude));
 }
 
 __attribute__((__always_inline__))

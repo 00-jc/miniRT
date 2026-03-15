@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 21:42:38 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/15 13:54:00 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <X11/extensions/XShm.h>
 
 # define RT_PACKETSIZE 8
+
+typedef __attribute__((vector_size(32), aligned(1), __may_alias__)) t_u32a\
+																	t_colorlane;
 
 typedef struct s_RTImg
 {
