@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_shading.c                                       :+:      :+:    :+:   */
+/*   rt_shade_lights.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 02:05:07 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/15 03:04:19 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
 #include "rt_render/rt_render.h"
 
-extern double	pow(double x, double y);
-
 /*
 * rgb[0 - 2] diffuse light, will be mult by color
 * rgb[3 - 5] specular light added directly no color
 */
-
 __attribute__((__always_inline__))
 static inline double	rt_specular(t_RTHit *hit, t_3dcoords ld,
 	double brightness)
@@ -34,7 +31,12 @@ static inline double	rt_specular(t_RTHit *hit, t_3dcoords ld,
 	spec_dot = ft_3ddot(reflect, hit->view_dir);
 	if (spec_dot < 0)
 		spec_dot = 0;
-	return (pow(spec_dot, RT_SHININESS) * brightness);
+	spec_dot *= spec_dot;
+	spec_dot *= spec_dot;
+	spec_dot *= spec_dot;
+	spec_dot *= spec_dot;
+	spec_dot *= spec_dot;
+	return (spec_dot * brightness);
 }
 
 // weird constant is inverse of 255 all bit stuff are biutmasks
