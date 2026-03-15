@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/15 16:31:05 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/15 16:40:49 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -280,7 +280,7 @@ $(OBJDIR)/thirdparty/%.o: minilibx-linux/%.c
 	$(CC) $(MLX_CFLAGS) -c $< -o $@
 
 $(NAME): $(ALL_OBJS) libft
-	$(CC) $(CFLAGS) $(ALL_OBJS) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(ALL_OBJS) $(LDFLAGS) -Wl,-s -o $@
 
 # ── Convenience ──────────────────────────────────────────────────────────────
 sanitize: $(ALL_OBJS) libft
