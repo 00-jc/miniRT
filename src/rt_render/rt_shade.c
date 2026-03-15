@@ -6,28 +6,32 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 21:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 02:09:47 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/15 03:45:49 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
 #include "rt_render/rt_render.h"
 
-static void	rt_shade_ambient(t_RTAmbientLight *amb, double *rgb)
+__attribute__((__always_inline__))
+inline void	rt_shade_ambient(t_RTAmbientLight *amb, double *rgb)
 {
 	rgb[0] += ((amb->color >> 16) & 0xFF) * INV_255 * amb->brightness;
 	rgb[1] += ((amb->color >> 8) & 0xFF) * INV_255 * amb->brightness;
 	rgb[2] += (amb->color & 0xFF) * INV_255 * amb->brightness;
 }
 
-static t_u32a	rt_pack_color(double r, double g, double b)
+__attribute__((__always_inline__))
+inline t_u32a	rt_pack_color(double r, double g, double b)
 {
 	return (((t_u32a)(r * 255) << 16)
 		| ((t_u32a)(g * 255) << 8) | (t_u32a)(b * 255));
 }
 
 // non specular
-t_u32a	rt_shade(t_RTHit *hit, t_RTScene *scene)
+
+__attribute__((__always_inline__, __nonnull__(1, 2)))
+inline t_u32a	rt_shade(t_RTHit *hit, t_RTScene *scene)
 {
 	double	rgb[6];
 	double	sr;

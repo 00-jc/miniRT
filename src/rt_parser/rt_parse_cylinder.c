@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 03:19:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 04:06:47 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)
 	a = rt_parse_coords(t);
 	if (a.res == KO)
 		return (KO);
+	a.coord = ft_3dunit(a.coord);
 	if (!rt__ensure_normalized(a.coord))
 		return (rt_error(NNORM), KO);
 	wh[0] = rt_parse_double(t);
-	if (wh[0].res == KO)
-		return (KO);
 	wh[1] = rt_parse_double(t);
-	if (wh[1].res == KO)
+	if (wh[0].res == KO || wh[1].res == KO)
 		return (KO);
 	c = rt_parse_color(t);
 	if (c.res == KO)
