@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/15 16:40:49 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/15 18:31:44 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,8 +138,7 @@ CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
 	-fcf-protection=full -ftrivial-auto-var-init=zero -fno-common              \
 	-fstack-clash-protection -g3
 
-CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -flto -O3 -fno-math-errno               \
-	-fvectorize -ffast-math
+CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -flto -O3 -fno-math-errno  -ffast-math
 CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT) -O0
 
 SANITIZE     := -fsanitize=address,alignment,undefined -fsanitize-recover=null
@@ -237,6 +236,7 @@ SRCS_THIRDPARTY := \
 	minilibx-linux/mlx_string_put.c \
 	minilibx-linux/mlx_xpm.c
 
+MINIRT_SRCS := $(SRCS_RENDER) $(SRCS_PARSER) $(SRCS_MLX) $(SRCS_LOGGER)
 MLX_OBJS := $(patsubst minilibx-linux/%.c,$(OBJDIR)/thirdparty/%.o,$(SRCS_THIRDPARTY))
 
 # ── Aggregate ─────────────────────────────────────────────────────────────────
@@ -308,15 +308,15 @@ re: fclean all
 # ── Static analysis (our code only, not third-party) ────────────────────────
 static_analysis:
 	$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
-		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS))
+		-Xclang -analyzer-output=text --analyze $(MINIRT_SRCS)
 	$(SCANNER) $(CC_CLANG) $(WARNS_CLANG) $(CFLAGS_OPT) $(INCLUDES) \
-		-Xclang -analyzer-output=text --analyze $(filter %.c,$(SRCS))
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
-		-fanalyzer $(filter %.c,$(SRCS)) -c && rm -f *.o
-	$(CC_GCC) $(WARNS_GCC) $(CFLAGS_OPT) $(INCLUDES) \
-		-fanalyzer $(filter %.c,$(SRCS)) -c && rm -f *.o
+		-Xclang -analyzer-output=text --analyze  $(MINIRT_SRCS)
+	$(CC_GCC) $(CFLAGS_OPT) $(MARCH) $(INCLUDES) \
+		-fanalyzer $(MINIRT_SRCS) -c && rm -f *.o
+	$(CC_GCC) $(CFLAGS_OPT) $(INCLUDES) \
+		-fanalyzer $(MINIRT_SRCS) -c && rm -f *.o
 	norminette src/ include/ tests/ $(LIBFT_FOLDER)
-
+# GCC has no warns bc it fails in the mlx header
 # ── Tests ────────────────────────────────────────────────────────────────────
 $(OBJDIR)/tests/%.o: tests/%.c
 	@mkdir -p $(dir $@)

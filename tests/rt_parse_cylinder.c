@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 03:09:35 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:21:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "hint.h"
 #include "io.h"
 
+#define EPSILON 1e-6
 #define CY_HAPPY       "0.0,0.0,-10.0 0.0,1.0,0.0 5.0 20.0 255,255,255"
 #define CY_BAD_COORDS  "0.0,0.00.0 0.0,1.0,0.0 5.0 20.0 255,255,255"
 #define CY_AXIS_OVER   "0.0,0.0,0.0 0.0,1.1,0.0 5.0 20.0 255,255,255"
@@ -84,6 +85,7 @@ void	test_cylinder_parse_value(void)
 	t_tokenizer		t;
 	t_vec			cyls;
 	t_RTCylinder	*cy;
+	t_3dcoords		norm;
 
 	cyls = ft_vec_new(4, sizeof(t_RTCylinder));
 	t = ft_tokenizer_over((char *)CY_VAL,
@@ -92,13 +94,14 @@ void	test_cylinder_parse_value(void)
 		(char *)MSG_VAL);
 	cy = (t_RTCylinder *)ft_vec_get(&cyls, 0,
 			sizeof(t_RTCylinder));
+	norm = ft_3dunit((t_3dcoords){0.0, 1.0, 0.0, 0.0});
 	ft_pin_invariant_msg(cy != NULL, (char *)"VEC NULL");
 	ft_pin_invariant_msg(cy->coords.x == 10.0
 		&& cy->coords.y == 20.0
 		&& cy->coords.z == 30.0
-		&& cy->axis.y == 1.0
-		&& cy->wh.x == 4.2
-		&& cy->wh.y == 8.4
+		&& ft_fabs(cy->axis.y - norm.y) < EPSILON
+		&& ft_fabs(cy->wh.x - 4.2) < EPSILON
+		&& ft_fabs(cy->wh.y - 8.4) < EPSILON
 		&& (cy->color & 0xFF0000) == 0x0A0000
 		&& (cy->color & 0x00FF00) == 0x001400
 		&& (cy->color & 0x0000FF) == 0x00001E,
