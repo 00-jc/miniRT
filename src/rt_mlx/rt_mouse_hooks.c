@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 01:52:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:45:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 		state->ctx.mouse_warp = 0;
 		return (0);
 	}
-	center_x = state->ctx.display_width * 0.5;
-	center_y = state->ctx.display_height * 0.5;
+	center_x = (double)state->ctx.display_width * 0.5;
+	center_y = (double)state->ctx.display_height * 0.5;
 	dx = x - center_x;
 	dy = y - center_y;
 	state->scene.rt_camera.yaw -= dx * MOUSE_SENSITIVITY;

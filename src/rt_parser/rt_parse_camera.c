@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:56:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/07 18:30:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 15:45:29 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam)
 	if (fov.u > 180)
 		return (rt_error(OOR, fov.u, 0ULL, 180ULL), KO);
 	*cam = (t_RTCamera){.coords = coords.coord, .axis = vector.coord,
-		.fov = fov.u, .is_init = 1};
+		.fov = (t_u8)fov.u, .is_init = 1};
 	return (OK);
 }
