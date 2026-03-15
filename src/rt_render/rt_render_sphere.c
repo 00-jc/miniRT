@@ -6,33 +6,41 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/13 17:32:47 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 07:07:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include <stdbool.h>
 #include "rt_render/rt_render.h"
+
+#define R_B 0
+#define R_C 1
+#define R_D 2
+#define R_R 3
 
 __attribute__((__always_inline__))
 inline double	rt_intersect_sphere(t_RTRay ray, size_t i,
 		t_RTSphereBuffer *buf)
 {
 	t_3dcoords	oc;
-	double		b;
-	double		c;
-	double		disc;
-	double		radius;
+	double		v[4];
+	double		near;
+	double		far;
 
-	radius = buf->diameter[i] * 0.5;
+	v[R_R] = buf->diameter[i] * 0.5;
 	oc = ft_3dsub(ray.origin, buf->coords[i]);
-	b = 2.0 * ft_3ddot(oc, ray.dir);
-	c = ft_3ddot(oc, oc) - radius * radius;
-	disc = b * b - 4.0 * c;
-	if (disc < 0)
+	v[R_B] = 2.0 * ft_3ddot(oc, ray.dir);
+	v[R_C] = ft_3ddot(oc, oc) - v[R_R] * v[R_R];
+	v[R_D] = v[R_B] * v[R_B] - 4.0 * v[R_C];
+	if (v[R_D] < 0)
 		return (-1.0);
-	disc *= ft_drsqrt(disc);
-	return ((((-b - disc) * 0.5 > 0) * ((-b - disc) * 0.5))
-		+ ((-b - disc) * 0.5 <= 0) * ((-b + disc) * 0.5));
+	v[R_D] *= ft_drsqrt(v[R_D]);
+	near = (-v[R_B] - v[R_D]) * 0.5;
+	far = (-v[R_B] + v[R_D]) * 0.5;
+	if (near > 0)
+		return (near);
+	return (far);
 }
 
 __attribute__((__always_inline__))

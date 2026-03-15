@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 00:30:25 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 07:11:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ inline double	rt_intersect_cylinder(t_RTRay ray, size_t i,
 	t_3dcoords	abc;
 	double		disc;
 	double		t;
+	double		prelude;
 
 	abc = rt_cylinder_abc(ray, i, buf);
 	if (abc.x < 1e-6)
@@ -70,10 +71,13 @@ inline double	rt_intersect_cylinder(t_RTRay ray, size_t i,
 	if (disc < 0)
 		return (-1.0);
 	disc = ft_dsqrt(disc);
+	prelude = 1 / (2.0 * abc.x);
 	t = rt_check_cap_t(ray, i, buf,
-			(-abc.y - disc) / (2.0 * abc.x));
-	return (((t > 0) * t) + ((t < 0) * rt_check_cap_t(ray, i, buf,
-				(-abc.y + disc) / (2.0 * abc.x))));
+			(-abc.y - disc) * prelude);
+	if (t > 0)
+		return (t);
+	return (rt_check_cap_t(ray, i, buf,
+				(-abc.y + disc) * prelude));
 }
 
 __attribute__((__always_inline__))
