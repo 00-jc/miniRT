@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 16:59:14 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 21:42:38 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_RTHit
 {
 	t_3dcoords	point;
 	t_3dcoords	normal;
+	t_3dcoords	view_dir;
 	double		t;
 	t_u32a		color;
 }	t_RTHit;

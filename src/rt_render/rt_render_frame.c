@@ -6,17 +6,12 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/14 19:33:16 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/14 22:41:52 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "rt_miniRT.h"
 #include "rt_render/rt_render.h"
 
-/*
- * no shading yet, it can be injected by replacing hit.color by
- * rt_shading() in the future :)
-*/
 __attribute__((__always_inline__, __nonnull__(3, 4), hot))
 static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 		t_RTViewport *vp)
@@ -33,7 +28,8 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 	rt_cast_cylinders(ray, scene, &hit, &closest);
 	if (hit.t < 0)
 		return (0x000000);
-	return (hit.color);
+	hit.view_dir = ft_3dmul(ray.dir, (t_3dcoords){-1.0, -1.0, -1.0, 0.0});
+	return (rt_shade(&hit, scene));
 }
 
 __attribute__((__nonnull__(1, 2, 3, 4), __hot__, __always_inline__))

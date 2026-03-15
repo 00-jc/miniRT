@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/14 20:29:36 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/15 02:08:26 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #
@@ -65,6 +65,8 @@ SRCS			:=	src/main.c\
 					src/rt_render/rt_render_sphere.c \
 					src/rt_render/rt_render_frame.c \
 					src/rt_render/rt_render_plane.c \
+					src/rt_render/rt_shade.c \
+					src/rt_render/rt_shade_lights.c \
 					src/rt_logger/rt_print_plane.c \
 					src/rt_logger/rt_print_cylinder.c \
 					src/rt_logger/rt_print_camera.c \

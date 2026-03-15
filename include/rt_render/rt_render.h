@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 15:52:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 02:05:32 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define RT_RENDER_H
 
 # define RT_PI 3.14159265
+# define RT_SHININESS 32
+# define INV_255 0.003921569
 # include "rt_render/rt_render_types.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -43,5 +45,11 @@ __attribute__((__nonnull__(2, 3, 4), hot));
 void		rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 				t_RTHit *hit, double *closest) \
 __attribute__((__nonnull__(2, 3, 4), hot));
+
+void		rt_shade_lights(t_RTHit *hit, t_RTScene *scene, double *rgb)\
+				__attribute__((__nonnull__(1, 2, 3)));
+
+t_u32a		rt_shade(t_RTHit *hit, t_RTScene *scene)\
+__attribute__((__nonnull__(1, 2)));
 
 #endif
