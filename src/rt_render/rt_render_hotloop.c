@@ -6,18 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 16:35:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/15 18:37:19 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_mlx/rt_mlx.h"
 #include "rt_render/rt_render.h"
 #include "rt_miniRT.h"
-#include "math.h"
-#include "io.h"
 #include <sys/time.h>
-
-extern double	tan(double x);
 
 __attribute__((__nonnull__(1), __always_inline__, hot))
 static inline void	rt_init_vp(t_RTstate *state)
@@ -26,7 +22,7 @@ static inline void	rt_init_vp(t_RTstate *state)
 
 	if (!init || state->ctx.reload)
 	{
-		state->ctx.vp.scale = tan((double)state->scene.rt_camera.fov
+		state->ctx.vp.scale = __builtin_tan((double)state->scene.rt_camera.fov
 				* (0.0027777777 * RT_PI));
 		state->ctx.vp.aspect = (double)state->ctx.display_width
 			/ (double)state->ctx.display_height;
