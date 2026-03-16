@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:08:28 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 18:46:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 17:53:18 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ static inline t_u8	rt_key_to_bit(int key)
 	[XK_a] = KEY_A,
 	[XK_s] = KEY_S,
 	[XK_d] = KEY_D,
+	[XK_space] = KEY_UP,
 	};
 
+	if (key == XK_Shift_L)
+		return (KEY_DOWN);
 	if ((key < 0) | ((size_t)key >= sizeof(bits) / sizeof(*bits)))
 		return (0);
 	return (bits[key]);
@@ -55,6 +58,7 @@ int	rt_key_hook(t_RTstate *restrict const state)
 	t_v4da				final;
 	t_v4da				fw;
 	t_v4da				right;
+	t_v4da				up;
 	t_3dcoords			tmp;
 
 	tmp = state->scene.rt_camera.axis;
@@ -64,12 +68,15 @@ int	rt_key_hook(t_RTstate *restrict const state)
 	tmp = ft_3dunit(ft_3dcross(state->scene.rt_camera.axis,
 				(t_3dcoords){0, 1, 0, 0}));
 	right = *(const t_v4da *) & tmp * RT_MOVEMENT;
+	up = (t_v4da){0, RT_MOVEMENT, 0, 0};
 	final = (*(const t_v4da * restrict
 				const) & state->scene.rt_camera.coords)
 		+ (((state->keys & KEY_W) != 0) * fw)
 		+ (((state->keys & KEY_A) != 0) * -right)
 		+ (((state->keys & KEY_S) != 0) * -fw)
-		+ (((state->keys & KEY_D) != 0) * right);
+		+ (((state->keys & KEY_D) != 0) * right)
+		+ (((state->keys & KEY_UP) != 0) * up)
+		+ (((state->keys & KEY_DOWN) != 0) * -up);
 	state->scene.rt_camera.coords = *(const t_3dcoords * restrict
 			const) & final;
 	return (0);

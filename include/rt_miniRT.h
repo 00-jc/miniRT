@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 15:01:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 17:41:13 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define KEY_A 2
 # define KEY_S 4
 # define KEY_D 8
+# define KEY_UP 16
+# define KEY_DOWN 32
 
 /* we should be mindful of _what_ do we pass around to
  * the functions too, if we're not careful with all this

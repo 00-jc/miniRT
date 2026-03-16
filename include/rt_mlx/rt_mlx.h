@@ -6,15 +6,15 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 16:02:11 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 15:39:52 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/16 17:55:32 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_MLX_H
 # define RT_MLX_H
 
-# define RT_MOVEMENT 1
-# define MOUSE_SENSITIVITY 8e-5
+# define RT_MOVEMENT 0.6
+# define MOUSE_SENSITIVITY 2e-4
 # include "rt_miniRT.h"
 # include <X11/keysymdef.h>
 
