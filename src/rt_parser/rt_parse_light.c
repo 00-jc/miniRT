@@ -6,15 +6,16 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/07 02:58:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:51:24 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
 
-__attribute__((__nonnull__(1, 2)))
-t_taggedresult	rt_parse_light(t_tokenizer *t, t_vec *light_vec)
+__attribute__((__nonnull__(1, 2 ,3)))
+t_taggedresult	rt_parse_light(__attribute__((unused)) t_RTContext *ctx,
+	t_tokenizer *t, t_vec *light_vec)
 {
 	t_coord_result	coords;
 	t_double_res	brightness;

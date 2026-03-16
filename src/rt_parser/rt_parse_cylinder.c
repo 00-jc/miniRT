@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 18:14:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:44:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static inline t_u32a	rt__ensure_normalized(t_3dcoords axis)
 		&& vec4.i[2] == V4_CMP_OK);
 }
 
+__attribute__((__always_inline__, const))
 static inline t_RTCylinder	rt__cy(t_3dcoords coords, t_3dcoords axis,
 	t_2packd wh, t_u32a color)
 {
@@ -37,13 +38,27 @@ static inline t_RTCylinder	rt__cy(t_3dcoords coords, t_3dcoords axis,
 	});
 }
 
+__attribute__((__nonnull__(1, 2, 3)))
+static inline t_taggedresult	rt_try_path_cy(t_RTContext *ctx, t_tokenizer *t,
+	t_RTCylinder *cy)
+{
+	t_RTTexture	*tx;
+
+	tx = rt_parse_path(ctx, t);
+	if ((t_uptr)tx == BMP_ERROR)
+		return (KO);
+	cy->tx = tx;
+	return (OK);
+}
+
 /*
  *	There was no way to fit this in 25 lines without the
  *	1-char names, sorry.
  */
 
-__attribute__((__nonnull__(1, 2)))
-t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)
+__attribute__((__nonnull__(1, 2, 3)))
+t_taggedresult	rt_parse_cylinder(t_RTContext *ctx,
+	t_tokenizer *t, t_vec *cy_vec)
 {
 	t_coord_result	co;
 	t_coord_result	a;
@@ -65,7 +80,7 @@ t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)
 	if (wh[0].res == KO || wh[1].res == KO)
 		return (KO);
 	c = rt_parse_color(t);
-	if (c.res == KO)
+	if (c.res == KO || rt_try_path_cy(ctx, t, &cy) == KO)
 		return (KO);
 	cy = rt__cy(co.coord, a.coord, (t_2packd){wh[0].d, wh[1].d}, c.color);
 	return (ft_vec_push_back(cy_vec, (void *){&cy}, sizeof(cy)));

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:32:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:55:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static inline t_taggedresult	rt_handle_uniq(t_RTScene *scene,
 }
 
 __attribute__((__nonnull__(1, 2, 3), __always_inline__))
-static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
+static inline t_taggedresult	rt_handle_label(t_RTstate *state,
 	t_vec aos[4], t_tokenizer *t, t_token token)
 {
 	t_u16a	label;
@@ -51,7 +51,7 @@ static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
 	else
 		return (rt_error(UNREC), KO);
 	if ((label == RT_CAMERA) | (label == RT_AMBIENT))
-		return (rt_handle_uniq(scene, t, label));
+		return (rt_handle_uniq(&state->scene, t, label));
 	if ((label != RT_LIGHT) & (label != RT_SPHERE) & (label != RT_CYLINDER)
 		& (label != RT_PLANE))
 		return (rt_error(UNREC), KO);
@@ -60,13 +60,13 @@ static inline t_taggedresult	rt_handle_label(t_RTScene *scene,
 		| ((label == RT_PLANE) * RT_AOS_PLANE)
 		| ((label == RT_CYLINDER) * RT_AOS_CYLINDER);
 	label = label % RT_PERFECT_HASH;
-	if (rt_get_nonuniq_label(label)(t, aos + vecidx) == KO)
+	if (rt_get_nonuniq_label(label)(&state->ctx, t, aos + vecidx) == KO)
 		return (KO);
 	return (OK);
 }
 
 __attribute__((__nonnull__(1, 2)))
-static inline t_taggedresult	ft_parse_scene(t_RTScene *scene,
+static inline t_taggedresult	ft_parse_scene(t_RTstate *state,
 	t_vec aos[4], t_file file)
 {
 	t_tokenizer	tokenizer;
@@ -77,16 +77,16 @@ static inline t_taggedresult	ft_parse_scene(t_RTScene *scene,
 	{
 		ft_skip_whitespace(&tokenizer);
 		token = ft_eat_until(&tokenizer, set_blank);
-		if (rt_handle_label(scene, aos, &tokenizer, token) == KO)
+		if (rt_handle_label(state, aos, &tokenizer, token) == KO)
 			return (KO);
 	}
-	if (!scene->rt_camera.is_init || !scene->rt_ambient.is_init)
+	if (!state->scene.rt_camera.is_init || !state->scene.rt_ambient.is_init)
 		return (rt_error(NDEF), KO);
 	return (OK);
 }
 
 __attribute__((__nonnull__(1, 2, 3)))
-t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
+t_taggedresult	rt_parse_file_into_state(t_RTstate *state,
 		char *fname, t_arena *arena)
 {
 	t_file	file;
@@ -97,12 +97,12 @@ t_taggedresult	rt_parse_file_into_state(t_RTScene *scene,
 		return (KO);
 	if (rt_init_aos(aos) == KO)
 		return (KO);
-	if (ft_parse_scene(scene, aos, file) == KO)
+	if (ft_parse_scene(state, aos, file) == KO)
 		return (rt_free_aos(aos), KO);
 	ft_close_file(&file);
-	if (rt_aos_to_soa(aos, scene, arena) == KO)
+	if (rt_aos_to_soa(aos, &state->scene, arena) == KO)
 		return (rt_error(SOA), rt_free_aos(aos), KO);
-	rt_print_soa(scene);
+	rt_print_soa(&state->scene);
 	rt_free_aos(aos);
 	return (OK);
 }

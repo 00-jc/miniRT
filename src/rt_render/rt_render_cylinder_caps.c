@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:21:12 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/16 21:07:50 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/17 16:32:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 *	ray-disk intersection for one end cap. + sign top cap, -sign bottomcap
 *	returns t > 0 on hit, -1.0 on miss/parallel/behind. jaime optimizame esta
 */
-__attribute__((__always_inline__))
-static inline double	rt_intersect_cap(t_RTRay ray, size_t i,
+__attribute__((__always_inline__, pure, __nonnull__(3)))
+inline double	rt_intersect_cap(t_RTRay ray, size_t i,
 		t_RTCylinderBuffer *buf, double sign)
 {
 	t_3dcoords	cap;
@@ -45,8 +45,8 @@ static inline double	rt_intersect_cap(t_RTRay ray, size_t i,
 	return (t);
 }
 
-__attribute__((__always_inline__))
-static inline t_3dcoords	rt_cylinder_normal(t_3dcoords point, size_t i,
+__attribute__((__always_inline__, pure, __nonnull__(3)))
+inline t_3dcoords	rt_cylinder_normal(t_3dcoords point, size_t i,
 		t_RTCylinderBuffer *buf)
 {
 	t_3dcoords	oc;
@@ -64,7 +64,7 @@ static inline t_3dcoords	rt_cylinder_normal(t_3dcoords point, size_t i,
 *	writes the surface normal at that hit point into *n.
 *	returns -1.0 when the ray misses the cylinder
 */
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, pure, __nonnull__(3, 4)))
 inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 		t_RTCylinderBuffer *buf, t_3dcoords *n)
 {
@@ -76,12 +76,13 @@ inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 	tt = rt_intersect_cap(ray, i, buf, 1.0);
 	tb = rt_intersect_cap(ray, i, buf, -1.0);
 	if (tt > 0 && (ts <= 0 || tt < ts) && (tb <= 0 || tt <= tb))
-		return (*n = buf->axis[i], tt);
+		return ((void)(*n = buf->axis[i]), tt);
 	if (tb > 0 && (ts <= 0 || tb < ts))
-		return (*n = ft_3dmul(buf->axis[i], (t_3dcoords){-1, -1, -1, 0}), tb);
+		return ((void)(*n = ft_3dmul(buf->axis[i], (t_3dcoords){-1, -1, -1, 0})),
+				tb);
 	if (ts > 0)
-		return (*n = rt_cylinder_normal(ft_3dadd(ray.origin,
+		return ((void)(*n = rt_cylinder_normal(ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){ts, ts, ts, 0})),
-			i, buf), ts);
+			i, buf)), ts);
 	return (-1.0);
 }

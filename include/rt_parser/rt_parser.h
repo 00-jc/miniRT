@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:31:52 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:55:09 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@
 # define RT_AOS_CYLINDER	3
 # define V4_CMP_OK			0xFFFFFFFFFFFFFFFFULL
 
-typedef t_taggedresult	(*t_nonuniq_parser)(t_tokenizer *t, t_vec *)\
-							__attribute__((__nonnull__(1, 2)));
+typedef t_taggedresult	(*t_nonuniq_parser)(t_RTContext *ctx,\
+							t_tokenizer *t, t_vec *)\
+							__attribute__((__nonnull__(1, 2, 3)));
 
 typedef struct s_color_result
 {
@@ -64,7 +65,7 @@ typedef struct s_unsigned_res
 	size_t			u;
 }	t_unsigned_res;
 
-t_taggedresult	rt_parse_file_into_state(t_RTScene *state, char *fname,\
+t_taggedresult	rt_parse_file_into_state(t_RTstate *state, char *fname,\
 					t_arena *arena)\
 					__attribute__((__nonnull__(1, 2, 3)));
 
@@ -80,17 +81,21 @@ t_double_res	rt_parse_double(t_tokenizer *t)\
 t_unsigned_res	rt_parse_usigned(t_tokenizer *t)\
 					__attribute__((__nonnull__(1)));
 
-t_taggedresult	rt_parse_sphere(t_tokenizer *t, t_vec *sphere_vec)\
+t_taggedresult	rt_parse_sphere(t_RTContext *ctx,\
+					t_tokenizer *t, t_vec *sphere_vec)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_taggedresult	rt_parse_plane(t_tokenizer *t, t_vec *plane_vec)\
+t_taggedresult	rt_parse_plane(t_RTContext *ctx,\
+					t_tokenizer *t, t_vec *plane_vec)\
+					__attribute__((__nonnull__(1, 2, 3)));
+
+t_taggedresult	rt_parse_light(t_RTContext *ctx,\
+					t_tokenizer *t, t_vec *light_vec)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_taggedresult	rt_parse_light(t_tokenizer *t, t_vec *light_vec)\
-					__attribute__((__nonnull__(1, 2)));
-
-t_taggedresult	rt_parse_cylinder(t_tokenizer *t, t_vec *cy_vec)\
-					__attribute__((__nonnull__(1, 2)));
+t_taggedresult	rt_parse_cylinder(t_RTContext *ctx,\
+					t_tokenizer *t, t_vec *cy_vec)\
+					__attribute__((__nonnull__(1, 2, 3)));
 
 t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam)\
 					__attribute__((__nonnull__(1, 2)));
@@ -125,4 +130,10 @@ t_taggedresult	rt_aos_to_soa_light(t_RTLightBuffer *buf,\
 t_taggedresult	rt_parse_display_size(int argc, t_RTContext *context,\
 					const char **argv)\
 					__attribute__((__nonnull__(2, 3)));
+
+t_RTTexture		*rt_parse_path(t_RTContext *ctx, t_tokenizer *t)\
+					__attribute__((__nonnull__(1, 2)));
+
+t_RTTexture		*rt_parse_bmp(t_RTContext *ctx, t_token tok)\
+					__attribute__((__nonnull__(1)));
 #endif

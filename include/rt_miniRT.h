@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 17:41:13 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/16 21:05:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "rt_light.h"
 # include "rt_camera.h"
 # include "threadpool.h"
+# include "map.h"
 # include <pthread.h>
 # include "rt_render/rt_render_types.h"
 
@@ -89,6 +90,7 @@ typedef struct s_RTContext
 	t_arena_checkpoint	rewind_render;
 	t_RTViewport		vp;
 	t_RTPool			pool;
+	t_map				loaded_textures;
 }	t_RTContext;
 
 /* cold, only lives in main */

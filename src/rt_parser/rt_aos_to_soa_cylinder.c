@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/09 16:18:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:05:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ inline t_taggedresult	rt_alloc_soa_cylinder(t_RTCylinderBuffer *buf,
 	buf->axis = ft_arena_alloc(arena, n * sizeof(t_3dcoords), 32);
 	buf->wh = ft_arena_alloc(arena, n * sizeof(t_2packd), 16);
 	buf->color = ft_arena_alloc(arena, n * sizeof(t_u32a), 4);
+	buf->tx = (t_RTTexture **)ft_arena_alloc(arena,
+			n * sizeof(t_RTTexture *), 8);
 	if (!buf->coords || !buf->axis || !buf->wh || !buf->color)
 		return (KO);
 	return (OK);
@@ -41,6 +43,7 @@ inline void	rt_populate_soa_cylinder(t_RTCylinderBuffer *buf,
 		buf->axis[i] = s->axis;
 		buf->wh[i] = s->wh;
 		buf->color[i] = s->color;
+		buf->tx[i] = s->tx;
 		i++;
 	}
 }

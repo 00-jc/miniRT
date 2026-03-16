@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 15:02:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:59:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 __attribute__((__always_inline__))
 static inline t_RTstate	rt_init_state(void)
 {
+	t_map		map;
 	t_arena		arena;
 	t_RTstate	state;
 	void		*mlx;
@@ -48,11 +49,16 @@ static inline t_RTstate	rt_init_state(void)
 	arena = ft_new_arena_alloc();
 	if (!arena.current)
 		return (state);
+	map = ft_map_new();
+	if (!map.buckets)
+		return (ft_destroy_arena(&arena), state);
 	mlx = mlx_init();
 	if (!mlx)
-		return (ft_destroy_arena(&arena), state);
+		return (ft_map_destroy(&state.ctx.loaded_textures),
+			ft_destroy_arena(&arena), state);
 	state = (t_RTstate){.ctx.rt_arena = arena, .ctx.rt_mlx = mlx,
-		.ctx.rewind_render = ft_arena_checkpoint(&arena)};
+		.ctx.rewind_render = ft_arena_checkpoint(&arena),
+		.ctx.loaded_textures = map};
 	return (state);
 }
 
@@ -69,6 +75,7 @@ inline void	rt_free_state(t_RTstate *state)
 	if (state->ctx.rt_mlx_win)
 		mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
 	ft_destroy_arena(&state->ctx.rt_arena);
+	ft_map_destroy(&state->ctx.loaded_textures);
 	if (state->ctx.pool.tp.alive)
 		ft_threadpool_destroy(&state->ctx.pool.tp, FT_NTHREADS);
 	free(state->ctx.rt_mlx);
@@ -77,7 +84,7 @@ inline void	rt_free_state(t_RTstate *state)
 __attribute__((__nonnull__(1), __always_inline__))
 inline t_taggedresult	rt_load_state(t_RTstate *state)
 {
-	if (!rt_parse_file_into_state(&state->scene, state->ctx.rt_argv[1],
+	if (!rt_parse_file_into_state(state, state->ctx.rt_argv[1],
 			&state->ctx.rt_arena))
 		return (KO);
 	return (OK);

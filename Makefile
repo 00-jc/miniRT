@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 20:26:15 by asoria           ###   ########.fr        #
+#    Updated: 2026/03/17 16:29:46 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -176,7 +176,9 @@ SRCS_PARSER := \
 	src/rt_parser/rt_aos_to_soa_cylinder.c \
 	src/rt_parser/rt_aos_to_soa_light.c \
 	src/rt_parser/rt_aos_to_soa_sphere.c \
-	src/rt_parser/rt_parse_display_size.c
+	src/rt_parser/rt_parse_display_size.c \
+	src/rt_parser/rt_parse_path.c \
+	src/rt_parser/rt_parse_bmp.c
 
 SRCS_MLX := \
 	src/rt_mlx/rt_key_hooks.c \

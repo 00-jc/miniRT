@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/10 03:05:51 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/16 22:05:34 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ inline t_taggedresult	rt_alloc_soa_sphere(t_RTSphereBuffer *buf,
 	buf->coords = ft_arena_alloc(arena, n * sizeof(t_3dcoords), 32);
 	buf->diameter = ft_arena_alloc(arena, n * sizeof(double), 8);
 	buf->color = ft_arena_alloc(arena, n * sizeof(t_u32a), 4);
+	buf->tx = (t_RTTexture **)ft_arena_alloc(arena,
+			n * sizeof(t_RTTexture *), 8);
 	if (!buf->coords || !buf->diameter || !buf->color)
 		return (KO);
 	return (OK);
@@ -39,6 +41,7 @@ inline void	rt_populate_soa_sphere(t_RTSphereBuffer *buf,
 		buf->coords[i] = s->coords;
 		buf->diameter[i] = s->diameter;
 		buf->color[i] = s->color;
+		buf->tx[i] = s->tx;
 		i++;
 	}
 }
