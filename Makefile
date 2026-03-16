@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 17:01:54 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 17:03:30 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ WARNS_CLANG := $(WARNS_COMMON)                                                \
 	-Wunused-but-set-parameter                                                 \
 	-Wsizeof-array-div                                                         \
 	-Wtautological-constant-in-range-compare                                   \
-	-Wextra-semi-stmt                                                          \
+	-Wno-extra-semi-stmt                                                       \
 	-Wthread-safety                                                            \
 	-Wdangling
 
