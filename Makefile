@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 03:32:48 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 16:39:20 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,7 +141,8 @@ CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
 CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -flto -O3 -fno-math-errno  -ffast-math
 CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT) -O0
 
-SANITIZE     := -fsanitize=address,alignment,undefined -fsanitize-recover=null
+SANITIZE     		:= -fsanitize=address,alignment,undefined -fsanitize-recover=null
+SANITIZE_THREAD     := -fsanitize=thread -fsanitize-recover=null
 
 # ── Third-party flags (relaxed — we don't own this code) ─────────────────────
 MLX_CFLAGS   := $(MARCH) -O3 -flto -pipe -g3 -I$(MLX_FOLDER) $(LIBS) $(CFLAGS_OPT)
@@ -181,6 +182,9 @@ SRCS_MLX := \
 	src/rt_mlx/rt_key_hooks.c \
 	src/rt_mlx/rt_mouse_hooks.c \
 	src/rt_mlx/rt_killprocess.c
+
+SRCS_POOL := \
+	src/rt_pool/rt_threadroutine.c 
 
 SRCS_RENDER := \
 	src/rt_render/rt_render.c \
@@ -237,11 +241,11 @@ SRCS_THIRDPARTY := \
 	minilibx-linux/mlx_string_put.c \
 	minilibx-linux/mlx_xpm.c
 
-MINIRT_SRCS := $(SRCS_RENDER) $(SRCS_PARSER) $(SRCS_MLX) $(SRCS_LOGGER)
+MINIRT_SRCS := $(SRCS_RENDER) $(SRCS_PARSER) $(SRCS_MLX) $(SRCS_LOGGER) $(SRCS_POOL)
 MLX_OBJS := $(patsubst minilibx-linux/%.c,$(OBJDIR)/thirdparty/%.o,$(SRCS_THIRDPARTY))
 
 # ── Aggregate ─────────────────────────────────────────────────────────────────
-MODULES     := PARSER MLX RENDER LOGGER
+MODULES     := PARSER MLX RENDER LOGGER POOL
 SRCS        := src/main.c $(foreach m,$(MODULES),$(SRCS_$(m)))
 OBJS        := $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRCS))
 ALL_OBJS    := $(OBJS) $(MLX_OBJS)
@@ -286,6 +290,9 @@ $(NAME): $(ALL_OBJS) libft
 # ── Convenience ──────────────────────────────────────────────────────────────
 sanitize: $(ALL_OBJS) libft
 	$(CC) $(CFLAGS) $(SANITIZE) $(ALL_OBJS) $(LDFLAGS) -o miniRTSan
+
+sanitize_thread: $(ALL_OBJS) libft
+	$(CC) $(CFLAGS) $(SANITIZE_THREAD) $(ALL_OBJS) $(LDFLAGS) -o miniRTSanT
 
 debug: libft
 	@$(MAKE) $(OBJS) CFLAGS="$(MARCH) $(CFLAGS_NOOPT) $(WARNS)"

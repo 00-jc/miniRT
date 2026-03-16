@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:34:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:01:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct s_RTScene
 	t_RTCamera				rt_camera;
 } __attribute__((aligned(64)))	t_RTScene;
 
+typedef struct s_RTPool
+{
+	t_threadpool			tp;
+	t_thread_arg			arg;
+	size_t					current_tile;
+}	t_RTPool;
+
 /* cold (should be accesed once per frame on flush) */
 typedef struct s_RTContext
 {
@@ -79,7 +86,7 @@ typedef struct s_RTContext
 	int					rt_argc;
 	t_arena_checkpoint	rewind_render;
 	t_RTViewport		vp;
-	t_threadpool		tp;
+	t_RTPool			pool;
 }	t_RTContext;
 
 /* cold, only lives in main */
@@ -109,6 +116,9 @@ int				rt_render_hotloop(t_RTstate *state)\
 					__attribute__((__nonnull__(1), hot));
 
 t_taggedresult	rt_load_state(t_RTstate *state)\
+					__attribute__((__nonnull__(1)));
+
+void			*rt_threadrt(void *thread_arg)\
 					__attribute__((__nonnull__(1)));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 18:52:21 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:43:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -33,59 +33,70 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 	return (rt_shade(&hit, scene));
 }
 
-__attribute__((__nonnull__(1, 2, 3, 4), __hot__, __always_inline__))
-static inline void	rt_inner(t_RTContext *ctx, t_RTScene *scene,
-	size_t *xy[2], t_u32a *px)
-{
-	size_t	x;
-	size_t	y;
-	size_t	mask;
-
-	x = *xy[0];
-	y = *xy[1];
-	*px = rt_cast_ray(x, y, scene, &ctx->vp);
-	mask = -(++x == ctx->display_width);
-	*xy[1] = (mask & (y + 1)) | (~mask & y);
-	*xy[0] = ~mask & x;
-}
-
 __attribute__((__nonnull__(1), __always_inline__))
-static inline void	rt__px(size_t *xy[2], size_t dw)
+static inline void	rt__px(size_t xy[2], size_t dw)
 {
 	size_t	mask;
 	size_t	x;
 	size_t	y;
 
-	x = *xy[0];
-	y = *xy[1];
+	x = xy[0];
+	y = xy[1];
 	mask = -(++x == dw);
-	*xy[1] = (mask & (y + 1)) | (~mask & y);
-	*xy[0] = ~mask & x;
+	xy[1] = (mask & (y + 1)) | (~mask & y);
+	xy[0] = ~mask & x;
 }
 
 __attribute__((__nonnull__(1, 2, 3, 4), __hot__, __always_inline__))
 static inline void	rt_inner8(t_RTContext *ctx, t_RTScene *scene,
-	size_t *xy[2], t_u32a *px)
+	size_t xy[2], t_u32a *px)
 {
 	t_colorlane		lane;
 
-	lane[0] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[0] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[1] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[1] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[2] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[2] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[3] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[3] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[4] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[4] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[5] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[5] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[6] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[6] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
-	lane[7] = rt_cast_ray(*xy[0], *xy[1], scene, &ctx->vp);
+	lane[7] = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 	rt__px(xy, ctx->display_width);
 	*(t_colorlane * restrict const)px = lane;
+}
+
+__attribute__((__nonnull__(1, 2), __hot__))
+void	rt_render_line(t_RTContext *ctx, t_RTScene *scene, size_t y)
+{
+	const t_3dcoords		yax = (t_3dcoords){0, 1, 0, 0};
+	t_u32a					*px;
+	t_uptr					end;
+	size_t					xy[2];
+
+	ctx->vp.right = ft_3dunit(ft_3dcross(scene->rt_camera.axis, yax));
+	ctx->vp.up = ft_3dunit(ft_3dcross(ctx->vp.right, scene->rt_camera.axis));
+	ctx->vp.forward = scene->rt_camera.axis;
+	px = ctx->rt_img->data + (y * ctx->display_width);
+	end = (t_uptr)(px + ctx->display_width);
+	xy[0] = 0;
+	xy[1] = y;
+	while ((t_uptr)px + 8 < end)
+	{
+		rt_inner8(ctx, scene, xy, px);
+		px += 8;
+	}
+	while ((t_uptr)px < end)
+	{
+		*px++ = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
+		rt__px(xy, ctx->display_width);
+	}
 }
 
 __attribute__((__nonnull__(1, 2), __hot__))
@@ -93,23 +104,25 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 {
 	const t_3dcoords		yax = (t_3dcoords){0, 1, 0, 0};
 	t_u32a					*px;
-	t_u32a					*end[2];
-	size_t					x;
-	size_t					y;
+	t_uptr					end[2];
+	size_t					xy[2];
 
 	ctx->vp.right = ft_3dunit(ft_3dcross(scene->rt_camera.axis, yax));
 	ctx->vp.up = ft_3dunit(ft_3dcross(ctx->vp.right, scene->rt_camera.axis));
 	ctx->vp.forward = scene->rt_camera.axis;
 	px = ctx->rt_img->data;
-	end[0] = px + ctx->pix_num;
-	end[1] = px + ctx->pix_num - 8;
-	x = 0;
-	y = 0;
-	while (px + 8 < end[1])
+	end[0] = (t_uptr)(px + ctx->pix_num);
+	end[1] = (t_uptr)(px + ctx->pix_num - 8);
+	xy[0] = 0;
+	xy[1] = 0;
+	while ((t_uptr)px + 8 < end[1])
 	{
-		rt_inner8(ctx, scene, (size_t *[2]){&x, &y}, px);
+		rt_inner8(ctx, scene, xy, px);
 		px += 8;
 	}
-	while (px < end[0])
-		rt_inner(ctx, scene, (size_t *[2]){&x, &y}, px++);
+	while ((t_uptr)px < end[0])
+	{
+		*px++ = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
+		rt__px(xy, ctx->display_width);
+	}
 }

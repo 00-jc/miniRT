@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 18:47:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:44:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@
 
 typedef __attribute__((vector_size(32), aligned(1), __may_alias__)) t_u32a\
 																	t_colorlane;
-
-typedef struct	s_event_list
+typedef struct s_event_list
 {
 	int		mask;
 	int		(*hook)();
 	void	*param;
 }				t_event_list;
 
-typedef struct	s_win_list
+typedef struct s_win_list
 {
 	Window				window;
 	GC					gc;
@@ -48,7 +47,7 @@ typedef struct	s_win_list
 	t_event_list		hooks[MLX_MAX_EVENT];
 }				t_win_list;
 
-typedef struct	s_xvar
+typedef struct s_xvar
 {
 	Display		*display;
 	Window		root;
@@ -66,7 +65,7 @@ typedef struct	s_xvar
 	int			decrgb[6];
 	Atom		wm_delete_window;
 	Atom		wm_protocols;
-	int 		end_loop;
+	int			end_loop;
 }				t_xvar;
 
 typedef struct s_RTImg

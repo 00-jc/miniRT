@@ -6,11 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 03:35:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:02:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
+#include "rt_render/rt_render.h"
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
 #include "rt_mlx/rt_mlx.h"
@@ -68,6 +69,8 @@ inline void	rt_free_state(t_RTstate *state)
 	if (state->ctx.rt_mlx_win)
 		mlx_destroy_window(state->ctx.rt_mlx, state->ctx.rt_mlx_win);
 	ft_destroy_arena(&state->ctx.rt_arena);
+	if (state->ctx.pool.tp.alive)
+		ft_threadpool_destroy(&state->ctx.pool.tp, FT_NTHREADS);
 	free(state->ctx.rt_mlx);
 }
 
@@ -91,6 +94,11 @@ int	main(int argc, char **argv)
 	state.ctx.rt_argc = argc;
 	if (!state.ctx.rt_arena.current)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
+	state.ctx.pool.arg = (t_thread_arg){.tp = &state.ctx.pool.tp,
+		.external_state = &state, .fn = rt_threadrt};
+	if (!ft_threadpool_new(&state.ctx.pool.tp, &state.ctx.pool.arg))
+		return (rt_error("Error\nThreadpool init\n"), rt_free_state(&state),
+			EXIT_FAILURE);
 	if (rt_load_state(&state) == KO || !rt_parse_display_size(state.ctx.rt_argc,
 			&state.ctx, (const char **)state.ctx.rt_argv)
 		|| !rt_mlx_setup(&state) || !rt_alloc_imagebuffer(&state.ctx))
