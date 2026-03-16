@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/15 18:52:45 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 03:32:48 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT_FOLDER   := libft
 MLX_FOLDER     := minilibx-linux
 INCLUDES       := -Iinclude -I$(LIBFT_FOLDER)/include -I$(MLX_FOLDER)
 LIBPATHS       := -L$(LIBFT_FOLDER)
-LIBS		   := -lft -lXext -lX11 -lm -lXpm
+LIBS		   := -lft -lXext -lX11 -lm
 
 # ── Flags ─────────────────────────────────────────────────────────────────────
 MARCH          := -march=native

@@ -6,12 +6,13 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 18:45:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 03:32:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
+#include "rt_logger/rt_printer.h"
 #include "io.h"
 
 __attribute__((__returns_nonnull__, __always_inline__, const))

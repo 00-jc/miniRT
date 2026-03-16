@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 18:46:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 03:31:52 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,6 @@ t_taggedresult	rt_aos_to_soa_plane(t_RTPlaneBuffer *buf,\
 t_taggedresult	rt_aos_to_soa_light(t_RTLightBuffer *buf,\
 					t_vec *aos, t_arena *arena)\
 					__attribute__((__nonnull__(1, 2, 3)));
-
-void			rt_print_soa(t_RTScene *scene)\
-					__attribute__((__nonnull__(1)));
 
 t_taggedresult	rt_parse_display_size(int argc, t_RTContext *context,\
 					const char **argv)\
