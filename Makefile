@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 17:03:30 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 20:26:15 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -191,6 +191,7 @@ SRCS_RENDER := \
 	src/rt_render/rt_render_hotloop.c \
 	src/rt_render/rt_camera_ray.c \
 	src/rt_render/rt_render_cylinder.c \
+	src/rt_render/rt_render_cylinder_caps.c \
 	src/rt_render/rt_render_sphere.c \
 	src/rt_render/rt_render_frame.c \
 	src/rt_render/rt_render_plane.c \

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 14:52:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 21:00:27 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define RT_SHININESS 32
 # define INV_255 0.003921569
 # include "rt_render/rt_render_types.h"
+# include "rt_parser/rt_parser.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/mman.h>
@@ -32,7 +33,7 @@ t_RTRay		rt_camera_ray(size_t x, size_t y, t_RTScene *scene,\
 				t_RTViewport *vp)\
 				__attribute__((__nonnull__(3, 4), hot));
 
-/* per-geometry cast functions */
+/* per-geometry cast/intersect/shade functions */
 
 void		rt_cast_spheres(t_RTRay ray, t_RTScene *scene,
 				t_RTHit *hit, double *closest) \
@@ -54,5 +55,13 @@ __attribute__((__nonnull__(1, 2)));
 
 void		rt_render_line(t_RTContext *ctx, t_RTScene *scene, size_t y)\
 				__attribute__((__nonnull__(1, 2), __hot__));
+
+double		rt_intersect_cylinder(t_RTRay ray, size_t i,
+				t_RTCylinderBuffer *buf)
+			__attribute__((__nonnull__(3)));
+
+double		rt_intersect_cyl_full(t_RTRay ray, size_t i,
+				t_RTCylinderBuffer *buf, t_3dcoords *n)
+			__attribute__((__nonnull__(3, 4)));
 
 #endif

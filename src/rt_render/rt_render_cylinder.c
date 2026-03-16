@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 14:01:23 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 21:07:29 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ inline double	rt_intersect_cylinder(t_RTRay ray, size_t i,
 	t_3dcoords	abc;
 	double		disc;
 	double		t;
-	double		prelude;
 
 	abc = rt_cylinder_abc(ray, i, buf);
 	if (abc.x < 1e-6)
@@ -71,40 +70,25 @@ inline double	rt_intersect_cylinder(t_RTRay ray, size_t i,
 	if (disc < 0)
 		return (-1.0);
 	disc = ft_dsqrt(disc);
-	prelude = 1 / (2.0 * abc.x);
 	t = rt_check_cap_t(ray, i, buf,
-			(-abc.y - disc) * prelude);
-	if (t > 0)
-		return (t);
-	return (rt_check_cap_t(ray, i, buf,
-			(-abc.y + disc) * prelude));
-}
-
-__attribute__((__always_inline__))
-inline t_3dcoords	rt_cylinder_normal(t_3dcoords point, size_t i,
-		t_RTCylinderBuffer *buf)
-{
-	t_3dcoords	oc;
-	double		proj;
-
-	oc = ft_3dsub(point, buf->coords[i]);
-	proj = ft_3ddot(oc, buf->axis[i]);
-	oc = ft_3dsub(oc,
-			ft_3dmul(buf->axis[i], (t_3dcoords){proj, proj, proj, 0}));
-	return (ft_3dunit(oc));
+			(-abc.y - disc) / (2.0 * abc.x));
+	return (((t > 0) * t) + ((t < 0) * rt_check_cap_t(ray, i, buf,
+				(-abc.y + disc) / (2.0 * abc.x))));
 }
 
 __attribute__((__always_inline__, __nonnull__(2, 3, 4), hot))
 inline void	rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
 {
-	double	t;
-	size_t	i;
+	size_t		i;
+	double		t;
+	t_3dcoords	normal;
 
 	i = 0;
 	while (i < scene->rt_cylinder_buffer.size)
 	{
-		t = rt_intersect_cylinder(ray, i, &scene->rt_cylinder_buffer);
+		t = rt_intersect_cyl_full(ray, i,
+				&scene->rt_cylinder_buffer, &normal);
 		if (t > 0 && t < *closest)
 		{
 			*closest = t;
@@ -112,8 +96,7 @@ inline void	rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 			hit->color = scene->rt_cylinder_buffer.color[i];
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-			hit->normal = rt_cylinder_normal(hit->point,
-					i, &scene->rt_cylinder_buffer);
+			hit->normal = normal;
 		}
 		i++;
 	}
