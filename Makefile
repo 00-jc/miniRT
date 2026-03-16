@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/16 16:39:20 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/16 17:01:54 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -271,7 +271,7 @@ TEST_BINS := $(patsubst tests/%.c,$(OBJDIR)/tests/%,$(TEST_SRCS))
 all: $(NAME)
 
 libft:
-	@$(MAKE) -C $(LIBFT_FOLDER)
+	@$(MAKE) -C $(LIBFT_FOLDER) CFLAGS="$(CFLAGS)"
 
 # ── Pattern rules ────────────────────────────────────────────────────────────
 # Our code: full warnings
