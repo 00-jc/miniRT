@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/14 01:46:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/16 03:34:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "rt_plane.h"
 # include "rt_light.h"
 # include "rt_camera.h"
+# include "threadpool.h"
 # include <pthread.h>
 # include "rt_render/rt_render_types.h"
 
@@ -60,19 +61,6 @@ typedef struct s_RTScene
 	t_RTCamera				rt_camera;
 } __attribute__((aligned(64)))	t_RTScene;
 
-/* cold (should be accesed once per frame on start & end) */
-typedef struct s_RTThreadPool
-{
-	pthread_t			threads[RT_NTHREADS];
-	pthread_mutex_t		mutex;
-	pthread_cond_t		start;
-	pthread_cond_t		stop;
-	size_t				ntiles;
-	size_t				current_tile;
-	t_u32a				kill_switch;
-	t_u32a				working;
-}	t_RTThreadPool;
-
 /* cold (should be accesed once per frame on flush) */
 typedef struct s_RTContext
 {
@@ -91,6 +79,7 @@ typedef struct s_RTContext
 	int					rt_argc;
 	t_arena_checkpoint	rewind_render;
 	t_RTViewport		vp;
+	t_threadpool		tp;
 }	t_RTContext;
 
 /* cold, only lives in main */
@@ -98,7 +87,6 @@ typedef struct s_RTstate
 {
 	t_RTScene				scene;
 	t_RTContext				ctx;
-	t_RTThreadPool			thread_pool;
 	t_u8					keys;
 }	t_RTstate;
 
