@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 17:27:18 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:57:17 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int	main(int argc, char **argv)
 	state = rt_init_state();
 	state.ctx.rt_argv = argv;
 	state.ctx.rt_argc = argc;
-	if (!state.ctx.rt_arena.current)
+	if (!state.ctx.rt_arena.current || !state.ctx.rt_mlx
+		|| !state.ctx.loaded_textures.buckets)
 		return (rt_error("Error\narena init\n"), EXIT_FAILURE);
 	state.ctx.pool.arg = (t_thread_arg){.tp = &state.ctx.pool.tp,
 		.external_state = &state, .fn = rt_threadrt};
