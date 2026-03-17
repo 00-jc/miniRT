@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 03:18:05 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 04:11:47 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 	state->scene = (t_RTScene){0};
 	state->ctx.rt_img->image->data = NULL;
 	ft_arena_rewind(&state->ctx.rt_arena, state->ctx.rewind_render);
-	state->ctx.loaded_textures.count = 0;
+	ft_map_clear(&state->ctx.loaded_textures);
 	XDestroyImage(state->ctx.rt_img->image);
 	XFreePixmap(((t_xvar *)state->ctx.rt_mlx)->display,
 		state->ctx.rt_img->pix);
@@ -53,7 +53,7 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 		return (KO);
 	return (OK);
 }
-#include "io.h"
+
 __attribute__((__nonnull__(1), hot))
 int	rt_render_hotloop(t_RTstate *state)
 {
@@ -64,7 +64,6 @@ int	rt_render_hotloop(t_RTstate *state)
 	state->ctx.scene_redraw |= (state->keys != 0);
 	if (state->ctx.scene_redraw)
 	{
-		ft_printf("ARENA: %lu\n", state->ctx.rt_arena.current->used);
 		state->ctx.pool.current_tile = 0;
 		ft_threadpool_start(&state->ctx.pool.tp);
 		ft_threadpool_wait(&state->ctx.pool.tp);
