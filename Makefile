@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/17 16:29:46 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/17 16:33:45 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -341,7 +341,7 @@ test: $(TEST_BINS)
 		./$$bin || exit 1; \
 	done
 
-analyze: test static_analysis
+analyze: static_analysis
 	@$(MAKE) analyze -C $(LIBFT_FOLDER)
 
 .PHONY: all clean fclean re libft base test static_analysis analyze sanitize debug
