@@ -6,12 +6,12 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 22:59:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:27:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
-#include "rt_render/rt_render.h"
+#include "cstr.h"
 #include "rt_parser/rt_parser.h"
 #include "rt_logger/rt_errors.h"
 #include "rt_mlx/rt_mlx.h"
@@ -84,6 +84,11 @@ inline void	rt_free_state(t_RTstate *state)
 __attribute__((__nonnull__(1), __always_inline__))
 inline t_taggedresult	rt_load_state(t_RTstate *state)
 {
+	size_t	len;
+
+	len = ft_strlen(state->ctx.rt_argv[1]);
+	if (len <= 3 || ft_memcmp(&state->ctx.rt_argv[1][len - 3], ".rt", 3) != 0)
+		return (rt_error("Error\nFile must end in .rt\n"), KO);
 	if (!rt_parse_file_into_state(state, state->ctx.rt_argv[1],
 			&state->ctx.rt_arena))
 		return (KO);
