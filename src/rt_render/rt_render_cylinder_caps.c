@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:21:12 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 18:55:43 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 19:23:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ __attribute__((__always_inline__, pure, __nonnull__(3, 4)))
 inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 		t_RTCylinderBuffer *buf, t_3dcoords *n)
 {
-	static t_3dcoords	min1 = (t_3dcoords){-1, -1, -1, 0};
+	const t_3dcoords	min1 = (t_3dcoords){-1, -1, -1, 0};
 	double				ts;
 	double				tt;
 	double				tb;
