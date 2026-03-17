@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:10:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:21:31 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define RT_SPHERE			0x7370ULL
 # define RT_PLANE			0x706CULL
 # define RT_CYLINDER		0x6379ULL
+# define RT_CONE			0x636fULL
 # define RT_PERFECT_HASH	23ULL
 # define RT_AMBIENT_IDX 	11
 # define RT_CAMERA_IDX		17
@@ -31,10 +32,12 @@
 # define RT_SPHERE_IDX		20
 # define RT_PLANE_IDX		7
 # define RT_CYLINDER_IDX	4
+# define RT_CONE_IDX		17
 # define RT_AOS_SPHERE		0
 # define RT_AOS_LIGHT		1
 # define RT_AOS_PLANE		2
 # define RT_AOS_CYLINDER	3
+# define RT_AOS_CONE		4
 # define V4_CMP_OK			0xFFFFFFFFFFFFFFFFULL
 
 typedef t_taggedresult	(*t_nonuniq_parser)(t_RTContext *ctx,\
@@ -103,11 +106,11 @@ t_taggedresult	rt_parse_camera(t_tokenizer *t, t_RTCamera *cam)\
 t_taggedresult	rt_parse_ambient(t_tokenizer *t, t_RTAmbientLight *cam)\
 					__attribute__((__nonnull__(1, 2)));
 
-t_taggedresult	rt_init_aos(t_vec aos[4]);
+t_taggedresult	rt_init_aos(t_vec aos[5]);
 
-void			rt_free_aos(t_vec aos[4]);
+void			rt_free_aos(t_vec aos[5]);
 
-t_taggedresult	rt_aos_to_soa(t_vec aos[4], t_RTScene *scene,\
+t_taggedresult	rt_aos_to_soa(t_vec aos[5], t_RTScene *scene,\
 					t_arena *arena)\
 					__attribute__((__nonnull__(1, 2, 3)));
 
@@ -142,4 +145,12 @@ t_RTTexture		*rt_parse_bmp(t_RTContext *ctx, t_token tok)\
 
 t_RTColortx		*rt_parse_color_texture(t_RTContext *ctx, t_token tok)\
 					__attribute__((__nonnull__(1)));
+
+t_taggedresult	rt_aos_to_soa_cone(t_RTConeBuffer *buf,
+					t_vec *aos, t_arena *arena)	\
+					__attribute__((__nonnull__(1, 2, 3)));
+
+t_taggedresult	rt_parse_cone(t_RTContext *ctx, t_tokenizer *t, t_vec *cn_vec)	\
+				__attribute__((__nonnull__(1, 2, 3)));
+
 #endif

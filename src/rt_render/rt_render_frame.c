@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 19:25:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 19:35:25 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -30,6 +30,7 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 	rt_cast_spheres(ray, scene, &hit, &closest);
 	rt_cast_planes(ray, scene, &hit, &closest);
 	rt_cast_cylinders(ray, scene, &hit, &closest);
+	rt_cast_cones(ray, scene, &hit, &closest);
 	if (hit.t < 0)
 		return (0x000000);
 	hit.view_dir = ft_3dmul(ray.dir, m1);

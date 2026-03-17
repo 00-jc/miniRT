@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:27:10 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:22:03 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void		rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 				t_RTHit *hit, double *closest) \
 __attribute__((__nonnull__(2, 3, 4), hot));
 
+void		rt_cast_cones(t_RTRay ray, t_RTScene *scene,
+				t_RTHit *hit, double *closest) \
+__attribute__((__nonnull__(2, 3, 4), hot));
+
 void		rt_shade_lights(t_RTHit *hit, t_RTScene *scene, double *rgb)\
 				__attribute__((__nonnull__(1, 2, 3)));
 
@@ -77,5 +81,11 @@ void		rt_handle_cy_tx(t_RTHit *hit, t_RTCylinderBuffer buf, size_t i)\
 
 t_u32a		rt_sample_color(double u, double v, t_RTColortx *cx)\
 				__attribute__((__nonnull__(3)));
+
+double		rt_intersect_cone(t_RTRay ray, size_t i,
+				t_RTConeBuffer *buf, int *is_cap)\
+				__attribute__((__nonnull__(3, 4)));
+
+void		rt_handle_axis_limits(t_RTstate *state);
 
 #endif

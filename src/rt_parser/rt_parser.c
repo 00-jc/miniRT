@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 03:36:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:09:15 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static inline t_nonuniq_parser	rt_get_nonuniq_label(size_t idx)
 	[RT_CYLINDER_IDX] = rt_parse_cylinder,
 	[RT_LIGHT_IDX] = rt_parse_light,
 	[RT_PLANE_IDX] = rt_parse_plane,
+	[RT_CONE_IDX] = rt_parse_cone,
 	};
 
 	return (fns[idx]);
@@ -39,7 +40,7 @@ static inline t_taggedresult	rt_handle_uniq(t_RTScene *scene,
 
 __attribute__((__nonnull__(1, 2, 3), __always_inline__))
 static inline t_taggedresult	rt_handle_label(t_RTstate *state,
-	t_vec aos[4], t_tokenizer *t, t_token token)
+	t_vec aos[5], t_tokenizer *t, t_token token)
 {
 	t_u16a	label;
 	t_u16a	vecidx;
@@ -53,12 +54,13 @@ static inline t_taggedresult	rt_handle_label(t_RTstate *state,
 	if ((label == RT_CAMERA) | (label == RT_AMBIENT))
 		return (rt_handle_uniq(&state->scene, t, label));
 	if ((label != RT_LIGHT) & (label != RT_SPHERE) & (label != RT_CYLINDER)
-		& (label != RT_PLANE))
+		& (label != RT_PLANE) & (label != RT_CONE))
 		return (rt_error(UNREC), KO);
 	vecidx = ((label == RT_SPHERE) * RT_AOS_SPHERE)
 		| ((label == RT_LIGHT) * RT_AOS_LIGHT)
 		| ((label == RT_PLANE) * RT_AOS_PLANE)
-		| ((label == RT_CYLINDER) * RT_AOS_CYLINDER);
+		| ((label == RT_CYLINDER) * RT_AOS_CYLINDER)
+		| ((label == RT_CONE) * RT_AOS_CONE);
 	label = label % RT_PERFECT_HASH;
 	if (rt_get_nonuniq_label(label)(&state->ctx, t, aos + vecidx) == KO)
 		return (KO);
@@ -67,7 +69,7 @@ static inline t_taggedresult	rt_handle_label(t_RTstate *state,
 
 __attribute__((__nonnull__(1, 2)))
 static inline t_taggedresult	ft_parse_scene(t_RTstate *state,
-	t_vec aos[4], t_file file)
+	t_vec aos[5], t_file file)
 {
 	t_tokenizer	tokenizer;
 	t_token		token;
@@ -91,7 +93,7 @@ t_taggedresult	rt_parse_file_into_state(t_RTstate *state,
 		char *fname, t_arena *arena)
 {
 	t_file	file;
-	t_vec	aos[4];
+	t_vec	aos[5];
 
 	file = ft_read_file(fname);
 	if (!file.content)

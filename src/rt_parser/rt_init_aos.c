@@ -6,14 +6,14 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 17:24:20 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/11 02:10:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:18:23 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_parser/rt_parser.h"
 
 __attribute__((__always_inline__))
-inline t_taggedresult	rt_init_aos(t_vec aos[4])
+inline t_taggedresult	rt_init_aos(t_vec aos[5])
 {
 	aos[RT_AOS_SPHERE] = ft_vec_new(16, sizeof(t_RTSphere));
 	if (!aos[RT_AOS_SPHERE].head)
@@ -28,14 +28,19 @@ inline t_taggedresult	rt_init_aos(t_vec aos[4])
 	if (!aos[RT_AOS_CYLINDER].head)
 		return (ft_vec_free(aos), ft_vec_free(&aos[RT_AOS_LIGHT]),
 			ft_vec_free(&aos[RT_AOS_PLANE]), KO);
+	aos[RT_AOS_CONE] = ft_vec_new(16, sizeof(t_RTCone));
+	if (!aos[RT_AOS_CONE].head)
+		return (ft_vec_free(aos), ft_vec_free(aos + 1),
+			ft_vec_free(aos + 2), ft_vec_free(aos + 3), KO);
 	return (OK);
 }
 
 __attribute__((__always_inline__))
-inline void	rt_free_aos(t_vec aos[4])
+inline void	rt_free_aos(t_vec aos[5])
 {
 	ft_vec_free(aos);
 	ft_vec_free(aos + 1);
 	ft_vec_free(aos + 2);
 	ft_vec_free(aos + 3);
+	ft_vec_free(aos + 4);
 }

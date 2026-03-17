@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/17 18:25:48 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/17 21:00:52 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,14 +68,14 @@ WARNS_CLANG := $(WARNS_COMMON)                                                \
 	-Wambiguous-ellipsis                                                       \
 	-Wambiguous-macro                                                          \
 	-Wassume                                                                   \
-	-Wpessimizing-move                                                         \
+	-Wpessimizing-move                                                          \
 	-Wgnu-union-cast                                                           \
 	-Wlanguage-extension-token                                                 \
 	-Wgnu-statement-expression-from-macro-expansion                            \
 	-Wbounds-safety-counted-by-elt-type-unknown-size                           \
 	-Wcast-function-type-strict                                                \
 	-Wcast-function-type-mismatch                                              \
-	-Wc99-compat                                                               \
+	-Wc99-compat                                                                \
 	-Wbool-conversions                                                         \
 	-Wbitwise-instead-of-logical                                               \
 	-Wbitfield-enum-conversion                                                 \
@@ -170,12 +170,14 @@ SRCS_PARSER := \
 	src/rt_parser/rt_parse_cylinder.c \
 	src/rt_parser/rt_parse_light.c \
 	src/rt_parser/rt_parse_ambient.c \
+	src/rt_parser/rt_parse_cone.c \
 	src/rt_parser/rt_init_aos.c \
 	src/rt_parser/rt_aos_to_soa.c \
 	src/rt_parser/rt_aos_to_soa_plane.c \
 	src/rt_parser/rt_aos_to_soa_cylinder.c \
 	src/rt_parser/rt_aos_to_soa_light.c \
 	src/rt_parser/rt_aos_to_soa_sphere.c \
+	src/rt_parser/rt_aos_to_soa_cone.c \
 	src/rt_parser/rt_parse_display_size.c \
 	src/rt_parser/rt_parse_path.c \
 	src/rt_parser/rt_parse_texture.c \
@@ -196,6 +198,8 @@ SRCS_RENDER := \
 	src/rt_render/rt_render_cylinder.c \
 	src/rt_render/rt_render_cylinder_caps.c \
 	src/rt_render/rt_render_sphere.c \
+	src/rt_render/rt_render_cone.c \
+	src/rt_render/rt_render_cone2.c \
 	src/rt_render/rt_render_frame.c \
 	src/rt_render/rt_render_plane.c \
 	src/rt_render/rt_shade.c \
@@ -209,8 +213,10 @@ SRCS_LOGGER := \
 	src/rt_logger/rt_print_camera.c \
 	src/rt_logger/rt_print_sphere.c \
 	src/rt_logger/rt_print_light.c \
+	src/rt_logger/rt_print_cone.c \
 	src/rt_logger/rt_print_aos.c \
 	src/rt_logger/rt_print_soa.c \
+	src/rt_logger/rt_print_soa_2.c \
 	src/rt_logger/rt_errors.c
 
 # ── Third-party: minilibx (compiled in-tree, relaxed warnings) ───────────────

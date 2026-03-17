@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 04:00:57 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/10 04:19:57 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/17 19:45:21 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ inline void	rt_print_soa(t_RTScene *scene)
 	rt_print_soa_light(scene);
 	rt_print_soa_plane(scene);
 	rt_print_soa_cylinder(scene);
+	rt_print_soa_cone(scene);
 }
