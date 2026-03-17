@@ -1,0 +1,10 @@
+A  0.2          255,255,255
+C  0,0,0     	1,0,0       100
+L  10,0,20		0.8			255,255,255
+L  100,90,20		0.70			0,0,255
+sp 0,0,20		10			255,0,0 TXR=textures/climbing_wall_02.rawg
+sp 20,0,20		10			0,255,0 TXR=textures/rocky_terrain_02.rawg
+sp 0,0,-20		10			255,255,0 TXR=textures/rock_wall_10.rawg
+sp -20,0,-20	10			0,0,255 TXR=textures/concrete_slab_wall_02.rawg
+pl 0,-20,0      0,1,0       255,255,255  TXR=textures/concrete_slab_wall_02.rawg 
+pl 0,100,0      0,1,0       255,255,255  TXR=textures/rocky_terrain_02.rawg 

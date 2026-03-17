@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:47:34 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 15:06:49 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:26:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ inline void	rt_handle_cy_tx(t_RTHit *hit, t_RTCylinderBuffer buf, size_t i)
 		ptb[1] = ft_3dunit(ft_3dcross(buf.axis[i], ref));
 		ptb[2] = ft_3dcross(buf.axis[i], ptb[1]);
 		uvp[0] = 0.5 + __builtin_atan2(ft_3ddot(ptb[0], ptb[2]),
-    		ft_3ddot(ptb[0], ptb[1])) * 0.159154943092;
+				ft_3ddot(ptb[0], ptb[1])) * 0.159154943092;
 		uvp[1] = (uvp[2] + buf.wh[i].y * 0.5) / buf.wh[i].y;
 		hit->uv[0] = uvp[0];
 		hit->uv[1] = uvp[1];
