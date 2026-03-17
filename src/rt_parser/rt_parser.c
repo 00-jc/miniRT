@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:53:01 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 22:55:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 03:36:11 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static inline t_taggedresult	ft_parse_scene(t_RTstate *state,
 		token = ft_eat_until(&tokenizer, set_blank);
 		if (rt_handle_label(state, aos, &tokenizer, token) == KO)
 			return (KO);
+		ft_skip_whitespace(&tokenizer);
 	}
 	if (!state->scene.rt_camera.is_init || !state->scene.rt_ambient.is_init)
 		return (rt_error(NDEF), KO);
