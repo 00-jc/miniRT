@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 16:36:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:27:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <X11/XKBlib.h>
 
 # ifndef RT_PERTURB_STRENGHT
-#  define RT_PERTURB_STRENGHT 10
+#  define RT_PERTURB_STRENGHT 20
 # endif
 # define RT_SC 0.1
 
@@ -74,5 +74,8 @@ double		rt_intersect_cyl_full(t_RTRay ray, size_t i,
 
 void		rt_handle_cy_tx(t_RTHit *hit, t_RTCylinderBuffer buf, size_t i)\
 				__attribute__((__nonnull__(1)));
+
+t_u32a		rt_sample_color(double u, double v, t_RTColortx *cx)\
+				__attribute__((__nonnull__(3)));
 
 #endif

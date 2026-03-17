@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:28:49 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 21:01:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:11:32 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_RTSphere
 	double		diameter;
 	t_u32a		color;
 	t_RTTexture	*tx;
+	t_RTColortx	*cx;
 }	t_RTSphere;
 
 # ifdef __clang__
@@ -33,6 +34,7 @@ typedef struct s_RTSphereBuffer
 	double __attribute__	((counted_by(size)))		*diameter;
 	t_u32a __attribute__	((counted_by(size)))		*color;
 	t_RTTexture											**tx;
+	t_RTColortx											**cx;
 }	t_RTSphereBuffer;
 
 # else
@@ -45,6 +47,7 @@ typedef struct s_RTSphereBuffer
 	t_u32a		*color;
 	t_u32a		*bitmaptx;
 	t_RTTexture	**tx;
+	t_RTColortx	**cx;
 }	t_RTSphereBuffer;
 
 # endif

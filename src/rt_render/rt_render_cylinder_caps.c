@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:21:12 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 16:32:22 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:55:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ __attribute__((__always_inline__, pure, __nonnull__(3, 4)))
 inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 		t_RTCylinderBuffer *buf, t_3dcoords *n)
 {
-	double	ts;
-	double	tt;
-	double	tb;
+	static t_3dcoords	min1 = (t_3dcoords){-1, -1, -1, 0};
+	double				ts;
+	double				tt;
+	double				tb;
 
 	ts = rt_intersect_cylinder(ray, i, buf);
 	tt = rt_intersect_cap(ray, i, buf, 1.0);
@@ -78,8 +79,7 @@ inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 	if (tt > 0 && (ts <= 0 || tt < ts) && (tb <= 0 || tt <= tb))
 		return ((void)(*n = buf->axis[i]), tt);
 	if (tb > 0 && (ts <= 0 || tb < ts))
-		return ((void)(*n = ft_3dmul(buf->axis[i], (t_3dcoords){-1, -1, -1, 0})),
-				tb);
+		return ((void)(*n = ft_3dmul(buf->axis[i], min1)), tb);
 	if (ts > 0)
 		return ((void)(*n = rt_cylinder_normal(ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){ts, ts, ts, 0})),

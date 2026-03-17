@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 02:36:46 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:17:05 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ static inline t_taggedresult	rt_try_path_cy(t_RTContext *ctx, t_tokenizer *t,
 	t_RTCylinder *cy)
 {
 	t_RTTexture	*tx;
+	t_RTColortx	*cx;
 
-	tx = rt_parse_path(ctx, t);
+	tx = rt_parse_path_bmp(ctx, t);
 	if ((t_uptr)tx == BMP_ERROR)
 		return (KO);
 	cy->tx = tx;
+	cx = rt_parse_path_color(ctx, t);
+	if ((t_uptr)cx == BMP_ERROR)
+		return (KO);
+	cy->cx = cx;
 	return (OK);
 }
 

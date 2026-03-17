@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_bmp.c                                     :+:      :+:    :+:   */
+/*   rt_parse_texture.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 19:56:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:06:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:08:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,39 @@
 #include "io.h"
 
 __attribute__((__nonnull__(1), __always_inline__))
-static inline t_RTTexture	*rt__decode(t_RTContext *ctx, t_file file)
+static inline t_RTColortx	*rt__decode(t_RTContext *ctx, t_file file)
 {
 	t_u64		width;
 	t_u64		height;
-	t_RTTexture	*tx;
+	t_RTColortx	*tx;
 
 	if (file.size <= (sizeof(t_u64) << 1))
 		return ((void *)BMP_ERROR);
 	width = ((t_blk64r)file.content)[0];
 	height = ((t_blk64r)file.content)[1];
 	tx = ft_arena_alloc(&ctx->rt_arena, sizeof(t_RTTexture)
-			+ width * height, 64);
+			+ ((width * height) << 2), 64);
 	if (!tx)
 		return ((void *)BMP_ERROR);
 	ft_memcpy(tx->data, file.content + (sizeof(t_u64) << 1),
-		width * height);
+		(width * height) << 2);
 	tx->width = width;
 	tx->height = height;
 	return (tx);
 }
 
 __attribute__((__nonnull__(1)))
-t_RTTexture	*rt_parse_bmp(t_RTContext *ctx, t_token tok)
+t_RTColortx	*rt_parse_color_texture(t_RTContext *ctx, t_token tok)
 {
 	t_file				file;
 	char				*fname;
-	t_RTTexture			*tx;
+	t_RTColortx			*tx;
 
-	if (tok.len <= sizeof(RT_PATH_PREFIX)
-		|| ft_to_be32(*(t_u32 *)tok.mem) != ft_to_be32(0x3D50414D))
+	if (tok.len <= sizeof(RT_COLOR_PREFIX)
+		|| ft_to_be32(*(t_u32 *)tok.mem) != ft_to_be32(0x3D545854))
 		return (NULL);
-	tok.len -= sizeof(RT_PATH_PREFIX) - 1;
-	tok.mem += sizeof(RT_PATH_PREFIX) - 1;
+	tok.len -= sizeof(RT_COLOR_PREFIX) - 1;
+	tok.mem += sizeof(RT_COLOR_PREFIX) - 1;
 	tx = ft_map_lookup(&ctx->loaded_textures, tok.mem, tok.len);
 	if (tx)
 		return (tx);

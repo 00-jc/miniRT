@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 15:06:38 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:24:20 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ inline void	rt_cast_spheres(t_RTRay ray, t_RTScene *scene,
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
 			hit->normal = rt_sphere_normal(hit->point, i, &buffer);
+			hit->cx = buffer.cx[i];
 			rt_handle_sphere_tx(hit, buffer.coords[i], buffer.tx[i]);
 		}
 		i++;

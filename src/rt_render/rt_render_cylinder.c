@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 16:41:33 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:24:49 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ inline void	rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
 			hit->normal = normal;
+			hit->cx = buffer.cx[i];
 			rt_handle_cy_tx(hit, buffer, i);
 		}
 		i++;

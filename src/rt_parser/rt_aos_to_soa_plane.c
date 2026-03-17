@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 02:41:48 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/16 22:05:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:18:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ inline t_taggedresult	rt_alloc_soa_plane(t_RTPlaneBuffer *buf,
 	buf->axis = ft_arena_alloc(arena, n * sizeof(t_3dcoords), 32);
 	buf->color = ft_arena_alloc(arena, n * sizeof(t_u32a), 4);
 	buf->tx = (t_RTTexture **)ft_arena_alloc(arena,
+			n * sizeof(t_RTTexture *), 8);
+	buf->cx = (t_RTColortx **)ft_arena_alloc(arena,
 			n * sizeof(t_RTTexture *), 8);
 	if (!buf->coords || !buf->axis || !buf->color)
 		return (KO);
@@ -42,6 +44,7 @@ inline void	rt_populate_soa_plane(t_RTPlaneBuffer *buf,
 		buf->axis[i] = p->axis;
 		buf->color[i] = p->color;
 		buf->tx[i] = p->tx;
+		buf->cx[i] = p->cx;
 		i++;
 	}
 }

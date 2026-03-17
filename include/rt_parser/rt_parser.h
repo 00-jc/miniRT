@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 22:55:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:10:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,15 @@ t_taggedresult	rt_parse_display_size(int argc, t_RTContext *context,\
 					const char **argv)\
 					__attribute__((__nonnull__(2, 3)));
 
-t_RTTexture		*rt_parse_path(t_RTContext *ctx, t_tokenizer *t)\
+t_RTTexture		*rt_parse_path_bmp(t_RTContext *ctx, t_tokenizer *t)\
+					__attribute__((__nonnull__(1, 2)));
+
+t_RTColortx		*rt_parse_path_color(t_RTContext *ctx, t_tokenizer *t)\
 					__attribute__((__nonnull__(1, 2)));
 
 t_RTTexture		*rt_parse_bmp(t_RTContext *ctx, t_token tok)\
+					__attribute__((__nonnull__(1)));
+
+t_RTColortx		*rt_parse_color_texture(t_RTContext *ctx, t_token tok)\
 					__attribute__((__nonnull__(1)));
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 19:10:37 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 04:20:00 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:12:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "io.h"
 
 __attribute__((__always_inline__, __nonnull__(1, 2)))
-inline t_RTTexture	*rt_parse_path(t_RTContext *ctx, t_tokenizer *t)
+inline t_RTTexture	*rt_parse_path_bmp(t_RTContext *ctx, t_tokenizer *t)
 {
 	t_tokenizer		snap;
 	t_token			tok;
@@ -24,6 +24,22 @@ inline t_RTTexture	*rt_parse_path(t_RTContext *ctx, t_tokenizer *t)
 	ft_skip_whitespace(t);
 	tok = ft_eat_until(t, set_blank);
 	tx = rt_parse_bmp(ctx, tok);
+	if (!tx)
+		*t = snap;
+	return (tx);
+}
+
+__attribute__((__always_inline__, __nonnull__(1, 2)))
+inline t_RTColortx	*rt_parse_path_color(t_RTContext *ctx, t_tokenizer *t)
+{
+	t_tokenizer		snap;
+	t_token			tok;
+	t_RTColortx		*tx;
+
+	snap = *t;
+	ft_skip_whitespace(t);
+	tok = ft_eat_until(t, set_blank);
+	tx = rt_parse_color_texture(ctx, tok);
 	if (!tx)
 		*t = snap;
 	return (tx);

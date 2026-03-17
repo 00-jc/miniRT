@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/17 16:46:47 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/17 18:25:48 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -178,6 +178,7 @@ SRCS_PARSER := \
 	src/rt_parser/rt_aos_to_soa_sphere.c \
 	src/rt_parser/rt_parse_display_size.c \
 	src/rt_parser/rt_parse_path.c \
+	src/rt_parser/rt_parse_texture.c \
 	src/rt_parser/rt_parse_bmp.c
 
 SRCS_MLX := \

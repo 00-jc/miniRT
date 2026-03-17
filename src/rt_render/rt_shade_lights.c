@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 16:59:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:22:42 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ inline void	rt_shade_lights(t_RTHit *hit, t_RTScene *scene, double *rgb)
 
 	i = 0;
 	rt_perturb_normal(hit);
+	if (hit->cx)
+		hit->color = rt_sample_color(hit->uv[0], hit->uv[1], hit->cx);
 	while (i < scene->rt_light_buffer.size)
 		rt_shade_light(hit, &scene->rt_light_buffer, i++, rgb);
 }

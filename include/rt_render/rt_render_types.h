@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 16:26:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:22:55 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_RTHit
 	double		t;
 	double		uv[2];
 	t_RTTexture	*tx;
+	t_RTColortx	*cx;
 	t_u32a		color;
 }	t_RTHit;
 

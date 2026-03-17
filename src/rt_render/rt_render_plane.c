@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 15:33:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:23:59 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ inline void	rt_cast_planes(t_RTRay ray, t_RTScene *scene,
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
 			hit->normal = scene->rt_plane_buffer.axis[i];
+			hit->cx = scene->rt_plane_buffer.cx[i];
 			rt_handle_plane_tx(hit, scene->rt_plane_buffer.tx[i]);
 		}
 		i++;
