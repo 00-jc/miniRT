@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 16:37:57 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 16:41:33 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ inline void	rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 	{
 		t = rt_intersect_cyl_full(ray, i,
 				&scene->rt_cylinder_buffer, &normal);
-		t = rt_intersect_cylinder(ray, i, &buffer);
 		if (t > 0 && t < *closest)
 		{
 			*closest = t;
