@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 19:56:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:06:03 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:14:50 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static inline t_RTTexture	*rt__decode(t_RTContext *ctx, t_file file)
 		return ((void *)BMP_ERROR);
 	width = ((t_blk64r)file.content)[0];
 	height = ((t_blk64r)file.content)[1];
+	if ((width * height) & 2)
+		return (rt_error("Error\nImage size must be power of 2"),
+			(void *)BMP_ERROR);
 	tx = ft_arena_alloc(&ctx->rt_arena, sizeof(t_RTTexture)
 			+ width * height, 64);
 	if (!tx)
