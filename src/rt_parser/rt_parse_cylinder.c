@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:38:59 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 22:44:55 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 02:36:46 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_taggedresult	rt_parse_cylinder(t_RTContext *ctx,
 	if (wh[0].res == KO || wh[1].res == KO)
 		return (KO);
 	c = rt_parse_color(t);
+	cy = rt__cy(co.coord, a.coord, (t_2packd){wh[0].d, wh[1].d}, c.color);
 	if (c.res == KO || rt_try_path_cy(ctx, t, &cy) == KO)
 		return (KO);
-	cy = rt__cy(co.coord, a.coord, (t_2packd){wh[0].d, wh[1].d}, c.color);
 	return (ft_vec_push_back(cy_vec, (void *){&cy}, sizeof(cy)));
 }
