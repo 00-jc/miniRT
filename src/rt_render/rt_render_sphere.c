@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 07:07:48 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:06:38 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ inline double	rt_intersect_sphere(t_RTRay ray, size_t i,
 	return (far);
 }
 
+__attribute__((__always_inline__, __nonnull__(1)))
+inline void	rt_handle_sphere_tx(t_RTHit *hit, t_3dcoords sphere,
+	t_RTTexture *tx)
+{
+	double		u;
+	double		v;
+	t_3dcoords	p;
+
+	if (tx)
+	{
+		p = ft_3dunit(ft_3dsub(hit->point, sphere));
+		u = 0.5 + __builtin_atan2(p.z, p.x) * 0.159154943092;
+		v = 0.5 - __builtin_asin(p.y) * 0.318309886184;
+		hit->tx = tx;
+		hit->uv[0] = u;
+		hit->uv[1] = v;
+	}
+}
+
 __attribute__((__always_inline__))
 inline t_3dcoords	rt_sphere_normal(t_3dcoords point, size_t i,
 		t_RTSphereBuffer *buf)
@@ -54,22 +73,24 @@ __attribute__((__always_inline__, __nonnull__(2, 3, 4), hot))
 inline void	rt_cast_spheres(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
 {
-	double	t;
-	size_t	i;
+	double				t;
+	size_t				i;
+	t_RTSphereBuffer	buffer;
 
 	i = 0;
-	while (i < scene->rt_sphere_buffer.size)
+	buffer = scene->rt_sphere_buffer;
+	while (i < buffer.size)
 	{
-		t = rt_intersect_sphere(ray, i, &scene->rt_sphere_buffer);
+		t = rt_intersect_sphere(ray, i, &buffer);
 		if (t > 0 && t < *closest)
 		{
 			*closest = t;
 			hit->t = t;
-			hit->color = scene->rt_sphere_buffer.color[i];
+			hit->color = buffer.color[i];
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-			hit->normal = rt_sphere_normal(hit->point,
-					i, &scene->rt_sphere_buffer);
+			hit->normal = rt_sphere_normal(hit->point, i, &buffer);
+			rt_handle_sphere_tx(hit, buffer.coords[i], buffer.tx[i]);
 		}
 		i++;
 	}

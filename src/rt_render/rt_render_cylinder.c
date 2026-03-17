@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:28:59 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/16 21:07:29 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/17 16:35:02 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,29 @@ __attribute__((__always_inline__, __nonnull__(2, 3, 4), hot))
 inline void	rt_cast_cylinders(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
 {
-	size_t		i;
-	double		t;
-	t_3dcoords	normal;
+	size_t				i;
+	double				t;
+	t_3dcoords			normal;
+	t_RTCylinderBuffer	buffer;
 
 	i = 0;
+	buffer = scene->rt_cylinder_buffer;
 	while (i < scene->rt_cylinder_buffer.size)
 	{
 		t = rt_intersect_cyl_full(ray, i,
 				&scene->rt_cylinder_buffer, &normal);
+		t = rt_intersect_cylinder(ray, i, &buffer);
 		if (t > 0 && t < *closest)
 		{
 			*closest = t;
 			hit->t = t;
-			hit->color = scene->rt_cylinder_buffer.color[i];
+			hit->color = buffer.color[i];
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
 			hit->normal = normal;
+			hit->normal = rt_cylinder_normal(hit->point,
+					i, &scene->rt_cylinder_buffer);
+			rt_handle_cy_tx(hit, buffer, i);
 		}
 		i++;
 	}

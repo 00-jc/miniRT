@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/16 16:56:31 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:18:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -21,6 +21,7 @@ static inline t_u32a	rt_cast_ray(size_t x, size_t y, t_RTScene *scene,
 	t_RTHit					hit;
 	double					closest;
 
+	hit.tx = NULL;
 	hit.color = 0;
 	ray = rt_camera_ray(x, y, scene, vp);
 	closest = (t_dp){.i = 0x7FF0000000000000}.f;

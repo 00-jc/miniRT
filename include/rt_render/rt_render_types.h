@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/16 16:44:11 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:06:22 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "types.h"
 # include "math.h"
 # include "mlx.h"
+# include "rt_parser/rt_bmp.h"
 # include <X11/Xlib.h>
 # include <X11/Xutil.h>
 # include <sys/shm.h>
@@ -95,19 +96,10 @@ typedef struct s_RTHit
 	t_3dcoords	normal;
 	t_3dcoords	view_dir;
 	double		t;
+	double      uv[2];
+	t_RTTexture	*tx;
 	t_u32a		color;
 }	t_RTHit;
-
-typedef struct s_RTPacket
-{
-	t_3dcoordsx8	origin;
-	t_3dcoordsx8	dir;
-	t_3dcoordsx8	hit_points;
-	t_3dcoordsx8	hit_normal;
-	t_8packd		hit_t;
-	t_u32a			hit_color[RT_PACKETSIZE];
-	t_u8			hit_regs;
-}	t_RTPacket;
 
 typedef struct s_RTViewport
 {

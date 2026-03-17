@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/17 16:33:45 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/17 16:36:01 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,6 +198,8 @@ SRCS_RENDER := \
 	src/rt_render/rt_render_frame.c \
 	src/rt_render/rt_render_plane.c \
 	src/rt_render/rt_shade.c \
+	src/rt_render/rt_render_cylinder_bmp_handle.c \
+	src/rt_render/rt_render_texture.c \
 	src/rt_render/rt_shade_lights.c
 
 SRCS_LOGGER := \

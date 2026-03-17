@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 06:52:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:33:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,36 @@ inline double	rt_intersect_plane(t_RTRay ray, size_t i,
 	return (t);
 }
 
+__attribute__((__always_inline__, __nonnull__(1)))
+inline void	rt_handle_plane_tx(t_RTHit *hit, t_RTTexture *tx)
+{
+	double		u;
+	double		v;
+
+	if (tx)
+	{
+		if (ft_fabs(hit->normal.y) > ft_fabs(hit->normal.x)
+			&& ft_fabs(hit->normal.y) > ft_fabs(hit->normal.z))
+		{
+			u = hit->point.x * RT_SC - __builtin_floor(hit->point.x * RT_SC);
+			v = hit->point.z * RT_SC - __builtin_floor(hit->point.z * RT_SC);
+		}
+		else if (ft_fabs(hit->normal.x) > ft_fabs(hit->normal.z))
+		{
+			u = hit->point.y * RT_SC - __builtin_floor(hit->point.y * RT_SC);
+			v = hit->point.z * RT_SC - __builtin_floor(hit->point.z * RT_SC);
+		}
+		else
+		{
+			u = hit->point.x * RT_SC - __builtin_floor(hit->point.x * RT_SC);
+			v = hit->point.y * RT_SC - __builtin_floor(hit->point.y * RT_SC);
+		}
+		hit->tx = tx;
+		hit->uv[0] = u;
+		hit->uv[1] = v;
+	}
+}
+
 __attribute__((__always_inline__, __nonnull__(2, 3, 4), hot))
 inline void	rt_cast_planes(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
@@ -56,6 +86,7 @@ inline void	rt_cast_planes(t_RTRay ray, t_RTScene *scene,
 			hit->point = ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
 			hit->normal = scene->rt_plane_buffer.axis[i];
+			rt_handle_plane_tx(hit, scene->rt_plane_buffer.tx[i]);
 		}
 		i++;
 	}

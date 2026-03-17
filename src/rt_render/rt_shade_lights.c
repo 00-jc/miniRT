@@ -6,13 +6,43 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/15 07:04:02 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:30:26 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
 #include "rt_render/rt_render.h"
 #include <stdbool.h>
+
+__attribute__((__nonnull__(1), __always_inline__, hot))
+inline void	rt_perturb_normal(t_RTHit *hit)
+{
+	const t_3dcoords	yax = (t_3dcoords){0, 1, 0, 0};
+	const t_3dcoords	xax = (t_3dcoords){1, 0, 0, 0};
+	t_3dcoords			tb[2];
+	double				d[6];
+	double				iwh[2];
+
+	if (hit->tx)
+	{
+		iwh[0] = 1.0 / (double)hit->tx->width;
+		iwh[1] = 1.0 / (double)hit->tx->height;
+		d[0] = rt_sample(hit->uv[0] - iwh[0], hit->uv[1], hit->tx);
+		d[1] = rt_sample(hit->uv[0] + iwh[0], hit->uv[1], hit->tx);
+		d[2] = rt_sample(hit->uv[0], hit->uv[1] - iwh[1], hit->tx);
+		d[3] = rt_sample(hit->uv[0], hit->uv[1] + iwh[1], hit->tx);
+		d[4] = (d[1] - d[0]) * RT_PERTURB_STRENGHT;
+		d[5] = (d[3] - d[2]) * RT_PERTURB_STRENGHT;
+		if (ft_fabs(hit->normal.y) < 0.999)
+			tb[0] = ft_3dunit(ft_3dcross(yax, hit->normal));
+		else
+			tb[0] = ft_3dunit(ft_3dcross(xax, hit->normal));
+		tb[1] = ft_3dcross(hit->normal, tb[0]);
+		hit->normal = ft_3dunit(ft_3dsub(hit->normal,
+					ft_3dadd(ft_3dmul(tb[0], (t_3dcoords){d[4], d[4], d[4], 0}),
+						ft_3dmul(tb[1], (t_3dcoords){d[5], d[5], d[5], 0}))));
+	}
+}
 
 /*
 * rgb[0 - 2] diffuse light, will be mult by color
@@ -74,6 +104,7 @@ inline void	rt_shade_lights(t_RTHit *hit, t_RTScene *scene, double *rgb)
 	size_t	i;
 
 	i = 0;
+	rt_perturb_normal(hit);
 	while (i < scene->rt_light_buffer.size)
 		rt_shade_light(hit, &scene->rt_light_buffer, i++, rgb);
 }
