@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:23:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 11:54:58 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ inline double	rt_intersect_plane(t_RTRay ray, size_t i,
 		return (-1.0);
 	oc = ft_3dsub(buf->coords[i], ray.origin);
 	t = ft_3ddot(oc, buf->axis[i]) / denom;
-	if (t < 0 || t > 1e3)
+	if (t < 0 || t > 1e2)
 		return (-1.0);
 	return (t);
 }

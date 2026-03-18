@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:10:32 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 02:36:36 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 13:20:29 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,41 +20,30 @@ inline t_3dcoords	rt_cone_abc(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf)
 {
 	t_3dcoords	oc;
-	t_3dcoords	apex;
-	double		m;
 	double		doc;
 	double		occ;
 
-	m = 1.0 / (1.0 + (buf->wh[i].x * 0.5 / buf->wh[i].y)
-			* (buf->wh[i].x * 0.5 / buf->wh[i].y));
-	apex = ft_3dadd(buf->coords[i], ft_3dmul(buf->axis[i],
-				(t_3dcoords){buf->wh[i].y, buf->wh[i].y,
-				buf->wh[i].y, 0}));
-	oc = ft_3dsub(ray.origin, apex);
+	oc = ft_3dsub(ray.origin, buf->apex[i]);
 	doc = ft_3ddot(ray.dir, buf->axis[i]);
 	occ = ft_3ddot(oc, buf->axis[i]);
-	return ((t_3dcoords){doc * doc - m,
-		2.0 * (doc * occ - m * ft_3ddot(ray.dir, oc)),
-		occ * occ - m * ft_3ddot(oc, oc), 0});
+	return ((t_3dcoords){doc * doc - buf->m[i],
+		2.0 * (doc * occ - buf->m[i] * ft_3ddot(ray.dir, oc)),
+		occ * occ - buf->m[i] * ft_3ddot(oc, oc), 0});
 }
 
 __attribute__((__always_inline__, __nonnull__(3), pure))
 inline double	rt_check_cone_height(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf, double t)
 {
-	t_3dcoords	apex;
 	t_3dcoords	point;
 	t_3dcoords	oc;
 	double		proj;
 
 	if (t <= CONE_EPS)
 		return (-1.0);
-	apex = ft_3dadd(buf->coords[i], ft_3dmul(buf->axis[i],
-				(t_3dcoords){buf->wh[i].y, buf->wh[i].y,
-				buf->wh[i].y, 0}));
 	point = ft_3dadd(ray.origin,
 			ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-	oc = ft_3dsub(point, apex);
+	oc = ft_3dsub(point, buf->apex[i]);
 	proj = ft_3ddot(oc, buf->axis[i]);
 	if (proj <= CONE_EPS && proj >= -buf->wh[i].y - CONE_EPS)
 		return (t);
