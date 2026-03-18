@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:28:25 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/10 23:51:44 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:38:13 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ typedef struct s_RTAmbientLight
 
 typedef struct s_RTLightBuffer
 {
-	size_t												size;
-	t_3dcoords __attribute__	((counted_by(size)))	*coords;
-	double __attribute__	((counted_by(size)))		*brightness;
-	t_u32a __attribute__	((counted_by(size)))		*color;
+	size_t															size;
+	t_3dcoords __attribute__	((counted_by(size)))	*restrict	coords;
+	double __attribute__	((counted_by(size)))		*restrict	brightness;
+	t_u32a __attribute__	((counted_by(size)))		*restrict	color;
 }	t_RTLightBuffer;
 
 # else
 
 typedef struct s_RTLightBuffer
 {
-	size_t		size;
-	t_3dcoords	*coords;
-	double		*brightness;
-	t_u32a		*color;
+	size_t					size;
+	t_3dcoords	*restrict	coords;
+	double		*restrict	brightness;
+	t_u32a		*restrict	color;
 }	t_RTLightBuffer;
 
 # endif

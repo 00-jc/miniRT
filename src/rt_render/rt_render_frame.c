@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 19:35:25 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 02:29:29 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -79,14 +79,10 @@ static inline void	rt_inner8(t_RTContext *ctx, t_RTScene *scene,
 __attribute__((__nonnull__(1, 2), __hot__))
 void	rt_render_line(t_RTContext *ctx, t_RTScene *scene, size_t y)
 {
-	const t_3dcoords		yax = (t_3dcoords){0, 1, 0, 0};
 	t_u32a					*px;
 	t_uptr					end;
 	size_t					xy[2];
 
-	ctx->vp.right = ft_3dunit(ft_3dcross(scene->rt_camera.axis, yax));
-	ctx->vp.up = ft_3dunit(ft_3dcross(ctx->vp.right, scene->rt_camera.axis));
-	ctx->vp.forward = scene->rt_camera.axis;
 	px = ctx->rt_img->data + (y * ctx->display_width);
 	end = (t_uptr)(px + ctx->display_width);
 	xy[0] = 0;

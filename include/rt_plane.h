@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:29:08 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:12:40 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/17 23:45:45 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,24 @@ typedef struct s_RTPlane
 
 typedef struct s_RTPlaneBuffer
 {
-	size_t												size;
-	t_3dcoords __attribute__	((counted_by(size)))	*coords;
-	t_3dcoords __attribute__	((counted_by(size)))	*axis;
-	t_u32a __attribute__	((counted_by(size)))		*color;
-	t_RTTexture											**tx;
-	t_RTColortx											**cx;
+	size_t															size;
+	t_3dcoords __attribute__	((counted_by(size))) *restrict		coords;
+	t_3dcoords __attribute__	((counted_by(size))) *restrict		axis;
+	t_u32a __attribute__	((counted_by(size)))		*restrict	color;
+	t_RTTexture	*restrict *restrict									tx;
+	t_RTColortx	*restrict *restrict									cx;
 }	t_RTPlaneBuffer;
 
 # else
 
 typedef struct s_RTPlaneBuffer
 {
-	size_t		size;
-	t_3dcoords	*coords;
-	t_3dcoords	*axis;
-	t_u32a		*color;
-	t_RTTexture	**tx;
-	t_RTColortx	**cx;
+	size_t								size;
+	t_3dcoords	*restrict				coords;
+	t_3dcoords	*restrict				axis;
+	t_u32a		*restrict				color;
+	t_RTTexture	*restrict	*restrict	tx;
+	t_RTColortx	*restrict	*restrict	cx;
 }	t_RTPlaneBuffer;
 
 # endif
