@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 00:33:19 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 22:21:31 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 16:29:41 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # define RT_PLANE			0x706CULL
 # define RT_CYLINDER		0x6379ULL
 # define RT_CONE			0x636fULL
-# define RT_PERFECT_HASH	23ULL
-# define RT_AMBIENT_IDX 	11
-# define RT_CAMERA_IDX		17
-# define RT_LIGHT_IDX		21
-# define RT_SPHERE_IDX		20
-# define RT_PLANE_IDX		7
-# define RT_CYLINDER_IDX	4
-# define RT_CONE_IDX		17
+# define RT_PERFECT_HASH	26
+# define RT_AMBIENT_IDX		0
+# define RT_CAMERA_IDX		18
+# define RT_LIGHT_IDX		8
+# define RT_SPHERE_IDX		16
+# define RT_PLANE_IDX		24
+# define RT_CYLINDER_IDX	11
+# define RT_CONE_IDX		1
 # define RT_AOS_SPHERE		0
 # define RT_AOS_LIGHT		1
 # define RT_AOS_PLANE		2

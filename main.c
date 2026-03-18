@@ -7,11 +7,12 @@
 # define RT_SPHERE			0x7370ULL
 # define RT_PLANE			0x706CULL
 # define RT_CYLINDER		0x6379ULL
+# define RT_CONE			0x636fULL
 
 int main(void)
 {
-	uint16_t vals[] = {RT_AMBIENT, RT_CAMERA, RT_LIGHT, RT_SPHERE, RT_PLANE, RT_CYLINDER};
-	const char *names[] = {"AMBIENT", "CAMERA", "LIGHT", "SPHERE", "PLANE", "CYLINDER"};
+	uint16_t vals[] = {RT_AMBIENT, RT_CAMERA, RT_LIGHT, RT_SPHERE, RT_PLANE, RT_CYLINDER, RT_CONE};
+	const char *names[] = {"AMBIENT", "CAMERA", "LIGHT", "SPHERE", "PLANE", "CYLINDER", "CONE"};
 	int n = sizeof(vals) / sizeof(vals[0]);
 
 	for (size_t i = 1; ; i++)
