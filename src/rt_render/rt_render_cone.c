@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_render_cone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoria <asoria@student.42madrid.com>        +#+  +:+       +#+        */
+/*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 00:00:00 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 22:38:31 by asoria           ###   ########.fr       */
+/*   Created: 2026/03/17 01:10:32 by asoria            #+#    #+#             */
+/*   Updated: 2026/03/18 02:26:45 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ inline t_3dcoords	rt_cone_abc(t_RTRay ray, size_t i,
 {
 	t_3dcoords	oc;
 	t_3dcoords	apex;
-	double		k;
 	double		m;
 	double		doc;
 	double		occ;
 
-	k = (buf->wh[i].x * 0.5) / buf->wh[i].y;
-	m = 1.0 / (1.0 + k * k);
+	m = 1.0 / (1.0 + (buf->wh[i].x * 0.5 / buf->wh[i].y)
+			* (buf->wh[i].x * 0.5 / buf->wh[i].y));
 	apex = ft_3dadd(buf->coords[i], ft_3dmul(buf->axis[i],
 				(t_3dcoords){buf->wh[i].y, buf->wh[i].y,
 				buf->wh[i].y, 0}));

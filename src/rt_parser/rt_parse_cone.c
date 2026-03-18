@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 22:15:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 22:47:11 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 01:59:03 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,25 @@ static inline t_RTCone	rt__cn(t_3dcoords coords, t_3dcoords axis,
 	});
 }
 
+__attribute__((__always_inline__, __nonnull__(1, 2)))
+static inline t_taggedresult	rt__parse_cone_wh(t_tokenizer *t,
+		t_double_res wh[2])
+{
+	wh[0] = rt_parse_double(t);
+	if (wh[0].res == KO)
+		return (KO);
+	wh[1] = rt_parse_double(t);
+	if (wh[1].res == KO)
+		return (KO);
+	return (OK);
+}
+
 /*
 *	cone format (label "co"):
 *	co  <apex_x,apex_y,apex_z>  <ax,ay,az>  <diameter>  <height>  <R,G,B>
 *	axis must be a unit vec
 *	diameter and height must be positive
 */
-
 __attribute__((__nonnull__(1, 2)))
 t_taggedresult	rt_parse_cone(t_RTContext *ctx, t_tokenizer *t, t_vec *cn_vec)
 {
@@ -55,19 +67,15 @@ t_taggedresult	rt_parse_cone(t_RTContext *ctx, t_tokenizer *t, t_vec *cn_vec)
 
 	(void)ctx;
 	co = rt_parse_coords(t);
-	if (co.res)
+	if (co.res == KO)
 		return (KO);
 	a = rt_parse_coords(t);
 	if (a.res == KO)
 		return (KO);
+	if (!rt__parse_cone_wh(t, wh))
+		return (KO);
 	if (!rt__ensure_normalized(a.coord))
 		return (rt_error(NNORM), KO);
-	wh[0] = rt_parse_double(t);
-	if (wh[0].res == KO)
-		return (KO);
-	wh[1] = rt_parse_double(t);
-	if (wh[1].res == KO)
-		return (KO);
 	c = rt_parse_color(t);
 	if (c.res == KO)
 		return (KO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_render_cone2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoria <asoria@student.42madrid.com>        +#+  +:+       +#+        */
+/*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 00:00:00 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 22:07:05 by asoria           ###   ########.fr       */
+/*   Created: 2026/03/17 01:03:57 by asoria            #+#    #+#             */
+/*   Updated: 2026/03/18 02:26:53 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ inline t_3dcoords	rt_cone_normal(t_3dcoords point, size_t i,
 	t_3dcoords	apex;
 	t_3dcoords	oc;
 	double		proj;
-	double		k;
 	double		factor;
 
-	k = (buf->wh[i].x * 0.5) / buf->wh[i].y;
 	apex = ft_3dadd(buf->coords[i], ft_3dmul(buf->axis[i],
 				(t_3dcoords){buf->wh[i].y, buf->wh[i].y,
 				buf->wh[i].y, 0}));
 	oc = ft_3dsub(point, apex);
 	proj = ft_3ddot(oc, buf->axis[i]);
-	factor = (1.0 + k * k) * proj;
+	factor = (1.0 + (buf->wh[i].x * 0.5 / buf->wh[i].y)
+			* (buf->wh[i].x * 0.5 / buf->wh[i].y)) * proj;
 	return (ft_3dunit(ft_3dsub(oc, ft_3dmul(buf->axis[i],
 					(t_3dcoords){factor, factor, factor, 0}))));
 }
