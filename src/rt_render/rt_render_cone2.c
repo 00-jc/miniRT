@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:03:57 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 02:26:53 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 02:39:35 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	rt_cast_cones(t_RTRay ray, t_RTScene *scene,
 	int		is_cap;
 
 	i = 0;
+	is_cap = 0;
 	while (i < scene->rt_cone_buffer.size)
 	{
 		t = rt_intersect_cone(ray, i, &scene->rt_cone_buffer, &is_cap);
