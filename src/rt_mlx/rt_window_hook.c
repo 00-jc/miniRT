@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 02:55:24 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 03:33:30 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 03:36:39 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	rt_window_hook(t_RTstate *restrict const state)
 	if (state->ctx.display_height != (size_t)attr.height
 		|| state->ctx.display_width != (size_t)attr.width)
 	{
-		state->ctx.display_height = 1ULL << (64
-				- ft_memclz_u64((size_t)attr.height - 1));
-		state->ctx.display_width = 1ULL << (64
-				- ft_memclz_u64((size_t)attr.width - 1));
+		state->ctx.display_height = (size_t)attr.height;
+		state->ctx.display_width = (size_t)attr.width;
 		state->ctx.scene_redraw = 1;
 		state->ctx.rt_img->image->data = NULL;
 		ft_arena_rewind(&state->ctx.rt_arena, state->ctx.rewind_image);
