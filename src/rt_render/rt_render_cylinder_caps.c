@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:21:12 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/17 19:23:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:17:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ inline double	rt_intersect_cap(t_RTRay ray, size_t i,
 	t_3dcoords	oc;
 	double		denom;
 	double		t;
-	double		r;
+	double		r[2];
 
-	r = buf->wh[i].x * 0.5;
+	r[0] = buf->wh[i].x * 0.5;
 	denom = ft_3ddot(ray.dir, buf->axis[i]);
 	if (denom > -1e-6 && denom < 1e-6)
 		return (-1.0);
+	r[1] = sign * buf->wh[i].y * 0.5;
 	cap = ft_3dadd(buf->coords[i], ft_3dmul(buf->axis[i],
-				(t_3dcoords){sign * buf->wh[i].y * 0.5,
-				sign * buf->wh[i].y * 0.5,
-				sign * buf->wh[i].y * 0.5, 0}));
+				(t_3dcoords){r[1], r[1], r[1], 0}));
 	t = ft_3ddot(ft_3dsub(cap, ray.origin), buf->axis[i]) / denom;
 	if (t < 0)
 		return (-1.0);
 	oc = ft_3dsub(ft_3dadd(ray.origin,
 				ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0})), cap);
-	if (ft_3ddot(oc, oc) > r * r)
+	if (ft_3ddot(oc, oc) > r[0] * r[0])
 		return (-1.0);
 	return (t);
 }
@@ -78,11 +77,29 @@ inline double	rt_intersect_cyl_full(t_RTRay ray, size_t i,
 	tb = rt_intersect_cap(ray, i, buf, -1.0);
 	if (tt > 0 && (ts <= 0 || tt < ts) && (tb <= 0 || tt <= tb))
 		return ((void)(*n = buf->axis[i]), tt);
-	if (tb > 0 && (ts <= 0 || tb < ts))
+	else if (tb > 0 && (ts <= 0 || tb < ts))
 		return ((void)(*n = ft_3dmul(buf->axis[i], min1)), tb);
-	if (ts > 0)
+	else if (ts > 0)
 		return ((void)(*n = rt_cylinder_normal(ft_3dadd(ray.origin,
 					ft_3dmul(ray.dir, (t_3dcoords){ts, ts, ts, 0})),
 			i, buf)), ts);
-	return (-1.0);
+	else
+		return (-1.0);
+}
+
+__attribute__((__always_inline__, __nonnull__(1, 2)))
+inline void	rt__handle_hit_cy(void *pack[2],
+	t_RTCylinderBuffer *buffer, size_t best, t_3dcoords normal)
+{
+	t_RTHit	*hit;
+	t_RTRay	*ray;
+
+	hit = pack[0];
+	ray = pack[1];
+	hit->color = buffer->color[best];
+	hit->point = ft_3dadd(ray->origin, ft_3dmul(ray->dir,
+				(t_3dcoords){hit->t, hit->t, hit->t, 0}));
+	hit->normal = normal;
+	hit->cx = buffer->cx[best];
+	rt_handle_cy_tx(hit, *buffer, best);
 }

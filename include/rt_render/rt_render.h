@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 02:36:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:26:14 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,9 @@ double		rt_intersect_cone(t_RTRay ray, size_t i,
 				__attribute__((__nonnull__(3, 4), pure));
 
 void		rt_handle_axis_limits(t_RTstate *state);
+
+void		rt__handle_hit_cy(void *pack[2], t_RTCylinderBuffer *buffer,\
+				size_t best, t_3dcoords normal)\
+				__attribute__((__nonnull__(1, 2)));
 
 #endif

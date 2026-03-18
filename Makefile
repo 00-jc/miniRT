@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/18 03:06:15 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/03/18 13:17:25 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,6 +139,7 @@ CFLAGS_COMMON_OPT := -pipe -ffunction-sections -fdata-sections                 \
 	-fstack-clash-protection -g3
 
 CFLAGS_OPT   := $(CFLAGS_COMMON_OPT) -flto -O3 -fno-math-errno  -ffast-math
+CFLAGS_NO_FLTO   := $(CFLAGS_COMMON_OPT) -O3 -fno-math-errno  -ffast-math
 CFLAGS_NOOPT := $(CFLAGS_COMMON_OPT) -O0
 
 SANITIZE     		:= -fsanitize=address,alignment,undefined -fsanitize-recover=null
@@ -158,6 +159,7 @@ else
 endif
 
 CFLAGS     := $(MARCH) $(CFLAGS_OPT) $(WARNS)
+CFLAGS_NOFLTO     := $(MARCH) $(CFLAGS_NO_FLTO) $(WARNS)
 LDFLAGS    := $(LDLTO) -Wl,--gc-sections -Wl,-O3 -Wl,-z,now $(LIBPATHS) $(LIBS)
 # ── Sources ───────────────────────────────────────────────────────────────────
 SRCS_PARSER := \
@@ -306,6 +308,10 @@ sanitize: $(ALL_OBJS) libft
 
 sanitize_thread: $(ALL_OBJS) libft
 	$(CC) $(CFLAGS) $(SANITIZE_THREAD) $(ALL_OBJS) $(LDFLAGS) -o miniRTSanT
+
+bench:	$(ALL_OBJS)
+	@$(MAKE) -C $(LIBFT_FOLDER) CFLAGS="$(CFLAGS_NOFLTO)"
+	$(CC) $(CFLAGS_NOFLTO) $(ALL_OBJS) $(LDFLAGS) -o miniRTBench
 
 debug: libft
 	@$(MAKE) $(OBJS) CFLAGS="$(MARCH) $(CFLAGS_NOOPT) $(WARNS)"

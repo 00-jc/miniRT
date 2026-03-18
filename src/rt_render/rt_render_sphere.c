@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 18:24:20 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:16:06 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define R_D 2
 #define R_R 3
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(3), pure))
 inline double	rt_intersect_sphere(t_RTRay ray, size_t i,
 		t_RTSphereBuffer *buf)
 {
@@ -62,11 +62,23 @@ inline void	rt_handle_sphere_tx(t_RTHit *hit, t_3dcoords sphere,
 	}
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, pure, __nonnull__(3)))
 inline t_3dcoords	rt_sphere_normal(t_3dcoords point, size_t i,
 		t_RTSphereBuffer *buf)
 {
 	return (ft_3dunit(ft_3dsub(point, buf->coords[i])));
+}
+
+__attribute__((__always_inline__, __nonnull__(1, 2, 3)))
+inline void	rt__handle_hit_sp(t_RTHit *hit, t_RTRay *ray,
+	t_RTSphereBuffer *buffer, size_t best)
+{
+	hit->color = buffer->color[best];
+	hit->point = ft_3dadd(ray->origin, ft_3dmul(ray->dir,
+				(t_3dcoords){hit->t, hit->t, hit->t, 0}));
+	hit->normal = rt_sphere_normal(hit->point, best, buffer);
+	hit->cx = buffer->cx[best];
+	rt_handle_sphere_tx(hit, buffer->coords[best], buffer->tx[best]);
 }
 
 __attribute__((__always_inline__, __nonnull__(2, 3, 4), hot))
@@ -74,25 +86,27 @@ inline void	rt_cast_spheres(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
 {
 	double				t;
-	size_t				i;
+	size_t				i[2];
 	t_RTSphereBuffer	buffer;
+	t_u8				run_comp;
 
-	i = 0;
+	i[0] = 0;
+	i[1] = 0;
+	t = hit->t;
+	run_comp = 0;
 	buffer = scene->rt_sphere_buffer;
-	while (i < buffer.size)
+	while (i[0] < buffer.size)
 	{
-		t = rt_intersect_sphere(ray, i, &buffer);
+		t = rt_intersect_sphere(ray, i[0], &buffer);
 		if (t > 0 && t < *closest)
 		{
 			*closest = t;
 			hit->t = t;
-			hit->color = buffer.color[i];
-			hit->point = ft_3dadd(ray.origin,
-					ft_3dmul(ray.dir, (t_3dcoords){t, t, t, 0}));
-			hit->normal = rt_sphere_normal(hit->point, i, &buffer);
-			hit->cx = buffer.cx[i];
-			rt_handle_sphere_tx(hit, buffer.coords[i], buffer.tx[i]);
+			i[1] = i[0];
+			run_comp = 1;
 		}
-		i++;
+		++i[0];
 	}
+	if (run_comp)
+		rt__handle_hit_sp(hit, &ray, &buffer, i[1]);
 }

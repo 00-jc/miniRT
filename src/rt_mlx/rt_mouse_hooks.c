@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:23:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/15 15:45:53 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:48:23 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ inline void	rt_handle_axis_limits(t_RTstate *state)
 __attribute__((__always_inline__, __nonnull__(3), hot))
 inline int	rt_handle_mouse_move(int x, int y, t_RTstate *state)
 {
-	double	center_x;
-	double	center_y;
-	double	dx;
-	double	dy;
+	double			center_x;
+	double			center_y;
+	double			dx;
+	double			dy;
 
 	if (state->ctx.mouse_warp)
 	{
