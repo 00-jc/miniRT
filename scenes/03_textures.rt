@@ -6,4 +6,4 @@ sp 0,0,20		10			255,0,0	MAP=textures/rocky_terrain_03.bmp TXT=textures/rocky_ter
 sp 20,0,20		10			0,255,0 MAP=textures/concrete_slab_wall_02.bmp TXT=textures/concrete_slab_wall_02.clr
 sp 0,0,-20		10			255,255,0  MAP=textures/rock_wall_10.bmp TXT=textures/rock_wall_10.clr
 sp -20,0,-20	10			0,0,255 MAP=textures/concrete_slab_wall_02.bmp TXT=textures/concrete_slab_wall_02.clr
-pl 0,-10,0      0,1,0       255,255,255 MAP=textures/rock_wall_10.bmp
+pl 0,-10,0      0,1,0       255,255,255 MAP=textures/rock_wall_10.bmp TXT=textures/rock_wall_10.clr

@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:10:32 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 02:26:45 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 02:36:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define CONE_EPS 1e-5
 
-__attribute__((__always_inline__, pure))
+__attribute__((__always_inline__, __nonnull__(3), pure))
 inline t_3dcoords	rt_cone_abc(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf)
 {
@@ -38,7 +38,7 @@ inline t_3dcoords	rt_cone_abc(t_RTRay ray, size_t i,
 		occ * occ - m * ft_3ddot(oc, oc), 0});
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(3), pure))
 inline double	rt_check_cone_height(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf, double t)
 {
@@ -61,7 +61,7 @@ inline double	rt_check_cone_height(t_RTRay ray, size_t i,
 	return (-1.0);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(3), pure))
 inline double	rt_check_cone_cap(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf)
 {
@@ -87,8 +87,8 @@ inline double	rt_check_cone_cap(t_RTRay ray, size_t i,
 	return (-1.0);
 }
 
-__attribute__((__always_inline__))
-static inline double	rt_cone_lateral_t(t_RTRay ray, size_t i,
+__attribute__((__always_inline__, __nonnull__(3), pure))
+inline double	rt_cone_lateral_t(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf, t_3dcoords abc)
 {
 	double	disc;
@@ -110,7 +110,7 @@ static inline double	rt_cone_lateral_t(t_RTRay ray, size_t i,
 	return (t2);
 }
 
-__attribute__((__always_inline__))
+__attribute__((__always_inline__, __nonnull__(3, 4), pure))
 inline double	rt_intersect_cone(t_RTRay ray, size_t i,
 		t_RTConeBuffer *buf, int *is_cap)
 {
@@ -125,6 +125,6 @@ inline double	rt_intersect_cone(t_RTRay ray, size_t i,
 	t = rt_cone_lateral_t(ray, i, buf, abc);
 	t_cap = rt_check_cone_cap(ray, i, buf);
 	if (t_cap > CONE_EPS && (t <= CONE_EPS || t_cap < t))
-		return (*is_cap = 1, t_cap);
+		return ((void)(*is_cap = 1), t_cap);
 	return (t);
 }

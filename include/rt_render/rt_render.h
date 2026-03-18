@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 22:22:03 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 02:36:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_u32a		rt_sample_color(double u, double v, t_RTColortx *cx)\
 
 double		rt_intersect_cone(t_RTRay ray, size_t i,
 				t_RTConeBuffer *buf, int *is_cap)\
-				__attribute__((__nonnull__(3, 4)));
+				__attribute__((__nonnull__(3, 4), pure));
 
 void		rt_handle_axis_limits(t_RTstate *state);
 
