@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:58 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 00:43:13 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 02:54:48 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 
 	xvar = ctx->rt_mlx;
 	ctx->buffersize = (ctx->display_height * (ctx->display_width + 32)) << 2;
+	ctx->rewind_image = ft_arena_checkpoint(&ctx->rt_arena);
 	img = ft_arena_alloc(&ctx->rt_arena, ctx->buffersize + sizeof(t_RTImg), 16);
 	if (!img)
 		return (ft_arena_rewind(&ctx->rt_arena, ctx->rewind_render), KO);
@@ -39,8 +40,7 @@ inline t_taggedresult	rt_alloc_imagebuffer(t_RTContext *ctx)
 		return (ft_arena_rewind(&ctx->rt_arena, ctx->rewind_render), KO);
 	img->size_line = img->image->bytes_per_line;
 	img->bpp = img->image->bits_per_pixel;
-	ctx->scene_redraw = 1;
-	return ((void)(ctx->rt_img = img), OK);
+	return ((void)(ctx->rt_img = img), (void)(ctx->scene_redraw = 1), OK);
 }
 
 __attribute__((__nonnull__(1), __always_inline__))

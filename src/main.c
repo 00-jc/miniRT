@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 23:57:17 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 03:14:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 		NoEventMask, rt_killprocess, state);
 	mlx_hook(state->ctx.rt_mlx_win, MotionNotify,
 		PointerMotionMask, rt_handle_mouse_move, state);
+	mlx_hook(state->ctx.rt_mlx_win, ConfigureNotify,
+		StructureNotifyMask, rt_window_hook, state);
 	mlx_loop_hook(state->ctx.rt_mlx, rt_render_hotloop, state);
 	return (OK);
 }

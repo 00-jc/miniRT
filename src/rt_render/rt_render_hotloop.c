@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:20:46 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 23:57:43 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/18 02:56:40 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static inline t_taggedresult	rt_reload(t_RTstate *state)
 	if (!state->ctx.reload)
 		return (OK);
 	state->scene = (t_RTScene){0};
-	state->ctx.rt_img->image->data = NULL;
 	ft_arena_rewind(&state->ctx.rt_arena, state->ctx.rewind_render);
 	ft_map_clear(&state->ctx.loaded_textures);
+	state->ctx.rt_img->image->data = NULL;
 	XDestroyImage(state->ctx.rt_img->image);
 	XFreePixmap(((t_xvar *)state->ctx.rt_mlx)->display,
 		state->ctx.rt_img->pix);

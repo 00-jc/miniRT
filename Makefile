@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/17 21:00:52 by asoria           ###   ########.fr        #
+#    Updated: 2026/03/18 03:06:15 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,6 +186,7 @@ SRCS_PARSER := \
 SRCS_MLX := \
 	src/rt_mlx/rt_key_hooks.c \
 	src/rt_mlx/rt_mouse_hooks.c \
+	src/rt_mlx/rt_window_hook.c \
 	src/rt_mlx/rt_killprocess.c
 
 SRCS_POOL := \

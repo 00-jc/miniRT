@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:07:44 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 19:34:31 by asoria           ###   ########.fr       */
+/*   Updated: 2026/03/18 02:53:36 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_RTContext
 	char				**rt_argv;
 	int					rt_argc;
 	t_arena_checkpoint	rewind_render;
+	t_arena_checkpoint	rewind_image;
 	t_RTViewport		vp;
 	t_RTPool			pool;
 	t_map				loaded_textures;
