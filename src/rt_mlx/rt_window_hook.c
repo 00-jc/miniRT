@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 02:55:24 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 03:40:26 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/19 02:38:22 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	rt_window_hook(t_RTstate *restrict const state)
 		((t_win_list *)state->ctx.rt_mlx_win)->window,
 		&attr
 		);
-	if (state->ctx.display_height != (size_t)attr.height
-		| state->ctx.display_width != (size_t)attr.width)
+	if ((state->ctx.display_height != (size_t)attr.height)
+		| (state->ctx.display_width != (size_t)attr.width))
 	{
 		state->ctx.display_height = (size_t)attr.height;
 		state->ctx.display_width = (size_t)attr.width;
