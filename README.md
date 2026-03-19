@@ -1,8 +1,10 @@
+_This project has been created as part of the 42 curriculum by jaicastr, asoria_
+
 # miniRT
 
 ## Description
 
-A real-time mini ray-tracer, designed to be able to handle simple scenes in real time using only the CPU.
+A real-time mini ray-tracer, designed to be able to handle simple scenes in real time using only the CPU, relying on minilibx as little as possible.
 
 ## Instructions
 
@@ -77,8 +79,34 @@ To create a scene file,this grammar must be used:
 
 ## Resources
 
-- `scenes/` contains maps available to use, each labeled to display a feature.
-- `textures/` contains texture data available to use in any of the maps.
+- `scenes/`:    contains maps available to use, each labeled to display a feature.
+- `textures/`:  contains texture data available to use in any of the maps.
+- `scripts/`:   contains scripts to convert and adapt any image to the expected formats using imagemagick.
+
+
+### Expected depth map format (.bmp):
+
+```c
+typedef struct s_bmp_map
+{
+    uint64_t    width;
+    uint64_t    height;
+    uint8_t     data[];
+}   t_bmp_map;
+```
+
+### Expected color map format (.clr):
+
+```c
+typedef struct s_clr_map
+{
+    uint64_t    width;
+    uint64_t    height;
+    uint32_t    data[]; // RGBA data, no endian assumtions
+}   t_clr_map;
+```
+
+All texure files must be of size power of 2 for performance reasons, please use the files in `scripts` to prepare them.
 
 ---
 
