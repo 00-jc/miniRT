@@ -77,6 +77,9 @@ To create a scene file,this grammar must be used:
 <ws>            ::=[ \t\n\r\f\v]+ # any blank
 ```
 
+> [!NOTE]
+> No newlines are enforced
+
 ## Resources
 
 - `scenes/`:    contains maps available to use, each labeled to display a feature.
