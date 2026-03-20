@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 23:33:23 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 14:52:09 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/03/20 01:40:43 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "rt_miniRT.h"
@@ -80,19 +80,20 @@ __attribute__((__nonnull__(1, 2), __hot__))
 void	rt_render_line(t_RTContext *ctx, t_RTScene *scene, size_t y)
 {
 	t_u32a					*px;
-	t_uptr					end;
+	t_uptr					end[2];
 	size_t					xy[2];
 
 	px = ctx->rt_img->data + (y * ctx->display_width);
-	end = (t_uptr)(px + ctx->display_width);
+	end[0] = (t_uptr)(px + ctx->display_width);
+	end[1] = (t_uptr)(px + ctx->display_width - 8);
 	xy[0] = 0;
 	xy[1] = y;
-	while ((t_uptr)px + 8 < end)
+	while ((t_uptr)px < end[1])
 	{
 		rt_inner8(ctx, scene, xy, px);
 		px += 8;
 	}
-	while ((t_uptr)px < end)
+	while ((t_uptr)px < end[0])
 	{
 		*px++ = rt_cast_ray(xy[0], xy[1], scene, &ctx->vp);
 		rt__px(xy, ctx->display_width);
@@ -115,7 +116,7 @@ void	rt_render_frame(t_RTContext *ctx, t_RTScene *scene)
 	end[1] = (t_uptr)(px + ctx->pix_num - 8);
 	xy[0] = 0;
 	xy[1] = 0;
-	while ((t_uptr)px + 8 < end[1])
+	while ((t_uptr)px < end[1])
 	{
 		rt_inner8(ctx, scene, xy, px);
 		px += 8;
