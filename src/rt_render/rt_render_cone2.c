@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:03:57 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 15:15:54 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/05 19:28:03 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ inline void	rt__handle_hit_cone(t_RTHit *hit, t_RTRay *ray,
 	hit->point = ft_3dadd(ray->origin,
 			ft_3dmul(ray->dir, (t_3dcoords){hit->t, hit->t, hit->t, 0}));
 	hit->color = buffer->color[best[0]];
+	hit->cx = buffer->cx[best[0]];
 	if (best[1])
 		hit->normal = ft_3dmul(buffer->axis[best[0]],
 				(t_3dcoords){-1, -1, -1, 0});
 	else
 		hit->normal = rt_cone_normal(hit->point,
 				best[0], buffer);
+	rt_handle_cone_tx(hit, buffer, best[0], (int)best[1]);
 }
 
 __attribute__((__nonnull__(2, 3, 4), hot))

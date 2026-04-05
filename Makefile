@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/03/18 13:17:25 by jaicastr         ###   ########.fr        #
+#    Updated: 2026/04/05 19:20:24 by asoria           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -203,6 +203,7 @@ SRCS_RENDER := \
 	src/rt_render/rt_render_sphere.c \
 	src/rt_render/rt_render_cone.c \
 	src/rt_render/rt_render_cone2.c \
+	src/rt_render/rt_render_cone_tx.c \
 	src/rt_render/rt_render_frame.c \
 	src/rt_render/rt_render_plane.c \
 	src/rt_render/rt_shade.c \

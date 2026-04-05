@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:36:16 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/19 02:48:32 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/05 19:27:09 by asoria           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define RT_PI 3.14159265
 # define RT_SHININESS 32
 # define INV_255 0.003921569
+# define RT_CONE_EPS 1e-5
 # include "rt_render/rt_render_types.h"
 # include "rt_parser/rt_parser.h"
 # include <unistd.h>
@@ -90,6 +91,10 @@ void		rt_handle_axis_limits(t_RTstate *state);
 
 void		rt__handle_hit_cy(void *pack[2], t_RTCylinderBuffer *buffer,\
 				size_t best, t_3dcoords normal)\
+				__attribute__((__nonnull__(1, 2)));
+
+void		rt_handle_cone_tx(t_RTHit *hit, t_RTConeBuffer *buf,\
+				size_t i, int is_cap)\
 				__attribute__((__nonnull__(1, 2)));
 
 #endif
