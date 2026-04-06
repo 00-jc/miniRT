@@ -58,7 +58,7 @@ To create a scene file,this grammar must be used:
 <sphere>        ::="sp" <ws> <coords> <ws> <double+> <ws> <color> <textures>
 <cylinder>      ::="cy" <ws> <coords> <ws> <unitvec> <ws> <double+> <ws> <double+> <ws> <color> <textures>
 <plane>         ::="pl" <ws> <coords> <ws> <unitvec> <ws> <color> <textures>
-<cone>          ::="co" <ws> <coords> <ws> <unitvec> <ws> <double+> <ws> <double+> <ws> <color>
+<cone>          ::="co" <ws> <coords> <ws> <unitvec> <ws> <double+> <ws> <double+> <ws> <color> <textures>
 
 # == textures (optional, trailing) ==
 
