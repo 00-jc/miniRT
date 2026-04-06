@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:08:13 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 03:14:08 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:59:08 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <X11/X.h>
 
 __attribute__((__always_inline__, __nonnull__(1)))
-inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
+static inline t_taggedresult	rt_mlx_setup(t_RTstate *state)
 {
 	state->ctx.rt_mlx_win = mlx_new_window(state->ctx.rt_mlx,
 			(int)state->ctx.display_width, (int)state->ctx.display_height,
@@ -101,7 +101,7 @@ int	main(int argc, char **argv)
 {
 	static t_RTstate	state = {0};
 
-	if (argc < 2)
+	if (argc < 2 || argc == 3 || argc > 4)
 		return (rt_error(USAGE, argv[0]), EXIT_FAILURE);
 	state = rt_init_state();
 	state.ctx.rt_argv = argv;
