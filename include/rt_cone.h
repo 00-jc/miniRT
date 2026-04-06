@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/04/05 19:26:39 by asoria           ###   ########.fr       */
+/*   Updated: 2026/04/06 17:05:13 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,24 @@ typedef struct s_RTConeBuffer
 	double __attribute__		((counted_by(size)))	*k;
 	double __attribute__		((counted_by(size)))	*m;
 	t_u32a __attribute__		((counted_by(size)))	*color;
-	t_RTTexture								*restrict	tx;
-	t_RTColortx								*restrict	cx;
+	t_RTTexture	*restrict *restrict						tx;
+	t_RTColortx	*restrict *restrict						cx;
 }	t_RTConeBuffer;
 
 # else
 
 typedef struct s_RTConeBuffer
 {
-	size_t					size;
-	t_3dcoords				*coords;
-	t_3dcoords				*apex;
-	t_3dcoords				*axis;
-	t_2packd				*wh;
-	double					*k;
-	double					*m;
-	t_u32a					*color;
-	t_RTTexture	*restrict	tx;
-	t_RTColortx	*restrict	cx;
+	size_t												size;
+	t_3dcoords											*coords;
+	t_3dcoords											*apex;
+	t_3dcoords											*axis;
+	t_2packd											*wh;
+	double												*k;
+	double												*m;
+	t_u32a												*color;
+	t_RTTexture	*restrict *restrict						tx;
+	t_RTColortx	*restrict *restrict						cx;
 }	t_RTConeBuffer;
 
 # endif

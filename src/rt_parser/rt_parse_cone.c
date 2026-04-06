@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 22:15:13 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 01:59:03 by asoria           ###   ########.fr       */
+/*   Updated: 2026/04/06 17:48:44 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ static inline t_u32a	rt__ensure_normalized(t_3dcoords axis)
 	return (vec4.i[0] == V4_CMP_OK
 		&& vec4.i[1] == V4_CMP_OK
 		&& vec4.i[2] == V4_CMP_OK);
+}
+
+__attribute__((__nonnull__(1, 2, 3)))
+static inline t_taggedresult	rt_try_path_cone(t_RTContext *ctx,
+	t_tokenizer *t, t_RTCone *cn)
+{
+	t_RTTexture	*tx;
+	t_RTColortx	*cx;
+
+	tx = rt_parse_path_bmp(ctx, t);
+	if ((t_uptr)tx == BMP_ERROR)
+		return (KO);
+	cn->tx = tx;
+	cx = rt_parse_path_color(ctx, t);
+	if ((t_uptr)cx == BMP_ERROR)
+		return (KO);
+	cn->cx = cx;
+	return (OK);
 }
 
 static inline t_RTCone	rt__cn(t_3dcoords coords, t_3dcoords axis,
@@ -80,5 +98,7 @@ t_taggedresult	rt_parse_cone(t_RTContext *ctx, t_tokenizer *t, t_vec *cn_vec)
 	if (c.res == KO)
 		return (KO);
 	cn = rt__cn(co.coord, a.coord, (t_2packd){wh[0].d, wh[1].d}, c.color);
+	if (rt_try_path_cone(ctx, t, &cn) == KO)
+		return (KO);
 	return (ft_vec_push_back(cn_vec, (void *){&cn}, sizeof(cn)));
 }

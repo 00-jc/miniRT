@@ -6,15 +6,15 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 00:00:00 by asoria            #+#    #+#             */
-/*   Updated: 2026/04/05 00:00:00 by asoria           ###   ########.fr       */
+/*   Updated: 2026/04/06 17:48:18 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_miniRT.h"
 #include "rt_render/rt_render.h"
 
-__attribute__((__always_inline__))
-static inline void	rt_cone_uv_cap(t_RTHit *hit,
+__attribute__((__always_inline__, __nonnull__(1, 2, 4)))
+inline void	rt_cone_uv_cap(t_RTHit *hit,
 		t_RTConeBuffer *buf, size_t i, t_3dcoords *ptb)
 {
 	t_3dcoords	oc;
@@ -24,8 +24,8 @@ static inline void	rt_cone_uv_cap(t_RTHit *hit,
 	hit->uv[1] = 0.5 + ft_3ddot(oc, ptb[1]) / buf->wh[i].x;
 }
 
-__attribute__((__always_inline__))
-static inline void	rt_cone_uv_lat(t_RTHit *hit,
+__attribute__((__always_inline__, __nonnull__(1, 2, 4)))
+inline void	rt_cone_uv_lat(t_RTHit *hit,
 		t_RTConeBuffer *buf, size_t i, t_3dcoords *ptb)
 {
 	t_3dcoords	oc;
@@ -45,7 +45,7 @@ inline void	rt_handle_cone_tx(t_RTHit *hit, t_RTConeBuffer *buf,
 	t_3dcoords	ptb[2];
 	t_3dcoords	ref;
 
-	if (!buf->tx[i])
+	if (!buf->tx[i] && !buf->cx[i])
 		return ;
 	if (ft_fabs(buf->axis[i].y) < 0.999)
 		ref = (t_3dcoords){0, 1, 0, 0};
@@ -57,5 +57,6 @@ inline void	rt_handle_cone_tx(t_RTHit *hit, t_RTConeBuffer *buf,
 		rt_cone_uv_cap(hit, buf, i, ptb);
 	else
 		rt_cone_uv_lat(hit, buf, i, ptb);
-	hit->tx = buf->tx[i];
+	if (buf->tx[i])
+		hit->tx = buf->tx[i];
 }

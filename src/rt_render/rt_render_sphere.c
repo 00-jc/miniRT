@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 00:00:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/18 15:16:06 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:12:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ inline void	rt_cast_spheres(t_RTRay ray, t_RTScene *scene,
 
 	i[0] = 0;
 	i[1] = 0;
-	t = hit->t;
 	run_comp = 0;
 	buffer = scene->rt_sphere_buffer;
 	while (i[0] < buffer.size)

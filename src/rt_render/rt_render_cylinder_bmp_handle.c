@@ -6,7 +6,7 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:47:34 by jaicastr          #+#    #+#             */
-/*   Updated: 2026/03/17 16:26:27 by jaicastr         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:36:13 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline void	rt_handle_cy_tx(t_RTHit *hit, t_RTCylinderBuffer buf, size_t i)
 	t_3dcoords	ptb[3];
 	t_3dcoords	ref;
 
-	if (buf.tx[i])
+	if (buf.tx[i] && buf.cx[i])
 	{
 		ptb[0] = ft_3dsub(hit->point, buf.coords[i]);
 		uvp[2] = ft_3ddot(ptb[0], buf.axis[i]);

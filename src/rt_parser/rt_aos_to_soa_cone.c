@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 22:18:04 by asoria            #+#    #+#             */
-/*   Updated: 2026/03/18 13:24:38 by asoria           ###   ########.fr       */
+/*   Updated: 2026/04/06 17:41:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ inline t_taggedresult	rt_alloc_soa_cone(t_RTConeBuffer *buf,
 	buf->k = ft_arena_alloc(arena, n * sizeof(t_2packd), 8);
 	buf->m = ft_arena_alloc(arena, n * sizeof(t_2packd), 8);
 	buf->color = ft_arena_alloc(arena, n * sizeof(t_u32a), 4);
-	if (!buf->coords || !buf->apex ||!buf->axis || !buf->wh
-		|| !buf->color || !buf->k || !buf->m)
+	buf->tx = (t_RTTexture **)ft_arena_alloc(arena,
+			n * sizeof(t_RTTexture *), 8);
+	buf->cx = (t_RTColortx **)ft_arena_alloc(arena,
+			n * sizeof(t_RTColortx *), 8);
+	if (!buf->coords || !buf->apex || !buf->axis || !buf->wh
+		|| !buf->color || !buf->k || !buf->m || !buf->tx || !buf->cx)
 		return (KO);
 	return (OK);
 }
@@ -49,6 +53,8 @@ inline void	rt_populate_soa_cone(t_RTConeBuffer *buf,
 		buf->k[i] = (s->wh.x * 0.5) / s->wh.y;
 		buf->m[i] = 1.0 / (1.0 + buf->k[i] * buf->k[i]);
 		buf->color[i] = s->color;
+		buf->tx[i] = s->tx;
+		buf->cx[i] = s->cx;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: asoria <asoria@student.42madrid.com>        +#+  +:+      +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:03:57 by asoria            #+#    #+#             */
-/*   Updated: 2026/04/05 19:28:03 by asoria           ###   ########.fr       */
+/*   Updated: 2026/04/06 17:54:10 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define CONE_EPS 1e-5
 
 __attribute__((__always_inline__))
-inline t_3dcoords	rt_cone_normal(t_3dcoords point, size_t i,
+static inline t_3dcoords	rt_cone_normal(t_3dcoords point, size_t i,
 		t_RTConeBuffer *buf)
 {
 	t_3dcoords	apex;
@@ -36,7 +36,7 @@ inline t_3dcoords	rt_cone_normal(t_3dcoords point, size_t i,
 }
 
 __attribute__((__always_inline__, __nonnull__(1, 2, 3)))
-inline void	rt__handle_hit_cone(t_RTHit *hit, t_RTRay *ray,
+static inline void	rt__handle_hit_cone(t_RTHit *hit, t_RTRay *ray,
 	t_RTConeBuffer *buffer, size_t best[2])
 {
 	hit->point = ft_3dadd(ray->origin,
@@ -52,27 +52,35 @@ inline void	rt__handle_hit_cone(t_RTHit *hit, t_RTRay *ray,
 	rt_handle_cone_tx(hit, buffer, best[0], (int)best[1]);
 }
 
+__attribute__((__nonnull__(1, 3, 4)))
+static inline void	rt__cone_setup(t_RTHit *hit, const double t,
+	double *closest, int caps[2])
+{
+	*closest = t;
+	hit->t = t;
+	caps[1] = caps[0];
+}
+
 __attribute__((__nonnull__(2, 3, 4), hot))
 void	rt_cast_cones(t_RTRay ray, t_RTScene *scene,
 		t_RTHit *hit, double *closest)
 {
 	double		t;
 	size_t		i;
-	int			is_cap;
+	int			caps[2];
 	size_t		best;
 	t_u8		should_com;
 
 	i = 0;
-	is_cap = 0;
+	ft_memset(caps, 0, sizeof(int) << 1);
 	should_com = 0;
 	best = 0;
 	while (i < scene->rt_cone_buffer.size)
 	{
-		t = rt_intersect_cone(ray, i, &scene->rt_cone_buffer, &is_cap);
+		t = rt_intersect_cone(ray, i, &scene->rt_cone_buffer, caps);
 		if (t > CONE_EPS && t < *closest)
 		{
-			*closest = t;
-			hit->t = t;
+			rt__cone_setup(hit, t, closest, caps);
 			should_com = 1;
 			best = i;
 		}
@@ -80,5 +88,5 @@ void	rt_cast_cones(t_RTRay ray, t_RTScene *scene,
 	}
 	if (should_com)
 		rt__handle_hit_cone(hit, &ray, &scene->rt_cone_buffer,
-			(size_t [2]){best, (size_t)is_cap});
+			(size_t [2]){best, (size_t)caps[1]});
 }
