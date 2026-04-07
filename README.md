@@ -115,4 +115,6 @@ All texure files must be of size power of 2 for performance reasons, please use 
 
 > [!WARNING]
 > This program uses all threads available and it uses CPU-rendering only, it will take a toll on your cpu usage.
-> This program might not compile under very old gcc/clang versions, it was designed around clang 20.1 and gcc 14.3
+
+> [!WARNING]
+> This program might not compile under very old gcc/clang versions, it was designed around clang 20.1 and gcc 14.3 since warn behaviour might change accross versions. Aditionally, minilibx stopped compiling in gcc 15.0 even without warning flags.
