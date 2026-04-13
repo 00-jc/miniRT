@@ -21,6 +21,7 @@ But we support other targets:
 - make sanitize: compiles the program with ASan/UBSan/LSan
 - make sanitize\_threads: compiles the program with TSan
 - make: compiles the binary using LTO and -march=native
+- make pgo: builds an instrumented binary, profiles it with a training scene (move around a while!!), then rebuilds optimized using the collected profile data
 
 Inside the code, we hint and sometimes force the compiler to use SSE/AVX/AVX2/AVX512 instructions if available, so valgrind probably won't work since it can't handle these instructionsets, please use the sanitizer runtime instead to debug/check.
 

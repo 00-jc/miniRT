@@ -6,7 +6,7 @@
 #    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/04 17:40:40 by jaicastr          #+#    #+#              #
-#    Updated: 2026/04/05 19:20:24 by asoria           ###   ########.fr        #
+#    Updated: 2026/04/13 20:18:57 by jaicastr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -361,5 +361,37 @@ test: $(TEST_BINS)
 analyze: static_analysis
 	@$(MAKE) analyze -C $(LIBFT_FOLDER)
 
+# ── PGO settings ─────────────────────────────────────────────────────────────
+ifeq ($(findstring clang,$(CC_ID)),clang)
+  PROF_GEN_FLAGS  := -fprofile-instr-generate
+  PROF_USE_FLAGS  := -fprofile-instr-use=$(CURDIR)/code.profdata         \
+                     -Wno-profile-instr-unprofiled                        \
+                     -Wno-error=profile-instr-unprofiled
+  PROF_MERGE_CMD  := llvm-profdata merge -output=code.profdata *.profraw
+  PROF_ENV        := LLVM_PROFILE_FILE="pgo-%p-%m.profraw"
+  PROF_CLEAN      := rm -f *.profraw code.profdata
+else
+  PROF_GEN_FLAGS  := -fprofile-generate
+  PROF_USE_FLAGS  := -fprofile-use -fprofile-correction
+  PROF_MERGE_CMD  := true
+  PROF_ENV        :=
+  PROF_CLEAN      := rm -f *.gcda *.gcno
+endif
+
+pgo:
+	@$(MAKE) fclean
+	@$(MAKE) all \
+		CFLAGS="$(CFLAGS) $(PROF_GEN_FLAGS)" \
+		LDFLAGS="$(LDFLAGS) $(PROF_GEN_FLAGS)"
+	@$(PROF_ENV) ./$(NAME) scenes/box_pgo.rt \
+		|| echo "Warning: training run exited non-zero (partial profiles are OK)"
+	@$(PROF_MERGE_CMD) || { echo "ERROR: profile merge failed"; exit 1; }
+	@$(MAKE) clean
+	@$(MAKE) all \
+		CFLAGS="$(CFLAGS) $(PROF_USE_FLAGS)" \
+		LDFLAGS="$(LDFLAGS) $(PROF_USE_FLAGS)"
+	@$(PROF_CLEAN)
+
 .PHONY: all clean fclean re libft base test static_analysis analyze sanitize debug
+
 MAKEFLAGS += --no-print-directory
